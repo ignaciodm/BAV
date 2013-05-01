@@ -39,7 +39,6 @@ public class MainActivity extends Activity {
 	private void showAddresses() {
 		Intent intent = new Intent(this, DisplayAddressesActivity.class);
 		startActivity(intent);
-		
 	}
 
 }

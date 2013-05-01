@@ -9,8 +9,17 @@
     tools:context=".DisplayAddressesActivity" >
 
     <TextView
+        android:id="@+id/address_list_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world2" />
+        android:text="@string/address_list_title" />
+    
+    <ListView
+        android:id="@+id/addresses_list"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/address_list_title" >
+    </ListView>
 
 </RelativeLayout>
