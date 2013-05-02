@@ -34,24 +34,8 @@ public class NewAddressActivity extends Activity {
 	    EditText editText = (EditText) findViewById(R.id.desc_address);
 	    String descAddress = editText.getText().toString();
 	    Address address = new Address(descAddress, 10);
-	    saveFile(address);
+	    Address.save(address, this.getApplicationContext());
 	    startActivity(intent);
-	}
-
-	private void saveFile(Address address) {
-		String filename = "addresses";
-		FileOutputStream outputStream;
-		Gson gson = new Gson();
-		String json = gson.toJson(address);
-
-		try {
-		  outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
-		  outputStream.write(json.getBytes());
-		  outputStream.close();
-		} catch (Exception e) {
-		  e.printStackTrace();
-		}
-		
 	}
 
 }

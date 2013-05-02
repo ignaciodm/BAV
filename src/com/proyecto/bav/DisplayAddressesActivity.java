@@ -33,7 +33,7 @@ public class DisplayAddressesActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_display_addresses);
 		listView = (ListView) findViewById(R.id.addresses_list);
-		List<Address> addresses = buildAddressFromFile();
+		List<Address> addresses = Address.getAddresses(this.getApplicationContext());
 		DisplayAddressesActivity.adapter = new AddressesAdapter(DisplayAddressesActivity.this, R.layout.address,0, addresses );
 		listView.setAdapter(DisplayAddressesActivity.adapter);
 	}
@@ -91,45 +91,5 @@ public class DisplayAddressesActivity extends Activity {
             return v;
 		}
 	}
-	
-	private List<Address> buildAddressFromFile() {
-		String filename = "addresses";
-		List<Address> addresses = new ArrayList<Address>();
-		
-		String json = readFile(filename);
-		Gson gson = new Gson();
-		Address address;
-		
-		try {
-			address = gson.fromJson(json, Address.class);
-		} catch (Exception e) {
-			e.printStackTrace();
-			address = new Address("Fake Address", 0);
-		}
-		
-		addresses.add(address);
-		return addresses;
-	}
-
-	private String readFile(String filename) {
-		StringBuilder sb = new StringBuilder();
-		FileInputStream inputStream;
-		
-		try {
-			inputStream = openFileInput(filename);
-			InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-		    BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-		    String line;
-		    while ((line = bufferedReader.readLine()) != null) {
-		        sb.append(line);
-		    }
-			inputStream.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		return sb.toString();
-	}
-
 	
 }
