@@ -2,6 +2,10 @@ package com.proyecto.bav;
 
 import java.io.FileOutputStream;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.proyecto.bav.models.Address;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
@@ -29,18 +33,20 @@ public class NewAddressActivity extends Activity {
 	    Intent intent = new Intent(this, DisplayAddressesActivity.class);
 	    EditText editText = (EditText) findViewById(R.id.desc_address);
 	    String descAddress = editText.getText().toString();
-	    saveFile(descAddress);
+	    Address address = new Address(descAddress, 10);
+	    saveFile(address);
 	    startActivity(intent);
 	}
 
-	private void saveFile(String descAddress) {
+	private void saveFile(Address address) {
 		String filename = "addresses";
-		String string = descAddress;
 		FileOutputStream outputStream;
+		Gson gson = new Gson();
+		String json = gson.toJson(address);
 
 		try {
 		  outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
-		  outputStream.write(string.getBytes());
+		  outputStream.write(json.getBytes());
 		  outputStream.close();
 		} catch (Exception e) {
 		  e.printStackTrace();
