@@ -9,6 +9,7 @@ import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.proyecto.bav.*;
 import com.proyecto.bav.models.Address;
 
 import android.app.Activity;
@@ -24,7 +25,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class DisplayAddressesActivity extends Activity {
+public class DisplayAddressesActivity extends BaseSampleSpiceActivity {
 	private static AddressesAdapter adapter;
 	ListView listView;
 	

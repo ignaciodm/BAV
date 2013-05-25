@@ -1,12 +1,11 @@
 package com.proyecto.bav;
 
-import android.os.Bundle;
-import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends Activity {
+public class MainActivity extends BaseSampleSpiceActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
