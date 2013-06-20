@@ -11,7 +11,9 @@ import com.proyecto.bav.models.AddressResult;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
@@ -22,11 +24,15 @@ import android.widget.Toast;
 
 public class NewAddressActivity extends BaseSpiceActivity {
 
+	private EditText provinceEditText;
+
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature( Window.FEATURE_PROGRESS );
 		setContentView(R.layout.activity_new_address);
+		provinceEditText = (EditText) findViewById(R.id.address_province);
 	}
 
 	@Override
@@ -36,8 +42,25 @@ public class NewAddressActivity extends BaseSpiceActivity {
 		return true;
 	}
 	
+    public void displayProvinces(View view) {
+        
+        final CharSequence[] provinces = {
+                "Buenos Aires", "Mendoza", "Catamarca", "San Juan", "San Luis", "Tucuman", "Tierra del Fuego"
+        };
+        
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Make your selection");
+        builder.setItems(provinces, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int provinceIndex) {
+                // Do something with the selection
+            	provinceEditText.setText(provinces[provinceIndex]);
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+	
 	public void saveAddress(View view) {
-	    Intent intent = new Intent(this, DisplayAddressesActivity.class);
 	    EditText descriptionEditText = (EditText) findViewById(R.id.address_description);
 	    EditText streetEditText = (EditText) findViewById(R.id.address_street);
 	    

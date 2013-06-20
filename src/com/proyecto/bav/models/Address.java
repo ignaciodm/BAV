@@ -70,7 +70,7 @@ public class Address {
 	}
 
 	public static List<Address> getAddresses(Context context) {
-		List<Address> addresses = new ArrayList<Address>();
+		List<Address> addresses = null;
 
 		String json = readFile(FILE_NAME, context);
 		Gson gson = new Gson();
@@ -80,6 +80,10 @@ public class Address {
 			addresses = gson.fromJson(json, addressType);
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+		
+		if (addresses == null) {
+			addresses = new ArrayList<Address>();
 		}
 
 		return addresses;

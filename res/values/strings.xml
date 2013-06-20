@@ -12,7 +12,8 @@
     
 	<!--New Address-->
 	<string name="address_description">Descripcion</string>
-	<string name="address_street">Caller</string>
+	<string name="address_street">Calle</string>
+	<string name="address_province">Provincia</string>
 	<string name="button_save_address">Guardar</string>
 	
 </resources>

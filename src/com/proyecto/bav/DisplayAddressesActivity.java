@@ -1,18 +1,7 @@
 package com.proyecto.bav;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.List;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.proyecto.bav.*;
-import com.proyecto.bav.models.Address;
-
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,6 +13,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.proyecto.bav.models.Address;
 
 public class DisplayAddressesActivity extends BaseSpiceActivity {
 	private static AddressesAdapter adapter;
