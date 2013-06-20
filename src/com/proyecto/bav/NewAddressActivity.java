@@ -38,9 +38,13 @@ public class NewAddressActivity extends BaseSpiceActivity {
 	
 	public void saveAddress(View view) {
 	    Intent intent = new Intent(this, DisplayAddressesActivity.class);
-	    EditText editText = (EditText) findViewById(R.id.desc_address);
-	    String descAddress = editText.getText().toString();
-	    Address address = new Address(descAddress, 10);
+	    EditText descriptionEditText = (EditText) findViewById(R.id.address_description);
+	    EditText streetEditText = (EditText) findViewById(R.id.address_street);
+	    
+	    String description = descriptionEditText.getText().toString();
+	    String street = streetEditText.getText().toString();
+	    int number = 10; //TODO exponer edicion
+		Address address = new Address(description, street, number);
 	    getSpiceManager().execute( new SimpleSpiceRequest(address), 
 	    							"json",
 	    							DurationInMillis.ONE_MINUTE,

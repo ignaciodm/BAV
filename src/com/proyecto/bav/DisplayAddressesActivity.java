@@ -25,7 +25,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class DisplayAddressesActivity extends BaseSampleSpiceActivity {
+public class DisplayAddressesActivity extends BaseSpiceActivity {
 	private static AddressesAdapter adapter;
 	ListView listView;
 	

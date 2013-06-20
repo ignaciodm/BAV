@@ -11,7 +11,8 @@
     <string name="title_activity_new_address">NewAddressActivity</string>
     
 	<!--New Address-->
-	<string name="desc_address">Descripcion</string>
+	<string name="address_description">Descripcion</string>
+	<string name="address_street">Caller</string>
 	<string name="button_save_address">Guardar</string>
 	
 </resources>
