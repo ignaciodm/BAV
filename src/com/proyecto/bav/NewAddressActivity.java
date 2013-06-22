@@ -1,13 +1,26 @@
 package com.proyecto.bav;
 
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.octo.android.robospice.persistence.DurationInMillis;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
+import com.proyecto.bav.listeners.AddressRequestListener;
+import com.proyecto.bav.listeners.ProvincesRequestListener;
 import com.proyecto.bav.models.Address;
-import com.proyecto.bav.models.AddressResult;
+import com.proyecto.bav.models.Locality;
+import com.proyecto.bav.models.Match;
+import com.proyecto.bav.models.Province;
+import com.proyecto.bav.models.PoliceStation;
+import com.proyecto.bav.requests.GetSpiceRequest;
+import com.proyecto.bav.requests.PostAddressSpiceRequest;
+import com.proyecto.bav.requests.SimpleSpiceRequest;
+import com.proyecto.bav.results.AddressResult;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -24,14 +37,21 @@ import android.widget.Toast;
 
 public class NewAddressActivity extends BaseSpiceActivity {
 
-	private EditText provinceEditText;
-
+	private static final String PoliceStation = null;
+	public EditText provinceEditText;
+	public Province province;
+	public Match match;
+	public Locality locality;
+	public PoliceStation policeStation;
+	
+	public List<Province> provinces = new ArrayList<Province>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature( Window.FEATURE_PROGRESS );
 		setContentView(R.layout.activity_new_address);
+		
 		provinceEditText = (EditText) findViewById(R.id.address_province);
 	}
 
@@ -43,21 +63,10 @@ public class NewAddressActivity extends BaseSpiceActivity {
 	}
 	
     public void displayProvinces(View view) {
-        
-        final CharSequence[] provinces = {
-                "Buenos Aires", "Mendoza", "Catamarca", "San Juan", "San Luis", "Tucuman", "Tierra del Fuego"
-        };
-        
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Make your selection");
-        builder.setItems(provinces, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int provinceIndex) {
-                // Do something with the selection
-            	provinceEditText.setText(provinces[provinceIndex]);
-            }
-        });
-        AlertDialog alert = builder.create();
-        alert.show();
+    	getSpiceManager().execute( new GetSpiceRequest(), 
+									"json",
+									DurationInMillis.ONE_MINUTE,
+									new ProvincesRequestListener(this));
     }
 	
 	public void saveAddress(View view) {
@@ -68,44 +77,10 @@ public class NewAddressActivity extends BaseSpiceActivity {
 	    String street = streetEditText.getText().toString();
 	    int number = 10; //TODO exponer edicion
 		Address address = new Address(description, street, number);
-	    getSpiceManager().execute( new SimpleSpiceRequest(address), 
+	    getSpiceManager().execute( new PostAddressSpiceRequest(address), 
 	    							"json",
 	    							DurationInMillis.ONE_MINUTE,
 	    							new AddressRequestListener(address, this));
 	}
 	
-	
-    // ============================================================================================
-    // INNER CLASSES
-    // ============================================================================================
-
-    public final class AddressRequestListener implements RequestListener< AddressResult > {
-
-        private Address address;
-		private BaseSpiceActivity activity;
-
-		public AddressRequestListener(Address address, BaseSpiceActivity activity) {
-			this.address = address;
-			this.activity = activity;
-		}
-
-		@Override
-        public void onRequestFailure( SpiceException spiceException ) {
-//            Toast.makeText( NewAddressActivity.this, "failure", Toast.LENGTH_SHORT ).show();
-			Address.save(address, activity.getApplicationContext());
-			Intent intent = new Intent(activity, DisplayAddressesActivity.class);
-			startActivity(intent);
-        }
-
-        @Override
-        public void onRequestSuccess( final AddressResult result ) {
-//            Toast.makeText( NewAddressActivity.this, "success", Toast.LENGTH_SHORT ).show();
-//            String originalText = getString( R.string.textview_text );
-//            mLoremTextView.setText( originalText + result.getWeather().getCurren_weather().get( 0 ).getTemp() );
-        	Intent intent = new Intent(activity, DisplayAddressesActivity.class);
-			startActivity(intent);
-        	Address.save(address, activity.getApplicationContext());
-        }
-    }
-
 }

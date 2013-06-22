@@ -26,6 +26,8 @@ public class Address {
 
 	@SerializedName("numero")
 	private Integer number;
+	
+	private PoliceStation policeStation;
 
 	public Address(String description, String street, Integer number) {
 		this.description = description;

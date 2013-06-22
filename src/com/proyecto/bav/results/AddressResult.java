@@ -1,8 +1,10 @@
-package com.proyecto.bav.models;
+package com.proyecto.bav.results;
 
 import com.google.api.client.util.Key;
+import com.proyecto.bav.models.Address;
+import com.proyecto.bav.requests.RequestResult;
 
-public class AddressResult {
+public class AddressResult implements RequestResult {
     @Key
     private Address address;
 
