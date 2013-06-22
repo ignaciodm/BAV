@@ -14,6 +14,7 @@
 	<string name="address_description">Descripcion</string>
 	<string name="address_street">Calle</string>
 	<string name="address_province">Provincia</string>
+	<string name="address_match">Partido</string>
 	<string name="button_save_address">Guardar</string>
 	
 </resources>

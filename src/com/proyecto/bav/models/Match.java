@@ -12,6 +12,8 @@ public class Match {
 	@SerializedName("provincia")
 	private Province province;
 	
+	public Match(){}
+	
 	public Match(Integer id, String name, Province province) {
 		super();
 		this.id = id;

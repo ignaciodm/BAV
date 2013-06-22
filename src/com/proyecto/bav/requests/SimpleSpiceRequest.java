@@ -20,11 +20,10 @@ import com.google.api.client.json.jackson.JacksonFactory;
 import com.octo.android.robospice.request.googlehttpclient.GoogleHttpClientSpiceRequest;
 import com.proyecto.bav.results.AddressResult;
 
-@SuppressWarnings("hiding")
 public abstract class SimpleSpiceRequest<RequestResult> extends
 		GoogleHttpClientSpiceRequest<RequestResult> {
 
-	private String baseUrl = "http://4mxv.localtunnel.com";
+	private String baseUrl = "http://4m5m.localtunnel.com";
 	private JsonFactory sJsonFactory;
 	private JsonObjectParser sJsonParser;
 

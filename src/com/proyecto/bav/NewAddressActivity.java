@@ -11,12 +11,15 @@ import com.octo.android.robospice.persistence.DurationInMillis;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
 import com.proyecto.bav.listeners.AddressRequestListener;
+import com.proyecto.bav.listeners.ProvinceRequestListener;
 import com.proyecto.bav.listeners.ProvincesRequestListener;
 import com.proyecto.bav.models.Address;
 import com.proyecto.bav.models.Locality;
 import com.proyecto.bav.models.Match;
 import com.proyecto.bav.models.Province;
 import com.proyecto.bav.models.PoliceStation;
+import com.proyecto.bav.requests.GetProvinceRequest;
+import com.proyecto.bav.requests.GetProvincesRequest;
 import com.proyecto.bav.requests.GetSpiceRequest;
 import com.proyecto.bav.requests.PostAddressSpiceRequest;
 import com.proyecto.bav.requests.SimpleSpiceRequest;
@@ -37,14 +40,17 @@ import android.widget.Toast;
 
 public class NewAddressActivity extends BaseSpiceActivity {
 
-	private static final String PoliceStation = null;
 	public EditText provinceEditText;
+	public EditText matchEditText;
+//	public EditText localityEditText;
+//	public EditText policeStationEditText;
 	public Province province;
 	public Match match;
 	public Locality locality;
 	public PoliceStation policeStation;
 	
 	public List<Province> provinces = new ArrayList<Province>();
+	public List<Match> matches = new ArrayList<Match>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +59,7 @@ public class NewAddressActivity extends BaseSpiceActivity {
 		setContentView(R.layout.activity_new_address);
 		
 		provinceEditText = (EditText) findViewById(R.id.address_province);
+		matchEditText = (EditText) findViewById(R.id.address_match);
 	}
 
 	@Override
@@ -63,10 +70,17 @@ public class NewAddressActivity extends BaseSpiceActivity {
 	}
 	
     public void displayProvinces(View view) {
-    	getSpiceManager().execute( new GetSpiceRequest(), 
-									"json",
+    	getSpiceManager().execute( new GetProvincesRequest(), 
+									"provincias",
 									DurationInMillis.ONE_MINUTE,
 									new ProvincesRequestListener(this));
+    }
+    
+    public void displayMatches(View view) {
+    	getSpiceManager().execute( new GetProvinceRequest(province), 
+				"provincia/" + province.getId(),
+				DurationInMillis.ONE_MINUTE,
+				new ProvinceRequestListener(this));
     }
 	
 	public void saveAddress(View view) {

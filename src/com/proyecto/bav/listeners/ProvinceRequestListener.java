@@ -5,23 +5,20 @@ import java.util.List;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
-import com.proyecto.bav.BaseSpiceActivity;
-import com.proyecto.bav.DisplayAddressesActivity;
 import com.proyecto.bav.NewAddressActivity;
-import com.proyecto.bav.models.Address;
+import com.proyecto.bav.models.Match;
 import com.proyecto.bav.models.Province;
-import com.proyecto.bav.results.AddressResult;
+import com.proyecto.bav.results.ProvinceResult;
 import com.proyecto.bav.results.ProvincesResult;
 
-public final class ProvincesRequestListener implements RequestListener< ProvincesResult > {
-
+public class ProvinceRequestListener implements
+		RequestListener<ProvinceResult> {
 	private NewAddressActivity activity;
 
-	public ProvincesRequestListener(NewAddressActivity activity) {
+	public ProvinceRequestListener(NewAddressActivity activity) {
 		this.activity = activity;
 	}
 
@@ -38,26 +35,27 @@ public final class ProvincesRequestListener implements RequestListener< Province
     }
 	
 	@Override
-	public void onRequestSuccess(final ProvincesResult result) {
-		activity.provinces = result.getProvincias();
+	public void onRequestSuccess(final ProvinceResult result) {
+		final List<Match> matches = result.getPartidos();
 		
-    	List<String> provincesNames = new ArrayList<String>();
-    	for (Province province : activity.provinces) {
-    		provincesNames.add(province.getName());
+    	List<String> matchesNames = new ArrayList<String>();
+    	for (Match match : matches) {
+    		matchesNames.add(match.getName());
 		}
-    	CharSequence[] charProvinceNames = provincesNames.toArray(new CharSequence[provincesNames.size()]);
+    	CharSequence[] charMatchesNames = matchesNames.toArray(new CharSequence[matchesNames.size()]);
         
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-        builder.setTitle("Seleccione una provincia");
-        builder.setItems(charProvinceNames, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int provinceIndex) {
+        builder.setTitle("Seleccione un Partido");
+        builder.setItems(charMatchesNames, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int matchIndex) {
                 // Do something with the selection
-            	activity.province = activity.provinces.get(provinceIndex);
-            	activity.provinceEditText.setText(activity.province.getName());
+            	activity.match = matches.get(matchIndex);
+            	activity.matchEditText.setText(activity.match.getName());
             }
         });
         AlertDialog alert = builder.create();
         alert.show();
 		
 	}
+
 }

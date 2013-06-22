@@ -3,62 +3,51 @@ package com.proyecto.bav.results;
 import java.util.List;
 
 import com.google.api.client.util.Key;
+import com.proyecto.bav.models.Address;
+import com.proyecto.bav.models.Match;
 import com.proyecto.bav.models.Province;
-import com.proyecto.bav.requests.RequestResult;
 
-public class ProvinceResult implements RequestResult {
+public class ProvinceResult {
 	
-    @Key
-    private List<Province> provincias;
+	@Key
+    private String nombre;
 
     @Key
     private int id = 1;
+    
+    @Key
+    private List<Match> partidos;
 
-    public List<Province> getProvincias() {
-        return this.provincias;
-    }
+	public String getNombre() {
+		return nombre;
+	}
 
-    public void setProvincias( List<Province> province ) {
-        this.provincias = province;
-    }
+	public void setNombre(String name) {
+		this.nombre = name;
+	}
 
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + id;
-        result = prime * result + ( provincias == null ? 0 : provincias.hashCode() );
-        return result;
-    }
+	public int getId() {
+		return id;
+	}
 
-    @Override
-    public boolean equals( Object obj ) {
-        if ( this == obj ) {
-            return true;
-        }
-        if ( obj == null ) {
-            return false;
-        }
-        if ( getClass() != obj.getClass() ) {
-            return false;
-        }
-        ProvinceResult other = (ProvinceResult) obj;
-        if ( id != other.id ) {
-            return false;
-        }
-        if ( provincias == null ) {
-            if ( other.provincias != null ) {
-                return false;
-            }
-        } else if ( !provincias.equals( other.provincias ) ) {
-            return false;
-        }
-        return true;
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public List<Match> getPartidos() {
+		return partidos;
+	}
+
+	public void setPartidos(List<Match> matches) {
+		this.partidos = matches;
+	}
+	
+	@Override
+    public String toString() {
+    	return nombre;
     }
     
-    @Override
-    public String toString() {
-    	return provincias.toString();
-    }
+    
+    
 
 }
