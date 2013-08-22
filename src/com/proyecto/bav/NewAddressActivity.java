@@ -2,41 +2,27 @@ package com.proyecto.bav;
 
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.proyecto.bav.R;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.View;
+import android.view.Window;
+import android.widget.EditText;
+
 import com.octo.android.robospice.persistence.DurationInMillis;
-import com.octo.android.robospice.persistence.exception.SpiceException;
-import com.octo.android.robospice.request.listener.RequestListener;
 import com.proyecto.bav.listeners.AddressRequestListener;
 import com.proyecto.bav.listeners.ProvinceRequestListener;
 import com.proyecto.bav.listeners.ProvincesRequestListener;
 import com.proyecto.bav.models.Address;
 import com.proyecto.bav.models.Locality;
 import com.proyecto.bav.models.Match;
-import com.proyecto.bav.models.Province;
 import com.proyecto.bav.models.PoliceStation;
+import com.proyecto.bav.models.Province;
 import com.proyecto.bav.requests.GetProvinceRequest;
 import com.proyecto.bav.requests.GetProvincesRequest;
-import com.proyecto.bav.requests.GetSpiceRequest;
 import com.proyecto.bav.requests.PostAddressSpiceRequest;
-import com.proyecto.bav.requests.SimpleSpiceRequest;
-import com.proyecto.bav.results.AddressResult;
-
-import android.os.Bundle;
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.view.Menu;
-import android.view.View;
-import android.view.Window;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
 public class NewAddressActivity extends BaseSpiceActivity {
 
