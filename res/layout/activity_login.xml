@@ -8,27 +8,38 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
+    android:gravity="center_vertical" 
     tools:context=".LoginActivity" >
 
     <EditText 
         android:id="@+id/et_email"
+        android:hint="@string/login_hint_email"
         android:inputType="textEmailAddress"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_width="fill_parent"
-        android:hint="@string/login_hint_email" />
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:background="@drawable/background_email_login" />
     
     <EditText
         android:id="@+id/et_password"
+        android:hint="@string/login_hint_password"
         android:inputType="textPassword"        
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_width="fill_parent"
-        android:hint="@string/login_hint_password" />
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:background="@drawable/background_password_login" />
 
     <Button
         android:layout_height="wrap_content"
         android:layout_width="fill_parent"
+        android:layout_marginTop="20dp"
         android:onClick="loginApp"        
-        android:text="@string/btn_login" />
+        android:text="@string/btn_login"
+        android:textColor="@android:color/black"
+        android:textStyle="bold"
+        android:background="@drawable/background_button_login" />
     
     <!--<TextView
         android:id="@+id/tv_email"
