@@ -1,10 +1,13 @@
 package com.proyecto.bav;
 
 import com.proyecto.bav.R;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
 
 public class MainActivity extends BaseSpiceActivity {
 
@@ -34,6 +37,11 @@ public class MainActivity extends BaseSpiceActivity {
 	        default:
 	            return super.onOptionsItemSelected(item);
 	    }
+	}
+	
+	/** Called when the user clicks the Denunciar button */
+	public void enviarDenuncia(View view) {
+		
 	}
 
 	private void showAddresses() {
