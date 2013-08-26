@@ -14,8 +14,8 @@
     <string name="title_activity_login">TEA - Login</string>
     
     <!-- Login Activity -->
-    <string name="login_hint_email">Email</string>
-    <string name="login_hint_password">Contraseña</string>
+    <string name="login_hint_email">Email (admin)</string>
+    <string name="login_hint_password">Contraseña (123)</string>
     <string name="btn_login">Login</string>
     
     <!-- Main Activity -->
