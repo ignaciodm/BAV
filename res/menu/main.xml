@@ -1,17 +1,29 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
     	
     <item
-        android:id="@+id/datos_personales"
+        android:id="@+id/btn_datos_personales"
         android:icon="@drawable/ic_datos_personales"
-        android:orderInCategory="100"
-        android:showAsAction="ifRoom"
+        android:orderInCategory="1"
+        android:showAsAction="always"
         android:title="@string/datos_personales"/>
     
      <item
-        android:id="@+id/show_addresses"
+        android:id="@+id/btn_show_addresses"
         android:icon="@drawable/ic_address"
-        android:orderInCategory="100"
-        android:showAsAction="ifRoom"
+        android:orderInCategory="2"
+        android:showAsAction="always"
+        android:title="@string/show_addresses"/>
+     
+     <item
+        android:id="@+id/menu_datos_personales"
+        android:orderInCategory="3"
+        android:showAsAction="never"
+        android:title="@string/datos_personales"/>
+     
+     <item
+        android:id="@+id/menu_show_addresses"
+        android:orderInCategory="4"
+        android:showAsAction="never"
         android:title="@string/show_addresses"/>
 
 </menu>

@@ -2,23 +2,26 @@
 <resources>
 
     <string name="app_name">TEA - Botón de Pánico</string>
-    
+
     <!-- Activity Titles -->
     <string name="title_activity_login">TEA - Login</string>
-    
+
     <!-- Login Activity -->
     <string name="login_hint_email">Email</string>
     <string name="login_hint_password">Contraseña</string>
     <string name="btn_login">Login</string>
-    
+
     <!-- Main Activity -->
     <string name="btn_denunciar">Denunciar</string>
     <string name="datos_personales">Datos Personales</string>
-    <string name="show_addresses">Direcciones</string>
+    <string name="show_addresses">Mis Direcciones</string>
     
+    <!-- Datos Personales -->
+    <string name="title_activity_datos_personales">Datos Personales</string>
+
     <!-- DisplayAddressesActivity -->
     <string name="title_activity_display_addresses">Mis Direcciones</string>
-    <string name="new_address">Agregar nueva dirección</string> 
+    <string name="new_address">Agregar nueva dirección</string>
 
     <!-- New Address -->
     <string name="address_description">Descripcion</string>
@@ -26,9 +29,8 @@
     <string name="address_province">Provincia</string>
     <string name="address_match">Partido</string>
     <string name="button_save_address">Guardar</string>
-    
+
     <!-- NewAddressActivity -->
     <string name="title_activity_new_address">Nueva Dirección</string>
-    
 
 </resources>
