@@ -10,7 +10,7 @@
         <stroke 
             android:color="#000000" />
         <corners
-            android:radius="25dp" />   
+            android:radius="60dp" />   
     </shape>
 </item>
 
@@ -23,7 +23,7 @@
             android:width="2dp"
             android:color="#000000" />
         <corners
-            android:radius="25dp" />                   
+            android:radius="60dp" />                   
     </shape>
 </item>
 

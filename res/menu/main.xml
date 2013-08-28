@@ -1,15 +1,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
-
-    <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:showAsAction="never"
-        android:title="@string/action_settings"/>
     	
+    <item
+        android:id="@+id/datos_personales"
+        android:icon="@drawable/ic_datos_personales"
+        android:orderInCategory="100"
+        android:showAsAction="ifRoom"
+        android:title="@string/datos_personales"/>
+    
      <item
         android:id="@+id/show_addresses"
+        android:icon="@drawable/ic_address"
         android:orderInCategory="100"
-        android:showAsAction="never"
+        android:showAsAction="ifRoom"
         android:title="@string/show_addresses"/>
 
 </menu>

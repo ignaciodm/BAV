@@ -30,7 +30,7 @@
         
         <activity
             android:name="com.proyecto.bav.MainActivity"
-            android:label="@string/app_name" >            
+            android:label="" >            
         </activity>
         
         <activity

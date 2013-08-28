@@ -13,6 +13,11 @@ public class LoginActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
+		
+		// Si el usuario ya está logueado, voy directo a la aplicación
+		// Intent intent = new Intent(this, MainActivity.class);
+		// this.startActivity(intent);
+		// this.finish();
 	}
 
 	@Override
@@ -25,7 +30,7 @@ public class LoginActivity extends Activity {
 	/** Called when the user clicks the Login button */
 	public void loginApp(View view) {
 
-		Intent intent = new Intent(this, MainActivity.class);
+		Intent intent = new Intent(this, MainActivity.class);		
 		
 		EditText editTextEmail = (EditText) findViewById(R.id.et_email);
 		String email = editTextEmail.getText().toString();
@@ -33,8 +38,9 @@ public class LoginActivity extends Activity {
 		EditText editTextPassword = (EditText) findViewById(R.id.et_password);
 		String password = editTextPassword.getText().toString();
 		
-		if(email.equals("admin") && password.equals("123") )
-			startActivity(intent);
+		//if(email.equals("admin") && password.equals("123") )
+			this.startActivity(intent);
+			this.finish();
 		
 	}
 
