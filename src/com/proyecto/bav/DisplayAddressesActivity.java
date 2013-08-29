@@ -42,12 +42,12 @@ public class DisplayAddressesActivity extends BaseSpiceActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 	    // Handle item selection
 	    switch (item.getItemId()) {
-	        case R.id.new_address:
+	        case R.id.btn_new_address:
 	        	newAddress();
 	            return true;
-	       /* case R.id.help:
-	            showHelp();
-	            return true;*/
+	        case R.id.menu_new_address:
+	        	newAddress();
+	            return true;
 	        default:
 	            return super.onOptionsItemSelected(item);
 	    }

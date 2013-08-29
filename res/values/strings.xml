@@ -2,11 +2,10 @@
 <resources>
 
     <string name="app_name">TEA - Botón de Pánico</string>
-
-    <!-- Activity Titles -->
-    <string name="title_activity_login">TEA - Login</string>
+    <string name="guardar">Guardar</string>
 
     <!-- Login Activity -->
+    <string name="title_activity_login">TEA - Login</string>
     <string name="login_hint_email">Email</string>
     <string name="login_hint_password">Contraseña</string>
     <string name="btn_login">Login</string>
@@ -28,7 +27,6 @@
     <string name="address_street">Calle</string>
     <string name="address_province">Provincia</string>
     <string name="address_match">Partido</string>
-    <string name="button_save_address">Guardar</string>
 
     <!-- NewAddressActivity -->
     <string name="title_activity_new_address">Nueva Dirección</string>

@@ -1,3 +1,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    
+    <item
+        android:id="@+id/btn_guardar"
+        android:icon="@drawable/ic_guardar"
+        android:orderInCategory="1"
+        android:showAsAction="always"
+        android:title="@string/guardar"/>
 
 </menu>

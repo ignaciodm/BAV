@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.proyecto.bav.R;
+
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
@@ -55,6 +57,18 @@ public class NewAddressActivity extends BaseSpiceActivity {
 		return true;
 	}
 	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    // Handle item selection
+	    switch (item.getItemId()) {
+	        case R.id.btn_guardar:
+	        	saveAddress();
+	            return true;
+	        default:
+	            return super.onOptionsItemSelected(item);
+	    }
+	}
+	
     public void displayProvinces(View view) {
     	getSpiceManager().execute( new GetProvincesRequest(), 
 									"provincias",
@@ -69,7 +83,7 @@ public class NewAddressActivity extends BaseSpiceActivity {
 				new ProvinceRequestListener(this));
     }
 	
-	public void saveAddress(View view) {
+	public void saveAddress() {
 	    EditText descriptionEditText = (EditText) findViewById(R.id.address_description);
 	    EditText streetEditText = (EditText) findViewById(R.id.address_street);
 	    
