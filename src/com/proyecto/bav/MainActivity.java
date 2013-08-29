@@ -37,11 +37,21 @@ public class MainActivity extends BaseSpiceActivity {
 	        case R.id.menu_show_addresses:
 	        	showAddresses();
 	            return true;
+	        case R.id.btn_sincronizar:
+	        	sincronizar();
+	            return true;
+	        case R.id.menu_sincronizar:
+	        	sincronizar();
+	            return true;
 	        default:
 	            return super.onOptionsItemSelected(item);
 	    }
 	}
 	
+	private void sincronizar() {
+		// TODO Auto-generated method stub		
+	}
+
 	private void showDatosPersonales() {
 		Intent intent = new Intent(this, DatosPersonalesActivity.class);
 		startActivity(intent);

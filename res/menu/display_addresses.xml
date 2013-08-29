@@ -2,15 +2,15 @@
     
     <item
         android:id="@+id/btn_new_address"
-        android:icon="@drawable/ic_content_new"
+        android:icon="@drawable/ic_new_address"
         android:orderInCategory="1"
         android:showAsAction="always"
-        android:title="@string/new_address"/>
+        android:title="@string/dis_addr_new_address"/>
      
      <item
         android:id="@+id/menu_new_address"
         android:orderInCategory="2"
         android:showAsAction="never"
-        android:title="@string/new_address"/>
+        android:title="@string/dis_addr_new_address"/>
 
 </menu>

@@ -5,25 +5,38 @@
         android:icon="@drawable/ic_datos_personales"
         android:orderInCategory="1"
         android:showAsAction="always"
-        android:title="@string/datos_personales"/>
+        android:title="@string/main_datos_personales"/>
     
      <item
         android:id="@+id/btn_show_addresses"
         android:icon="@drawable/ic_address"
         android:orderInCategory="2"
         android:showAsAction="always"
-        android:title="@string/show_addresses"/>
+        android:title="@string/main_show_addresses"/>
+     
+      <item
+        android:id="@+id/btn_sincronizar"
+        android:icon="@drawable/ic_sincronizar"
+        android:orderInCategory="3"
+        android:showAsAction="always"
+        android:title="@string/main_sincronizar"/>
      
      <item
         android:id="@+id/menu_datos_personales"
-        android:orderInCategory="3"
+        android:orderInCategory="4"
         android:showAsAction="never"
-        android:title="@string/datos_personales"/>
+        android:title="@string/main_datos_personales"/>
      
      <item
         android:id="@+id/menu_show_addresses"
-        android:orderInCategory="4"
+        android:orderInCategory="5"
         android:showAsAction="never"
-        android:title="@string/show_addresses"/>
+        android:title="@string/main_show_addresses"/>    
+     
+     <item
+        android:id="@+id/menu_sincronizar"
+        android:orderInCategory="6"
+        android:showAsAction="never"
+        android:title="@string/main_sincronizar"/>
 
 </menu>

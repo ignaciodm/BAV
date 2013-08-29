@@ -15,7 +15,7 @@
         android:layout_height="100dp"
         android:layout_width="fill_parent"
         android:onClick="enviarDenuncia"        
-        android:text="@string/btn_denunciar"
+        android:text="@string/btn_main_denunciar"
         android:textColor="@android:color/black"
         android:textStyle="bold"
         android:textSize="30sp"

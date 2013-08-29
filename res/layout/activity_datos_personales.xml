@@ -1,4 +1,4 @@
-<RelativeLayout 
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,6 +7,85 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
     tools:context=".DatosPersonalesActivity" >
+    
+    <EditText 
+        android:id="@+id/et_email"
+        android:inputType="textEmailAddress"
+        android:layout_height="40dp"
+        android:layout_width="fill_parent"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:clickable="false" 
+        android:cursorVisible="false" 
+        android:focusable="false" 
+        android:focusableInTouchMode="false" />
+    
+    <EditText 
+        android:id="@+id/et_dni"
+        android:hint="@string/dp_dni"
+        android:inputType="number"
+        android:layout_height="40dp"
+        android:layout_width="fill_parent"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp" />
+    
+    <EditText 
+        android:id="@+id/et_nombre"
+        android:hint="@string/dp_nombre"
+        android:inputType="textCapSentences"
+        android:layout_height="40dp"
+        android:layout_width="fill_parent"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp" />
+    
+    <EditText 
+        android:id="@+id/et_apellido"
+        android:hint="@string/dp_apellido"
+        android:inputType="textCapSentences"
+        android:layout_height="40dp"
+        android:layout_width="fill_parent"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp" />
+    
+    <EditText 
+        android:id="@+id/et_telefono"
+        android:hint="@string/dp_telefono"
+        android:inputType="phone"
+        android:layout_height="40dp"
+        android:layout_width="fill_parent"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp" />
+    
+    <LinearLayout
+    	android:layout_width="match_parent"
+    	android:layout_height="match_parent"
+    	android:orientation="horizontal"
+    	tools:context=".DatosPersonalesActivity" >
+    
+    	<EditText 
+        	android:id="@+id/et_fecha_nacimiento"
+        	android:hint="@string/dp_fecha_nacimiento"
+        	android:layout_height="40dp"
+        	android:layout_width="0dp"
+        	android:layout_weight="1"
+        	android:ems="11"
+        	android:paddingLeft="10dp"
+        	android:paddingRight="10dp" 
+			android:clickable="false" 
+	        android:cursorVisible="false" 
+    	    android:focusable="false"
+        	android:focusableInTouchMode="false" />
+    	
+    	<ImageButton
+    	    android:id="@+id/btn_select_date"
+    	    android:contentDescription="@string/dp_seleccionar_mes"
+        	android:layout_height="wrap_content"
+        	android:layout_width="wrap_content"
+        	android:src="@drawable/ic_seleccionar_mes"
+        	android:onClick="selectDate" />
+    	
+    	</LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>
