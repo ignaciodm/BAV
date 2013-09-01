@@ -30,8 +30,6 @@ public class NewAddressActivity extends BaseSpiceActivity {
 
 	public EditText provinceEditText;
 	public EditText matchEditText;
-//	public EditText localityEditText;
-//	public EditText policeStationEditText;
 	public Province province;
 	public Match match;
 	public Locality locality;

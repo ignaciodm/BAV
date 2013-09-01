@@ -19,7 +19,7 @@
         android:layout_width="fill_parent"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:background="@drawable/background_email_login" />
+        android:background="@drawable/background_textview_top_redondeado" />
     
     <EditText
         android:id="@+id/et_password"
@@ -29,7 +29,8 @@
         android:layout_width="fill_parent"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:background="@drawable/background_password_login" />
+        android:layout_marginTop="10dp"
+        android:background="@drawable/background_textview_bot_redondeado" />
 
     <Button
         android:layout_height="wrap_content"
@@ -39,6 +40,6 @@
         android:text="@string/btn_login"
         android:textColor="@android:color/black"
         android:textStyle="bold"
-        android:background="@drawable/background_button_login" />
+        android:background="@drawable/background_button_redondeado" />
 
 </LinearLayout>

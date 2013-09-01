@@ -48,9 +48,19 @@ public class DisplayAddressesActivity extends BaseSpiceActivity {
 	        case R.id.menu_new_address:
 	        	newAddress();
 	            return true;
+	        case R.id.btn_sincronizar:
+	        	sincronizar();
+	            return true;
+	        case R.id.menu_sincronizar:
+	        	sincronizar();
+	            return true;
 	        default:
 	            return super.onOptionsItemSelected(item);
 	    }
+	}
+	
+	private void sincronizar() {
+		// TODO Auto-generated method stub		
 	}
 
 	private void newAddress() {

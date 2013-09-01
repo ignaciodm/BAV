@@ -2,8 +2,6 @@ package com.proyecto.bav;
 
 import java.util.Calendar;
 
-import com.google.common.base.CaseFormat;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DatePickerDialog;
@@ -16,6 +14,8 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.proyecto.bav.models.User;
 
 @SuppressLint({ "NewApi", "ValidFragment" })
 public class DatosPersonalesActivity extends Activity {
@@ -31,10 +31,40 @@ public class DatosPersonalesActivity extends Activity {
 		fetchDatosPersonales();
 	}
 
-	private void fetchDatosPersonales() {
-		// Email
+	private void fetchDatosPersonales() {		
+		
+		User user = User.getUser(this.getApplicationContext());
+		
 		EditText editTextEmail = (EditText) findViewById(R.id.et_email);
-		editTextEmail.setText("pabloserra89@gmail.com");		
+		editTextEmail.setText(user.getEmail());
+		editTextEmail = null;
+		
+		EditText editTextDni = (EditText) findViewById(R.id.et_dni);
+		editTextDni.setText(user.getDniString());
+		editTextDni = null;
+		
+		EditText editTextNombre = (EditText) findViewById(R.id.et_nombre);
+		editTextNombre.setText(user.getNombres());
+		editTextNombre = null;
+		
+		EditText editTextApellido = (EditText) findViewById(R.id.et_apellido);
+		editTextApellido.setText(user.getApellidos());
+		editTextApellido = null;
+		
+		EditText editTextTelefono = (EditText) findViewById(R.id.et_telefono);
+		editTextTelefono.setText(user.getTelefonoString());
+		editTextTelefono = null;
+		
+		diaNacimiento = user.getDiaNacimiento();
+		mesNacimiento = user.getMesNacimiento();
+		anioNacimiento = user.getAnioNacimiento();
+		
+		if(diaNacimiento != 0){
+			EditText editTextFechaNacimiento = (EditText) findViewById(R.id.et_fecha_nacimiento);
+			editTextFechaNacimiento.setText(diaNacimiento + " - " + getMonthName(mesNacimiento) + " - " + anioNacimiento);
+			editTextFechaNacimiento = null;
+		}
+		
 	}
 
 	@Override
@@ -49,10 +79,47 @@ public class DatosPersonalesActivity extends Activity {
 	    // Handle item selection
 	    switch (item.getItemId()) {
 	        case R.id.btn_guardar:
+	        	saveUser();
+	            return true;
+	        case R.id.btn_sincronizar:
+	        	sincronizar();
+	            return true;
+	        case R.id.menu_sincronizar:
+	        	sincronizar();
 	            return true;
 	        default:
 	            return super.onOptionsItemSelected(item);
 	    }
+	}
+	
+	private void saveUser() {
+		
+		EditText editTextEmail = (EditText) findViewById(R.id.et_email);
+		String et_email = editTextEmail.getText().toString();
+		editTextEmail = null;
+		
+		EditText editTextDni = (EditText) findViewById(R.id.et_dni);
+		String et_dni = editTextDni.getText().toString();
+		editTextDni = null;
+		
+		EditText editTextNombre = (EditText) findViewById(R.id.et_nombre);
+		String et_nombre = editTextNombre.getText().toString();
+		editTextNombre = null;
+		
+		EditText editTextApellido = (EditText) findViewById(R.id.et_apellido);
+		String et_apellido = editTextApellido.getText().toString();
+		editTextApellido = null;
+		
+		EditText editTextTelefono = (EditText) findViewById(R.id.et_telefono);
+		String et_telefono = editTextTelefono.getText().toString();
+		editTextTelefono = null;
+		
+		User user = new User(et_email, et_dni, et_nombre, et_apellido, et_telefono, diaNacimiento, mesNacimiento, anioNacimiento);
+		user.save(this.getApplicationContext());
+	}
+
+	private void sincronizar() {
+		// TODO Auto-generated method stub		
 	}
 	
 	/** Called when the user clicks the Fecha de Nacimiento EditText */
@@ -79,43 +146,43 @@ public class DatosPersonalesActivity extends Activity {
 
 		public void onDateSet(DatePicker view, int year, int month, int day) {
 			diaNacimiento = day;
-			mesNacimiento = month;
+			mesNacimiento = month+1;
 			anioNacimiento = year;
-			((TextView) getActivity().findViewById(R.id.et_fecha_nacimiento)).setText(day + "/" + getMonthName(month) + "/" + year);
-		}
-
-		private String getMonthName(int month) {
-			
-			switch (month) {
-			case 0:
-				return "Ene";
-			case 1:
-				return "Feb";
-			case 2:
-				return "Mar";
-			case 3:
-				return "Abr";
-			case 4:
-				return "May";
-			case 5:
-				return "Jun";
-			case 6:
-				return "Jul";
-			case 7:
-				return "Ago";
-			case 8:
-				return "Sep";
-			case 9:
-				return "Oct";
-			case 10:
-				return "Nov";
-			case 11:
-				return "Dic";
-			default:
-				return "Mes";
-			}			
-			
-		}
+			((TextView) getActivity().findViewById(R.id.et_fecha_nacimiento)).setText(diaNacimiento + " - " + getMonthName(mesNacimiento) + " - " + anioNacimiento);
+		}		
+		
+	}
+	
+	private String getMonthName(int month) {
+		
+		switch (month) {
+		case 1:
+			return "Ene";
+		case 2:
+			return "Feb";
+		case 3:
+			return "Mar";
+		case 4:
+			return "Abr";
+		case 5:
+			return "May";
+		case 6:
+			return "Jun";
+		case 7:
+			return "Jul";
+		case 8:
+			return "Ago";
+		case 9:
+			return "Sep";
+		case 10:
+			return "Oct";
+		case 11:
+			return "Nov";
+		case 12:
+			return "Dic";
+		default:
+			return "";
+		}			
 		
 	}
 

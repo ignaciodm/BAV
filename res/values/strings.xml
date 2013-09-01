@@ -8,7 +8,7 @@
     <string name="title_activity_login">TEA - Login</string>
     <string name="login_hint_email">Email</string>
     <string name="login_hint_password">Contraseña</string>
-    <string name="btn_login">Login</string>
+    <string name="btn_login">Iniciar sesión</string>
 
     <!-- Main Activity -->
     <string name="btn_main_denunciar">Denunciar</string>
@@ -19,8 +19,8 @@
     <!-- Datos Personales -->
 	<string name="title_activity_datos_personales">Datos Personales</string>
 	<string name="dp_dni">DNI</string>
-	<string name="dp_nombre">Nombre</string>
-	<string name="dp_apellido">Apellido</string>
+	<string name="dp_nombre">Nombres</string>
+	<string name="dp_apellido">Apellidos</string>
 	<string name="dp_telefono">Teléfono</string>
 	<string name="dp_fecha_nacimiento">Fecha de Nacimiento</string>
 	<string name="dp_seleccionar_mes">Seleccionar Mes</string>

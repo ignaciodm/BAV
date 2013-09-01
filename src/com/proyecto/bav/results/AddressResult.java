@@ -5,6 +5,7 @@ import com.proyecto.bav.models.Address;
 import com.proyecto.bav.requests.RequestResult;
 
 public class AddressResult implements RequestResult {
+	
     @Key
     private Address address;
 

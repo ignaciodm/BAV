@@ -14,13 +14,6 @@
         android:showAsAction="always"
         android:title="@string/main_show_addresses"/>
      
-      <item
-        android:id="@+id/btn_sincronizar"
-        android:icon="@drawable/ic_sincronizar"
-        android:orderInCategory="3"
-        android:showAsAction="always"
-        android:title="@string/main_sincronizar"/>
-     
      <item
         android:id="@+id/menu_datos_personales"
         android:orderInCategory="4"
@@ -31,12 +24,6 @@
         android:id="@+id/menu_show_addresses"
         android:orderInCategory="5"
         android:showAsAction="never"
-        android:title="@string/main_show_addresses"/>    
-     
-     <item
-        android:id="@+id/menu_sincronizar"
-        android:orderInCategory="6"
-        android:showAsAction="never"
-        android:title="@string/main_sincronizar"/>
+        android:title="@string/main_show_addresses"/>
 
 </menu>
