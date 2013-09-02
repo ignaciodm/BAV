@@ -44,8 +44,8 @@ public class NewAddressActivity extends BaseSpiceActivity {
 		requestWindowFeature( Window.FEATURE_PROGRESS );
 		setContentView(R.layout.activity_new_address);
 		
-		provinceEditText = (EditText) findViewById(R.id.address_province);
-		matchEditText = (EditText) findViewById(R.id.address_match);
+		provinceEditText = (EditText) findViewById(R.id.address_provincia);
+		matchEditText = (EditText) findViewById(R.id.address_partido);
 	}
 
 	@Override

@@ -1,13 +1,18 @@
 package com.proyecto.bav;
 
 import android.app.Activity;
+import android.app.ListActivity;
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 
 public class LoginActivity extends Activity {
+	
+	private ProgressDialog progressDialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -15,9 +20,9 @@ public class LoginActivity extends Activity {
 		setContentView(R.layout.activity_login);
 		
 		// Si el usuario ya está logueado, voy directo a la aplicación
-		// Intent intent = new Intent(this, MainActivity.class);
-		// this.startActivity(intent);
-		// this.finish();
+		Intent intent = new Intent(this, MainActivity.class);
+		this.startActivity(intent);
+		this.finish();
 	}
 
 	@Override
@@ -30,7 +35,7 @@ public class LoginActivity extends Activity {
 	/** Called when the user clicks the Login button */
 	public void loginApp(View view) {
 
-		Intent intent = new Intent(this, MainActivity.class);		
+		Intent intent = new Intent(this, MainActivity.class);	
 		
 		EditText editTextEmail = (EditText) findViewById(R.id.et_email);
 		String email = editTextEmail.getText().toString();
@@ -38,10 +43,9 @@ public class LoginActivity extends Activity {
 		EditText editTextPassword = (EditText) findViewById(R.id.et_password);
 		String password = editTextPassword.getText().toString();
 		
-		//if(email.equals("admin") && password.equals("123") )
+		// if(email.equals("admin") && password.equals("123") )
 			this.startActivity(intent);
 			this.finish();
 		
 	}
-
 }

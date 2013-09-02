@@ -13,7 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.proyecto.bav.models.User;
 
@@ -53,7 +53,7 @@ public class DatosPersonalesActivity extends Activity {
 		
 		EditText editTextTelefono = (EditText) findViewById(R.id.et_telefono);
 		editTextTelefono.setText(user.getTelefonoString());
-		editTextTelefono = null;
+		editTextTelefono = null; 
 		
 		diaNacimiento = user.getDiaNacimiento();
 		mesNacimiento = user.getMesNacimiento();
@@ -116,6 +116,14 @@ public class DatosPersonalesActivity extends Activity {
 		
 		User user = new User(et_email, et_dni, et_nombre, et_apellido, et_telefono, diaNacimiento, mesNacimiento, anioNacimiento);
 		user.save(this.getApplicationContext());
+		
+		datosGuardados();
+		this.finish();
+	}
+
+	private void datosGuardados() {
+		Toast toast = Toast.makeText(getApplicationContext(), "Datos Guardados", Toast.LENGTH_SHORT);
+		toast.show();
 	}
 
 	private void sincronizar() {
@@ -148,7 +156,7 @@ public class DatosPersonalesActivity extends Activity {
 			diaNacimiento = day;
 			mesNacimiento = month+1;
 			anioNacimiento = year;
-			((TextView) getActivity().findViewById(R.id.et_fecha_nacimiento)).setText(diaNacimiento + " - " + getMonthName(mesNacimiento) + " - " + anioNacimiento);
+			//((TextView) getActivity().findViewById(R.id.et_fecha_nacimiento)).setText(diaNacimiento + " - " + getMonthName(mesNacimiento) + " - " + anioNacimiento);
 		}		
 		
 	}
