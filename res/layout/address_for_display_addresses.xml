@@ -1,0 +1,32 @@
+<LinearLayout    
+    	xmlns:android="http://schemas.android.com/apk/res/android"
+    	android:layout_width="fill_parent"
+    	android:layout_height="fill_parent"
+    	android:background="@drawable/background_textview_cuadrado"
+    	android:orientation="vertical" >
+
+	<TextView 
+	    android:id="@+id/address_descripcion"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_marginTop="2dp" 
+	    android:textColor="@android:color/black"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:singleLine="true"
+    	android:lines="1" />
+	
+	<TextView 
+	    android:id="@+id/address_street"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_marginTop="2dp"
+	    android:layout_marginBottom="2dp"
+	    android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:singleLine="true"
+    	android:lines="1" />
+  
+</LinearLayout>

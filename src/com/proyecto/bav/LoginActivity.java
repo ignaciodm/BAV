@@ -1,18 +1,12 @@
 package com.proyecto.bav;
 
-import android.app.Activity;
-import android.app.ListActivity;
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 
-public class LoginActivity extends Activity {
-	
-	private ProgressDialog progressDialog;
+public class LoginActivity extends BaseSpiceActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -20,9 +14,9 @@ public class LoginActivity extends Activity {
 		setContentView(R.layout.activity_login);
 		
 		// Si el usuario ya está logueado, voy directo a la aplicación
-		Intent intent = new Intent(this, MainActivity.class);
-		this.startActivity(intent);
-		this.finish();
+//		Intent intent = new Intent(this, MainActivity.class);
+//		this.startActivity(intent);
+//		this.finish();
 	}
 
 	@Override

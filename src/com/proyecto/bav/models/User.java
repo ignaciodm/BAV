@@ -6,14 +6,12 @@ import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.reflect.TypeToken;
 
-@SuppressLint("NewApi")
 public class User {
 	
 	private static final String FILE_NAME = "DatosPersonales";
@@ -51,11 +49,17 @@ public class User {
 		this.setMesNacimiento(mesNacimiento);
 		this.setAnioNacimiento(anioNacimiento);
 		
-		if(!(et_dni.isEmpty()))
+		try {
 			this.setDni(Integer.parseInt(et_dni));
+		} catch (Exception e) {
+			// Nada. Si tira excepción no se colocó DNI
+		}
 		
-		if(!(et_telefono.isEmpty()))
+		try {
 			this.setTelefono(Integer.parseInt(et_telefono));
+		} catch (Exception e) {
+			// Nada. Si tira excepción no se colocó teléfono
+		}			
 		
 	}
 

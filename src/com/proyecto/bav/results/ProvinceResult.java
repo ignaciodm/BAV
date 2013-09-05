@@ -3,9 +3,7 @@ package com.proyecto.bav.results;
 import java.util.List;
 
 import com.google.api.client.util.Key;
-import com.proyecto.bav.models.Address;
-import com.proyecto.bav.models.Match;
-import com.proyecto.bav.models.Province;
+import com.proyecto.bav.models.Partido;
 
 public class ProvinceResult {
 	
@@ -16,7 +14,7 @@ public class ProvinceResult {
     private int id = 1;
     
     @Key
-    private List<Match> partidos;
+    private List<Partido> partidos;
 
 	public String getNombre() {
 		return nombre;
@@ -34,20 +32,17 @@ public class ProvinceResult {
 		this.id = id;
 	}
 
-	public List<Match> getPartidos() {
+	public List<Partido> getPartidos() {
 		return partidos;
 	}
 
-	public void setPartidos(List<Match> matches) {
+	public void setPartidos(List<Partido> matches) {
 		this.partidos = matches;
 	}
 	
 	@Override
     public String toString() {
     	return nombre;
-    }
-    
-    
-    
+    }    
 
 }

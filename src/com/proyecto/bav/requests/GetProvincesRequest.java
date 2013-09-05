@@ -1,22 +1,16 @@
 package com.proyecto.bav.requests;
 
 import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.util.List;
 
-import org.apache.http.util.EntityUtils;
-
-
-import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpResponse;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.proyecto.bav.models.Address;
-import com.proyecto.bav.models.Province;
+import com.proyecto.bav.models.Provincia;
 import com.proyecto.bav.results.ProvincesResult;
 
 public class GetProvincesRequest extends
@@ -51,8 +45,8 @@ public class GetProvincesRequest extends
 		json = json.substring("{\"provincias\":[".length() -1 , json.length()-1);
 		
 		
-		Type provincesType = new TypeToken<List<Province>>() {																																																																						}.getType();
-		List<Province> provincias = null;
+		Type provincesType = new TypeToken<List<Provincia>>() {																																																																						}.getType();
+		List<Provincia> provincias = null;
 		try {
 			provincias = gson.fromJson(json, provincesType);
 		} catch (Exception e) {

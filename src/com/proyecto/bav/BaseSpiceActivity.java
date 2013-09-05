@@ -15,6 +15,7 @@ import com.octo.android.robospice.SpiceManager;
  * 
  */
 public abstract class BaseSpiceActivity extends Activity {
+	
     private SpiceManager spiceManager = new SpiceManager( SimpleSpiceService.class );
 
     @Override

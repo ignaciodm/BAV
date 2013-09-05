@@ -5,16 +5,11 @@ import java.util.List;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
-import com.proyecto.bav.BaseSpiceActivity;
-import com.proyecto.bav.DisplayAddressesActivity;
 import com.proyecto.bav.NewAddressActivity;
-import com.proyecto.bav.models.Address;
-import com.proyecto.bav.models.Province;
-import com.proyecto.bav.results.AddressResult;
+import com.proyecto.bav.models.Provincia;
 import com.proyecto.bav.results.ProvincesResult;
 
 public final class ProvincesRequestListener implements RequestListener< ProvincesResult > {
@@ -39,10 +34,10 @@ public final class ProvincesRequestListener implements RequestListener< Province
 	
 	@Override
 	public void onRequestSuccess(final ProvincesResult result) {
-		activity.provinces = result.getProvincias();
+		activity.provincias = result.getProvincias();
 		
     	List<String> provincesNames = new ArrayList<String>();
-    	for (Province province : activity.provinces) {
+    	for (Provincia province : activity.provincias) {
     		provincesNames.add(province.getName());
 		}
     	CharSequence[] charProvinceNames = provincesNames.toArray(new CharSequence[provincesNames.size()]);
@@ -52,8 +47,8 @@ public final class ProvincesRequestListener implements RequestListener< Province
         builder.setItems(charProvinceNames, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int provinceIndex) {
                 // Do something with the selection
-            	activity.province = activity.provinces.get(provinceIndex);
-            	activity.provinceEditText.setText(activity.province.getName());
+            	activity.provincia = activity.provincias.get(provinceIndex);
+            	activity.provinceEditText.setText(activity.provincia.getName());
             }
         });
         AlertDialog alert = builder.create();

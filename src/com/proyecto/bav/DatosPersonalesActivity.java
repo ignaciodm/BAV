@@ -3,7 +3,6 @@ package com.proyecto.bav;
 import java.util.Calendar;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -18,7 +17,7 @@ import android.widget.Toast;
 import com.proyecto.bav.models.User;
 
 @SuppressLint({ "NewApi", "ValidFragment" })
-public class DatosPersonalesActivity extends Activity {
+public class DatosPersonalesActivity extends BaseSpiceActivity {
 	
 	int diaNacimiento;
 	int mesNacimiento;

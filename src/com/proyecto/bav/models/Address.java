@@ -21,20 +21,64 @@ public class Address {
 	@SerializedName("descripcion")
 	private String description;
 	
-	@SerializedName("calle")
+	@SerializedName("street")
 	private String street;
 
-	@SerializedName("numero")
+	@SerializedName("number")
 	private Integer number;
 	
-	private PoliceStation policeStation;
-
-	public Address(String description, String street, Integer number) {
-		this.description = description;
-		this.street = street;
-		this.number = number;
-	}
+	@SerializedName("piso")
+	private Integer piso;
 	
+	@SerializedName("dpto")
+	private String dpto;
+	
+	@SerializedName("entreCalle1")
+	private String entreCalle1;
+	
+	@SerializedName("entreCalle2")
+	private String entreCalle2;
+	
+	@SerializedName("provincia")
+	private Provincia provincia;
+	
+	@SerializedName("partido")
+	private Partido partido;
+	
+	@SerializedName("localidad")
+	private Localidad localidad;
+	
+	@SerializedName("policeStation")
+	private PoliceStation policeStation;
+	
+	public Address(String descripcion, 
+				String street,
+				String numero, 
+				String piso,
+				String dpto, 
+				String entreCalle1,
+				String entreCalle2) {
+		
+		this.setDescription(descripcion);
+		this.setStreet(street);
+		this.setDpto(dpto);
+		this.setEntreCalle1(entreCalle1);
+		this.setEntreCalle2(entreCalle2);
+		
+		try{
+			this.setNumber(Integer.parseInt(numero));
+		} catch (Exception e) { 
+			// Nada, el número es vacío
+		}
+		
+		try{
+			this.setPiso(Integer.parseInt(piso));
+		} catch (Exception e) { 
+			// Nada, el piso es vacío
+		}
+		
+	}
+
 	public String getDescription() {
 		return description;
 	}
@@ -51,15 +95,80 @@ public class Address {
 		this.street = street;
 	}
 
-	public Integer getNumber() {
+	public Integer getNumber() {		
 		return number;
 	}
 
 	public void setNumber(Integer number) {
 		this.number = number;
 	}
+	
+	public Integer getPiso() {
+		return piso;
+	}
+
+	public void setPiso(Integer piso) {
+		this.piso = piso;
+	}
+
+	public String getDpto() {
+		return dpto;
+	}
+
+	public void setDpto(String dpto) {
+		this.dpto = dpto;
+	}
+
+	public String getEntreCalle1() {
+		return entreCalle1;
+	}
+
+	public void setEntreCalle1(String entreCalle1) {
+		this.entreCalle1 = entreCalle1;
+	}
+
+	public String getEntreCalle2() {
+		return entreCalle2;
+	}
+
+	public void setEntreCalle2(String entreCalle2) {
+		this.entreCalle2 = entreCalle2;
+	}
+
+	public Provincia getProvincia() {
+		return provincia;
+	}
+
+	public void setProvincia(Provincia provincia) {
+		this.provincia = provincia;
+	}
+
+	public Partido getPartido() {
+		return partido;
+	}
+
+	public void setPartido(Partido partido) {
+		this.partido = partido;
+	}
+
+	public Localidad getLocalidad() {
+		return localidad;
+	}
+
+	public void setLocalidad(Localidad localidad) {
+		this.localidad = localidad;
+	}
+
+	public PoliceStation getPoliceStation() {
+		return policeStation;
+	}
+
+	public void setPoliceStation(PoliceStation policeStation) {
+		this.policeStation = policeStation;
+	}
 
 	public static void save(Address address, Context context) {
+		
 		Gson gson = new Gson();
 		Type addressType = new TypeToken<List<Address>>() {}.getType();
 
@@ -69,9 +178,11 @@ public class Address {
 		String json = gson.toJson(addresses, addressType);
 
 		writeFile(json, FILE_NAME, context);
+		
 	}
 
 	public static List<Address> getAddresses(Context context) {
+		
 		List<Address> addresses = null;
 
 		String json = readFile(FILE_NAME, context);
@@ -89,6 +200,7 @@ public class Address {
 		}
 
 		return addresses;
+		
 	}
 
 	private static String readFile(String filename, Context context) {
@@ -123,6 +235,6 @@ public class Address {
 			e.printStackTrace();
 		}
 
-	}
+	}	
 
 }

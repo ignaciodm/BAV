@@ -9,10 +9,8 @@ import android.content.DialogInterface;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
 import com.proyecto.bav.NewAddressActivity;
-import com.proyecto.bav.models.Match;
-import com.proyecto.bav.models.Province;
+import com.proyecto.bav.models.Partido;
 import com.proyecto.bav.results.ProvinceResult;
-import com.proyecto.bav.results.ProvincesResult;
 
 public class ProvinceRequestListener implements
 		RequestListener<ProvinceResult> {
@@ -36,10 +34,10 @@ public class ProvinceRequestListener implements
 	
 	@Override
 	public void onRequestSuccess(final ProvinceResult result) {
-		final List<Match> matches = result.getPartidos();
+		final List<Partido> matches = result.getPartidos();
 		
     	List<String> matchesNames = new ArrayList<String>();
-    	for (Match match : matches) {
+    	for (Partido match : matches) {
     		matchesNames.add(match.getName());
 		}
     	CharSequence[] charMatchesNames = matchesNames.toArray(new CharSequence[matchesNames.size()]);
@@ -49,8 +47,8 @@ public class ProvinceRequestListener implements
         builder.setItems(charMatchesNames, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int matchIndex) {
                 // Do something with the selection
-            	activity.match = matches.get(matchIndex);
-            	activity.matchEditText.setText(activity.match.getName());
+            	activity.partido = matches.get(matchIndex);
+            	activity.partidoEditText.setText(activity.partido.getName());
             }
         });
         AlertDialog alert = builder.create();

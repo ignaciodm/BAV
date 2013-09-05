@@ -1,29 +1,19 @@
 package com.proyecto.bav.requests;
 
 import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.lang.reflect.Type;
-import java.util.List;
 
-import org.apache.http.util.EntityUtils;
-
-
-import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpResponse;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.proyecto.bav.models.Address;
-import com.proyecto.bav.models.Province;
+import com.proyecto.bav.models.Provincia;
 import com.proyecto.bav.results.ProvinceResult;
-import com.proyecto.bav.results.ProvincesResult;
 
 public class GetProvinceRequest extends
 		GetSpiceRequest<ProvinceResult> {
 
-	public GetProvinceRequest(Province province) {
+	public GetProvinceRequest(Provincia province) {
 		super(ProvinceResult.class);
 		this.setPath("/provincias/" + province.getId() + ".json");
 	}
@@ -47,7 +37,7 @@ public class GetProvinceRequest extends
 
 		String json =  sb.toString();
 		Gson gson = new Gson();
-		Province province = gson.fromJson(json, Province.class);
+		Provincia province = gson.fromJson(json, Provincia.class);
 
 		
 		ProvinceResult result = new ProvinceResult();

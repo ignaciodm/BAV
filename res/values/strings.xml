@@ -31,7 +31,7 @@
     <string name="dis_addr_new_address">Agregar nueva dirección</string>
 
     <!-- New Address -->
-    <string name="new_address_description">Descripcion</string>
+    <string name="new_address_description">Descripción</string>
     <string name="new_address_street">Calle</string>
     <string name="new_address_street_number">Número</string>
     <string name="new_address_street_piso">Piso</string>
@@ -41,6 +41,7 @@
     <string name="new_address_provincia">Provincia</string>
     <string name="new_address_partido">Partido</string>
     <string name="new_address_localidad">Localidad</string>
+    <string name="new_address_policeStation">Comisaría</string>
 
     <!-- NewAddressActivity -->
     <string name="title_activity_new_address">Nueva Dirección</string>

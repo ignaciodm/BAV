@@ -3,22 +3,22 @@ package com.proyecto.bav.results;
 import java.util.List;
 
 import com.google.api.client.util.Key;
-import com.proyecto.bav.models.Province;
+import com.proyecto.bav.models.Provincia;
 import com.proyecto.bav.requests.RequestResult;
 
 public class ProvincesResult implements RequestResult {
 	
     @Key
-    private List<Province> provincias;
+    private List<Provincia> provincias;
 
     @Key
     private int id = 1;
 
-    public List<Province> getProvincias() {
+    public List<Provincia> getProvincias() {
         return this.provincias;
     }
 
-    public void setProvincias( List<Province> province ) {
+    public void setProvincias( List<Provincia> province ) {
         this.provincias = province;
     }
 

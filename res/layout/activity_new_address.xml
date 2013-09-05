@@ -28,7 +28,7 @@
 	    <EditText 
 	        android:id="@+id/address_street"
 	        android:hint="@string/new_address_street"
-	        android:inputType="textCapSentences"
+	        android:inputType="textCapWords"
 	        android:layout_height="40dp"
 	        android:layout_width="fill_parent"  
 	        android:paddingLeft="10dp"
@@ -57,7 +57,7 @@
 	      	<EditText 
 	        	android:id="@+id/address_street_piso"
 	        	android:hint="@string/new_address_street_piso"
-	        	android:inputType="number"
+	        	android:inputType="textCapSentences"
 	        	android:layout_height="40dp"
 	        	android:layout_width="0dp"
 	        	android:layout_weight="0.3"
@@ -133,8 +133,20 @@
 	        android:paddingLeft="10dp"
 	        android:paddingRight="10dp"
 	        android:layout_marginTop="10dp"
-	        android:background="@drawable/background_textview_bot_redondeado"
+	        android:background="@drawable/background_textview_cuadrado"
 	        android:onClick="displayMatches" />
+	     
+	     <EditText 
+	     	android:id="@+id/address_policeStation"
+	     	android:hint="@string/new_address_policeStation"
+	        android:inputType="textCapSentences"
+	        android:layout_height="40dp"
+	        android:layout_width="fill_parent"  
+	        android:paddingLeft="10dp"
+	        android:paddingRight="10dp"
+	        android:layout_marginTop="10dp"
+	        android:background="@drawable/background_textview_bot_redondeado"
+	        android:onClick="displayPoliceStations" />
 	     
 	</LinearLayout>
 

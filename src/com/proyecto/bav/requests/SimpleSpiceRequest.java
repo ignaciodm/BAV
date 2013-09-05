@@ -4,21 +4,15 @@ import java.io.IOException;
 
 import roboguice.util.temp.Ln;
 
-import android.text.TextUtils;
-
-import com.google.api.client.http.ByteArrayContent;
 import com.google.api.client.http.GenericUrl;
 import com.google.api.client.http.HttpContent;
 import com.google.api.client.http.HttpHeaders;
 import com.google.api.client.http.HttpRequest;
-import com.google.api.client.http.HttpRequestFactory;
 import com.google.api.client.http.HttpResponse;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.JsonObjectParser;
 import com.google.api.client.json.gson.GsonFactory;
-import com.google.api.client.json.jackson.JacksonFactory;
 import com.octo.android.robospice.request.googlehttpclient.GoogleHttpClientSpiceRequest;
-import com.proyecto.bav.results.AddressResult;
 
 public abstract class SimpleSpiceRequest<RequestResult> extends
 		GoogleHttpClientSpiceRequest<RequestResult> {

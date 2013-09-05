@@ -2,20 +2,23 @@ package com.proyecto.bav.models;
 
 import com.google.gson.annotations.SerializedName;
 
-public class PoliceStation {
+public class Partido {
 	
 	private Integer id;
+	
 	@SerializedName("nombre")
 	private String name;
 	
-	@SerializedName("localidad")
-	private Localidad locality;
+	@SerializedName("provincia")
+	private Provincia province;
 	
-	public PoliceStation(Integer id, String name, Localidad locality) {
+	public Partido(){}
+	
+	public Partido(Integer id, String name, Provincia province) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.locality = locality;
+		this.province = province;
 	}
 
 	public Integer getId() {
@@ -34,17 +37,11 @@ public class PoliceStation {
 		this.name = name;
 	}
 
-	public Localidad getLocality() {
-		return locality;
+	public Provincia getProvince() {
+		return province;
 	}
 
-	public void setLocality(Localidad locality) {
-		this.locality = locality;
+	public void setProcince(Provincia province) {
+		this.province = province;
 	}
-	
-	
-	
-	
-	
-
 }
