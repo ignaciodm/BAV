@@ -7,18 +7,18 @@ import java.io.InputStreamReader;
 
 import com.google.api.client.http.HttpResponse;
 import com.google.gson.Gson;
-import com.proyecto.bav.models.Provincia;
-import com.proyecto.bav.results.ProvinceResult;
+import com.proyecto.bav.models.Partido;
+import com.proyecto.bav.results.PartidoResult;
 
-public class GetProvinceRequest extends
-		GetSpiceRequest<ProvinceResult> {
+public class GetPartidoRequest extends
+		GetSpiceRequest<PartidoResult> {
 
-	public GetProvinceRequest(Provincia province) {
-		super(ProvinceResult.class);
-		this.setPath("/provincias/" + province.getId() + ".json");
+	public GetPartidoRequest(Partido partido) {
+		super(PartidoResult.class);
+		this.setPath("/partidos/" + partido.getId() + ".json");
 	}
 
-	protected ProvinceResult parseResponse(final HttpResponse response) throws IOException {
+	protected PartidoResult parseResponse(final HttpResponse response) throws IOException {
 		
 		StringBuilder sb = new StringBuilder();
 		InputStream inputStream = null;
@@ -42,12 +42,12 @@ public class GetProvinceRequest extends
 
 		String json =  sb.toString();
 		Gson gson = new Gson();
-		Provincia province = gson.fromJson(json, Provincia.class);
+		Partido partido = gson.fromJson(json, Partido.class);
 		
-		ProvinceResult result = new ProvinceResult();
-		result.setPartidos(province.getPartidos());
-		result.setId(province.getId());
-		result.setNombre(province.getNombre());
+		PartidoResult result = new PartidoResult();
+		result.setLocalidades(partido.getLocalidades());
+		result.setId(partido.getId());
+		result.setNombre(partido.getNombre());
 		
 		return result;
 	}

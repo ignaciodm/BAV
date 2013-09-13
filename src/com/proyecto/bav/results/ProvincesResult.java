@@ -4,61 +4,45 @@ import java.util.List;
 
 import com.google.api.client.util.Key;
 import com.proyecto.bav.models.Provincia;
-import com.proyecto.bav.requests.RequestResult;
 
-public class ProvincesResult implements RequestResult {
+public class ProvincesResult {
+	
+	@Key
+    private String nombre = "Provincias";
 	
     @Key
-    private List<Provincia> provincias;
-
-    @Key
     private int id = 1;
+    
+    @Key
+    private List<Provincia> provincias;
+    
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String name) {
+		this.nombre = name;
+	}
 
     public List<Provincia> getProvincias() {
         return this.provincias;
     }
 
-    public void setProvincias( List<Provincia> province ) {
-        this.provincias = province;
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + id;
-        result = prime * result + ( provincias == null ? 0 : provincias.hashCode() );
-        return result;
-    }
-
-    @Override
-    public boolean equals( Object obj ) {
-        if ( this == obj ) {
-            return true;
-        }
-        if ( obj == null ) {
-            return false;
-        }
-        if ( getClass() != obj.getClass() ) {
-            return false;
-        }
-        ProvincesResult other = (ProvincesResult) obj;
-        if ( id != other.id ) {
-            return false;
-        }
-        if ( provincias == null ) {
-            if ( other.provincias != null ) {
-                return false;
-            }
-        } else if ( !provincias.equals( other.provincias ) ) {
-            return false;
-        }
-        return true;
+    public void setProvincias(List<Provincia> provincias ) {
+        this.provincias = provincias;
     }
     
     @Override
     public String toString() {
-    	return provincias.toString();
+    	return nombre;
     }
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 }

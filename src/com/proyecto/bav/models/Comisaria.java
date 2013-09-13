@@ -1,10 +1,8 @@
 package com.proyecto.bav.models;
 
-import java.util.List;
-
 import com.google.gson.annotations.SerializedName;
 
-public class Partido {
+public class Comisaria {
 	
 	@SerializedName("id")
 	private Integer id;
@@ -12,11 +10,7 @@ public class Partido {
 	@SerializedName("nombre")
 	private String nombre;
 	
-	public List<Localidad> localidades;
-	
-	public Partido(){}
-	
-	public Partido(Integer id, String nombre) {
+	public Comisaria(Integer id, String nombre) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -38,11 +32,4 @@ public class Partido {
 		this.nombre = nombre;
 	}
 
-	public List<Localidad> getLocalidades() {
-		return localidades;
-	}
-
-	public void setLocalidades(List<Localidad> localidades) {
-		this.localidades = localidades;
-	}
 }

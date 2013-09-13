@@ -5,8 +5,10 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.ArrayList;
 
 import android.content.Context;
 
@@ -49,7 +51,7 @@ public class Address {
 	private Localidad localidad;
 	
 	@SerializedName("policeStation")
-	private PoliceStation policeStation;
+	private Comisaria policeStation;
 	
 	public Address(String descripcion, 
 				String street,
@@ -57,13 +59,21 @@ public class Address {
 				String piso,
 				String dpto, 
 				String entreCalle1,
-				String entreCalle2) {
+				String entreCalle2, 
+				Provincia provincia, 
+				Partido partido, 
+				Localidad localidad, 
+				Comisaria policeStation) {
 		
 		this.setDescription(descripcion);
 		this.setStreet(street);
 		this.setDpto(dpto);
 		this.setEntreCalle1(entreCalle1);
 		this.setEntreCalle2(entreCalle2);
+		this.setProvincia(provincia);
+		this.setPartido(partido);
+		this.setLocalidad(localidad);
+		this.setPoliceStation(policeStation);
 		
 		try{
 			this.setNumber(Integer.parseInt(numero));
@@ -159,11 +169,11 @@ public class Address {
 		this.localidad = localidad;
 	}
 
-	public PoliceStation getPoliceStation() {
+	public Comisaria getPoliceStation() {
 		return policeStation;
 	}
 
-	public void setPoliceStation(PoliceStation policeStation) {
+	public void setPoliceStation(Comisaria policeStation) {
 		this.policeStation = policeStation;
 	}
 
@@ -173,7 +183,21 @@ public class Address {
 		Type addressType = new TypeToken<List<Address>>() {}.getType();
 
 		List<Address> addresses = getAddresses(context);
+		addresses.remove(address);
 		addresses.add(address);
+
+		String json = gson.toJson(addresses, addressType);
+		writeFile(json, FILE_NAME, context);
+		
+	}
+	
+	public static void delete(int position, Context context) {
+		
+		Gson gson = new Gson();
+		Type addressType = new TypeToken<List<Address>>() {}.getType();
+
+		List<Address> addresses = getAddresses(context);
+		addresses.remove(position);
 
 		String json = gson.toJson(addresses, addressType);
 
@@ -197,10 +221,19 @@ public class Address {
 		
 		if (addresses == null) {
 			addresses = new ArrayList<Address>();
-		}
-
-		return addresses;
+		}		
 		
+		// Para ordenar por Descripción
+		Collections.sort(addresses, new Comparator<Address>() {
+
+			@Override
+			public int compare(Address a1, Address a2) {
+				return a1.getDescription().compareTo(a2.getDescription());
+			}
+	    });
+		
+		return addresses;
+	
 	}
 
 	private static String readFile(String filename, Context context) {
@@ -235,6 +268,16 @@ public class Address {
 			e.printStackTrace();
 		}
 
-	}	
+	}
+	
+	public boolean equals(Object obj){
+		
+		Address a = (Address) obj;
+		
+		if(this.getDescription().equals(a.getDescription()))
+			return true;
+		
+		return false;		
+	}
 
 }

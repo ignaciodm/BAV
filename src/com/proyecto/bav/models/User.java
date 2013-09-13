@@ -118,10 +118,10 @@ public class User {
 
 		String json = readFile(FILE_NAME, context);
 		Gson gson = new Gson();
-		Type addressType = new TypeToken<User>() {}.getType();
+		Type userType = new TypeToken<User>() {}.getType();
 
 		try {
-			user = gson.fromJson(json, addressType);
+			user = gson.fromJson(json, userType);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

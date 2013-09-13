@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.widget.Toast;
 
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
@@ -12,8 +13,8 @@ import com.proyecto.bav.NewAddressActivity;
 import com.proyecto.bav.models.Partido;
 import com.proyecto.bav.results.ProvinceResult;
 
-public class ProvinceRequestListener implements
-		RequestListener<ProvinceResult> {
+public class ProvinceRequestListener implements RequestListener<ProvinceResult> {
+	
 	private NewAddressActivity activity;
 
 	public ProvinceRequestListener(NewAddressActivity activity) {
@@ -21,39 +22,37 @@ public class ProvinceRequestListener implements
 	}
 
 	@Override
-    public void onRequestFailure( SpiceException spiceException ) {
-//        Toast.makeText( NewAddressActivity.this, "failure", Toast.LENGTH_SHORT ).show();
-//		Address.save(address, activity.getApplicationContext());
-//		Intent intent = new Intent(activity, DisplayAddressesActivity.class);
-//		activity.startActivity(intent);
-//		
-		Integer i;
-		i = 1 + 1;
-		
+    public void onRequestFailure( SpiceException spiceException ) {	
+		activity.lookingFor = 0;	
+		Toast toast = Toast.makeText(activity.getApplicationContext(), "Fail Partido", Toast.LENGTH_SHORT);
+		toast.show();		
     }
 	
 	@Override
 	public void onRequestSuccess(final ProvinceResult result) {
-		final List<Partido> matches = result.getPartidos();
 		
-    	List<String> matchesNames = new ArrayList<String>();
-    	for (Partido match : matches) {
-    		matchesNames.add(match.getName());
+		final List<Partido> partidos = result.getPartidos();
+		
+    	List<String> partidosNames = new ArrayList<String>();
+    	
+    	for (Partido partido : partidos) {
+    		partidosNames.add(partido.getNombre());
 		}
-    	CharSequence[] charMatchesNames = matchesNames.toArray(new CharSequence[matchesNames.size()]);
+    	
+    	CharSequence[] charPartidosNames = partidosNames.toArray(new CharSequence[partidosNames.size()]);
         
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setTitle("Seleccione un Partido");
-        builder.setItems(charMatchesNames, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int matchIndex) {
-                // Do something with the selection
-            	activity.partido = matches.get(matchIndex);
-            	activity.partidoEditText.setText(activity.partido.getName());
+        builder.setItems(charPartidosNames, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int partidoIndex) {
+            	activity.partido = partidos.get(partidoIndex);
+            	activity.partidoEditText.setText(activity.partido.getNombre());
             }
         });
+        
         AlertDialog alert = builder.create();
         alert.show();
+        activity.lookingFor = 0;
 		
 	}
-
 }

@@ -1,22 +1,23 @@
 package com.proyecto.bav.models;
 
+import java.util.List;
+
 import com.google.gson.annotations.SerializedName;
 
 public class Localidad {
 	
+	@SerializedName("id")
 	private Integer id;
 	
 	@SerializedName("nombre")
-	private String name;
+	private String nombre;
 	
-	@SerializedName("localidad")
-	private Partido match;
+	public List<Comisaria> comisarias;
 	
-	public Localidad(Integer id, String name, Partido match) {
+	public Localidad(Integer id, String name) {
 		super();
 		this.id = id;
-		this.name = name;
-		this.match = match;
+		this.nombre = name;
 	}
 	
 	public Integer getId() {
@@ -26,23 +27,21 @@ public class Localidad {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
-	public String getName() {
-		return name;
+
+	public String getNombre() {
+		return nombre;
 	}
-	
-	public void setName(String name) {
-		this.name = name;
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
-	
-	public Partido getMatch() {
-		return match;
+
+	public List<Comisaria> getComisarias() {
+		return comisarias;
 	}
-	
-	public void setMatch(Partido match) {
-		this.match = match;
+
+	public void setComisarias(List<Comisaria> comisarias) {
+		this.comisarias = comisarias;
 	}
-	
-	
 
 }

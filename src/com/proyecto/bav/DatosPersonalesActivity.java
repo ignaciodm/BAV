@@ -116,13 +116,8 @@ public class DatosPersonalesActivity extends BaseSpiceActivity {
 		User user = new User(et_email, et_dni, et_nombre, et_apellido, et_telefono, diaNacimiento, mesNacimiento, anioNacimiento);
 		user.save(this.getApplicationContext());
 		
-		datosGuardados();
+		Toast.makeText(getApplicationContext(), "Datos Guardados", Toast.LENGTH_SHORT).show();
 		this.finish();
-	}
-
-	private void datosGuardados() {
-		Toast toast = Toast.makeText(getApplicationContext(), "Datos Guardados", Toast.LENGTH_SHORT);
-		toast.show();
 	}
 
 	private void sincronizar() {

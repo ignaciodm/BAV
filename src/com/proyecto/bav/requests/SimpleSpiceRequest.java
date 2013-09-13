@@ -14,10 +14,9 @@ import com.google.api.client.json.JsonObjectParser;
 import com.google.api.client.json.gson.GsonFactory;
 import com.octo.android.robospice.request.googlehttpclient.GoogleHttpClientSpiceRequest;
 
-public abstract class SimpleSpiceRequest<RequestResult> extends
-		GoogleHttpClientSpiceRequest<RequestResult> {
+public abstract class SimpleSpiceRequest<RequestResult> extends GoogleHttpClientSpiceRequest<RequestResult> {
 
-	private String baseUrl = "http://4m5m.localtunnel.com";
+	private String baseUrl = "http://cryptic-gorge-7789.herokuapp.com/";
 	private JsonFactory sJsonFactory;
 	private JsonObjectParser sJsonParser;
 

@@ -1,12 +1,12 @@
-<LinearLayout    
-    	xmlns:android="http://schemas.android.com/apk/res/android"
-    	android:layout_width="fill_parent"
-    	android:layout_height="fill_parent"
-    	android:background="@drawable/background_textview_cuadrado"
-    	android:orientation="vertical" >
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="fill_parent"
+    android:layout_width="fill_parent"
+    android:background="@drawable/background_textview_cuadrado"
+    android:orientation="vertical" >
 
 	<TextView 
-	    android:id="@+id/address_descripcion"
+	    android:id="@+id/display_address_descripcion"
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
 	    android:layout_marginTop="2dp" 
@@ -19,7 +19,7 @@
     	android:lines="1" />
 	
 	<TextView 
-	    android:id="@+id/address_street"
+	    android:id="@+id/display_address_street"
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
 	    android:layout_marginTop="2dp"

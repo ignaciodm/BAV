@@ -6,23 +6,23 @@ import com.google.gson.annotations.SerializedName;
 
 public class Provincia {
 
+	@SerializedName("id")
 	public Integer id;
 
 	@SerializedName("nombre")
-	public String name;
+	public String nombre;
 	
-	@SerializedName("partidos")
-	public List<Partido> matches;
+	public List<Partido> partidos;
 
 	public Provincia() {
 		super();
 	}
 
-	public Provincia(Integer id, String name, List<Partido> matches) {
+	public Provincia(Integer id, String nombre, List<Partido> partidos) {
 		super();
 		this.id = id;
-		this.name = name;
-		this.matches = matches;
+		this.nombre = nombre;
+		this.partidos = partidos;
 	}
 
 	public Integer getId() {
@@ -33,21 +33,20 @@ public class Provincia {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getNombre() {
+		return nombre;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-	public List<Partido> getMatches() {
-		return matches;
+	public void setNombre(String name) {
+		this.nombre = name;
 	}
 
-	public void setMatches(List<Partido> matches) {
-		this.matches = matches;
+	public List<Partido> getPartidos() {
+		return partidos;
 	}
 
+	public void setPartidos(List<Partido> partidos) {
+		this.partidos = partidos;
+	}
 
 }

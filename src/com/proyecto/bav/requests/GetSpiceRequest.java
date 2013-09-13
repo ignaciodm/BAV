@@ -2,8 +2,7 @@ package com.proyecto.bav.requests;
 
 import com.google.api.client.http.HttpRequest;
 
-public class GetSpiceRequest<RequestResult> extends
-		SimpleSpiceRequest<RequestResult> {
+public class GetSpiceRequest<RequestResult> extends SimpleSpiceRequest<RequestResult> {
 
 	private String path;
 

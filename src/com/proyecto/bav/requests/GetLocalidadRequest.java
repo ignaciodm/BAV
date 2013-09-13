@@ -7,18 +7,18 @@ import java.io.InputStreamReader;
 
 import com.google.api.client.http.HttpResponse;
 import com.google.gson.Gson;
-import com.proyecto.bav.models.Provincia;
-import com.proyecto.bav.results.ProvinceResult;
+import com.proyecto.bav.models.Localidad;
+import com.proyecto.bav.results.LocalidadResult;
 
-public class GetProvinceRequest extends
-		GetSpiceRequest<ProvinceResult> {
+public class GetLocalidadRequest extends
+		GetSpiceRequest<LocalidadResult> {
 
-	public GetProvinceRequest(Provincia province) {
-		super(ProvinceResult.class);
-		this.setPath("/provincias/" + province.getId() + ".json");
+	public GetLocalidadRequest(Localidad localidad) {
+		super(LocalidadResult.class);
+		this.setPath("/localidades/" + localidad.getId() + ".json");
 	}
 
-	protected ProvinceResult parseResponse(final HttpResponse response) throws IOException {
+	protected LocalidadResult parseResponse(final HttpResponse response) throws IOException {
 		
 		StringBuilder sb = new StringBuilder();
 		InputStream inputStream = null;
@@ -42,12 +42,12 @@ public class GetProvinceRequest extends
 
 		String json =  sb.toString();
 		Gson gson = new Gson();
-		Provincia province = gson.fromJson(json, Provincia.class);
+		Localidad localidad = gson.fromJson(json, Localidad.class);
 		
-		ProvinceResult result = new ProvinceResult();
-		result.setPartidos(province.getPartidos());
-		result.setId(province.getId());
-		result.setNombre(province.getNombre());
+		LocalidadResult result = new LocalidadResult();
+		result.setComisarias(localidad.getComisarias());
+		result.setId(localidad.getId());
+		result.setNombre(localidad.getNombre());
 		
 		return result;
 	}
