@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.proyecto.bav.models.User;
@@ -154,7 +155,7 @@ public class DatosPersonalesActivity extends BaseSpiceActivity {
 			diaNacimiento = day;
 			mesNacimiento = month+1;
 			anioNacimiento = year;
-			//((TextView) getActivity().findViewById(R.id.et_fecha_nacimiento)).setText(diaNacimiento + " - " + getMonthName(mesNacimiento) + " - " + anioNacimiento);
+			((TextView) getActivity().findViewById(R.id.et_fecha_nacimiento)).setText(diaNacimiento + " - " + getMonthName(mesNacimiento) + " - " + anioNacimiento);
 		}		
 		
 	}

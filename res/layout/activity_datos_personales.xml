@@ -17,6 +17,7 @@
     	<EditText 
         	android:id="@+id/et_email"
         	android:inputType="textEmailAddress"
+        	android:textColor="@android:color/black"
         	android:layout_height="40dp"
         	android:layout_width="fill_parent"
         	android:paddingLeft="10dp"
@@ -32,6 +33,7 @@
 	        android:id="@+id/et_dni"
         	android:hint="@string/dp_dni"
         	android:inputType="number"
+        	android:textColor="@android:color/black"
         	android:layout_height="40dp"
         	android:layout_width="fill_parent"
         	android:paddingLeft="10dp"
@@ -43,6 +45,7 @@
 	        android:id="@+id/et_nombre"
         	android:hint="@string/dp_nombre"
         	android:inputType="textCapWords"
+        	android:textColor="@android:color/black"
         	android:layout_height="40dp"
         	android:layout_width="fill_parent"
         	android:paddingLeft="10dp"
@@ -54,6 +57,7 @@
 	        android:id="@+id/et_apellido"
         	android:hint="@string/dp_apellido"
         	android:inputType="textCapWords"
+        	android:textColor="@android:color/black"
         	android:layout_height="40dp"
         	android:layout_width="fill_parent"
         	android:paddingLeft="10dp"
@@ -64,6 +68,7 @@
 	    <EditText 
     	    android:id="@+id/et_telefono"
 	        android:hint="@string/dp_telefono"
+	        android:textColor="@android:color/black"
         	android:inputType="phone"
         	android:layout_height="40dp"
         	android:layout_width="fill_parent"
@@ -82,6 +87,7 @@
     		<EditText 
 	        	android:id="@+id/et_fecha_nacimiento"
         		android:hint="@string/dp_fecha_nacimiento"
+        		android:textColor="@android:color/black"
         		android:layout_height="40dp"
         		android:layout_width="0dp"
 	        	android:layout_weight="1"
