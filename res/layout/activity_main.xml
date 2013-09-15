@@ -18,6 +18,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:onClick="enviarDenuncia"
-        android:background="@drawable/ic_tea_logo_btn" />
+        android:background="@drawable/background_btn_denunciar" />
 
 </LinearLayout>

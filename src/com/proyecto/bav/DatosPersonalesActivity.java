@@ -30,38 +30,42 @@ public class DatosPersonalesActivity extends BaseSpiceActivity {
 		fetchDatosPersonales();
 	}
 
-	private void fetchDatosPersonales() {		
+	private void fetchDatosPersonales() {
 		
 		User user = User.getUser(this.getApplicationContext());
 		
-		EditText editTextEmail = (EditText) findViewById(R.id.et_email);
-		editTextEmail.setText(user.getEmail());
-		editTextEmail = null;
+		if(user != null) {
 		
-		EditText editTextDni = (EditText) findViewById(R.id.et_dni);
-		editTextDni.setText(user.getDniString());
-		editTextDni = null;
+			EditText editTextEmail = (EditText) findViewById(R.id.et_email);
+			editTextEmail.setText(user.getEmail());
+			editTextEmail = null;
+			
+			EditText editTextDni = (EditText) findViewById(R.id.et_dni);
+			editTextDni.setText(user.getDniString());
+			editTextDni = null;
+			
+			EditText editTextNombre = (EditText) findViewById(R.id.et_nombre);
+			editTextNombre.setText(user.getNombres());
+			editTextNombre = null;
+			
+			EditText editTextApellido = (EditText) findViewById(R.id.et_apellido);
+			editTextApellido.setText(user.getApellidos());
+			editTextApellido = null;
+			
+			EditText editTextTelefono = (EditText) findViewById(R.id.et_telefono);
+			editTextTelefono.setText(user.getTelefonoString());
+			editTextTelefono = null; 
+			
+			diaNacimiento = user.getDiaNacimiento();
+			mesNacimiento = user.getMesNacimiento();
+			anioNacimiento = user.getAnioNacimiento();
+			
+			if(diaNacimiento != 0){
+				EditText editTextFechaNacimiento = (EditText) findViewById(R.id.et_fecha_nacimiento);
+				editTextFechaNacimiento.setText(diaNacimiento + " - " + getMonthName(mesNacimiento) + " - " + anioNacimiento);
+				editTextFechaNacimiento = null;
+			}
 		
-		EditText editTextNombre = (EditText) findViewById(R.id.et_nombre);
-		editTextNombre.setText(user.getNombres());
-		editTextNombre = null;
-		
-		EditText editTextApellido = (EditText) findViewById(R.id.et_apellido);
-		editTextApellido.setText(user.getApellidos());
-		editTextApellido = null;
-		
-		EditText editTextTelefono = (EditText) findViewById(R.id.et_telefono);
-		editTextTelefono.setText(user.getTelefonoString());
-		editTextTelefono = null; 
-		
-		diaNacimiento = user.getDiaNacimiento();
-		mesNacimiento = user.getMesNacimiento();
-		anioNacimiento = user.getAnioNacimiento();
-		
-		if(diaNacimiento != 0){
-			EditText editTextFechaNacimiento = (EditText) findViewById(R.id.et_fecha_nacimiento);
-			editTextFechaNacimiento.setText(diaNacimiento + " - " + getMonthName(mesNacimiento) + " - " + anioNacimiento);
-			editTextFechaNacimiento = null;
 		}
 		
 	}

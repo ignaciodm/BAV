@@ -14,9 +14,9 @@ public class LoginActivity extends BaseSpiceActivity {
 		setContentView(R.layout.activity_login);
 		
 		// Si el usuario ya está logueado, voy directo a la aplicación
-		Intent intent = new Intent(this, MainActivity.class);
-		this.startActivity(intent);
-		this.finish();
+//		Intent intent = new Intent(this, MainActivity.class);
+//		this.startActivity(intent);
+//		this.finish();
 	}
 
 	@Override
