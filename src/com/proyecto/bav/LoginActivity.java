@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.EditText;
 
 public class LoginActivity extends BaseSpiceActivity {
+	
+	public final static String REGISTRO = "com.proyecto.bav.REGISTRO";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +48,10 @@ public class LoginActivity extends BaseSpiceActivity {
 	/** Called when the user clicks the Registrarse button */
 	public void registrarse(View view) {
 
-		
+		Intent intent = new Intent(this, DatosPersonalesActivity.class);	
+		intent.putExtra(REGISTRO, true);
+		startActivity(intent);
+	
 	}
 	
 	/** Called when the user clicks the olvidePass button */

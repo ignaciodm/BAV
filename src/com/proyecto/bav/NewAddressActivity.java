@@ -43,6 +43,7 @@ public class NewAddressActivity extends BaseSpiceActivity {
 
 	// Con esta variable "bloqueo" el Request de Provincia, Partido, Localidad y Comisarias
 	public int lookingFor;
+	
 	public ProgressDialog myProgressDialog;
 
 	@Override
@@ -165,6 +166,9 @@ public class NewAddressActivity extends BaseSpiceActivity {
 		// Handle item selection
 		switch (item.getItemId()) {
 		case R.id.btn_guardar:
+			saveAddress();
+			return true;
+		case R.id.menu_guardar:
 			saveAddress();
 			return true;
 		default:

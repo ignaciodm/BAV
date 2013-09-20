@@ -6,5 +6,11 @@
         android:orderInCategory="1"
         android:showAsAction="always"
         android:title="@string/guardar"/>
+    
+    <item
+        android:id="@+id/menu_guardar"
+        android:orderInCategory="2"
+        android:showAsAction="never"
+        android:title="@string/guardar"/>
 
 </menu>

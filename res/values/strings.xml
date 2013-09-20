@@ -21,6 +21,8 @@
     
     <!-- Datos Personales -->
 	<string name="title_activity_datos_personales">Datos Personales</string>
+	<string name="dp_email">E-mail</string>
+	<string name="dp_password">Contraseña</string>
 	<string name="dp_dni">DNI</string>
 	<string name="dp_nombre">Nombres</string>
 	<string name="dp_apellido">Apellidos</string>

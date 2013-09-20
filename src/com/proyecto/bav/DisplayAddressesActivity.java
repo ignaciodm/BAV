@@ -71,7 +71,6 @@ public class DisplayAddressesActivity extends BaseSpiceActivity {
 				CharSequence[] opcionesList = opciones.toArray(new CharSequence[opciones.size()]);
 				
 				AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-		        //builder.setTitle("Opciones");
 		        builder.setItems(opcionesList, new DialogInterface.OnClickListener() {
 		        	
 		            public void onClick(DialogInterface dialog, int posIndex) {

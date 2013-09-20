@@ -17,6 +17,7 @@
     
     	<EditText 
         	android:id="@+id/et_email"
+        	android:hint="@string/dp_email"
         	android:inputType="textEmailAddress"
         	android:textColor="@android:color/black"
         	android:layout_height="40dp"
@@ -29,6 +30,19 @@
         	android:focusable="false" 
         	android:focusableInTouchMode="false"
         	android:background="@drawable/background_textview_top_redondeado" />
+    	
+    	<EditText 
+	        android:id="@+id/et_password"
+	        android:visibility="gone"
+        	android:hint="@string/dp_password"
+        	android:inputType="textPassword"
+        	android:textColor="@android:color/black"
+        	android:layout_height="40dp"
+        	android:layout_width="fill_parent"
+        	android:paddingLeft="10dp"
+        	android:paddingRight="10dp"
+        	android:layout_marginTop="10dp"
+        	android:background="@drawable/background_textview_cuadrado" />
     
     	<EditText 
 	        android:id="@+id/et_dni"

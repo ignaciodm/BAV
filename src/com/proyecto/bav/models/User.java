@@ -19,6 +19,8 @@ public class User {
 	@SerializedName("email")
 	private String email;
 	
+	private String password;
+	
 	@SerializedName("dni")
 	private int dni;
 
@@ -40,9 +42,10 @@ public class User {
 	@SerializedName("anioNacimiento")
 	private int anioNacimiento;
 
-	public User(String et_email, String et_dni, String et_nombre, String et_apellido, String et_telefono, int diaNacimiento, int mesNacimiento, int anioNacimiento) {
+	public User(String et_email, String password, String et_dni, String et_nombre, String et_apellido, String et_telefono, int diaNacimiento, int mesNacimiento, int anioNacimiento) {
 		
 		this.setEmail(et_email);
+		this.setPassword(password);
 		this.setNombres(et_nombre);
 		this.setApellidos(et_apellido);
 		this.setDiaNacimiento(diaNacimiento);
@@ -205,6 +208,14 @@ public class User {
 			return "";
 		
 		return String.valueOf(dni);
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	
 	

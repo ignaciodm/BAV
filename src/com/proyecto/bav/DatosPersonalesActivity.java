@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,15 +21,39 @@ import com.proyecto.bav.models.User;
 @SuppressLint({ "NewApi", "ValidFragment" })
 public class DatosPersonalesActivity extends BaseSpiceActivity {
 	
-	int diaNacimiento;
-	int mesNacimiento;
-	int anioNacimiento;	
+	private int diaNacimiento;
+	private int mesNacimiento;
+	private int anioNacimiento;	
+	private boolean registro;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_datos_personales);
-		fetchDatosPersonales();
+		
+		Intent intent = getIntent();
+		registro = intent.getBooleanExtra(LoginActivity.REGISTRO, false);
+		
+		if(registro == true)
+			habilitarPantallaParaRegistro();
+		else
+			fetchDatosPersonales();
+		
+	}
+
+	private void habilitarPantallaParaRegistro() {
+		
+		// Hago modificable el Email
+		EditText editTextEmail = (EditText) findViewById(R.id.et_email);
+		editTextEmail.setClickable(true);
+		editTextEmail.setCursorVisible(true);
+		editTextEmail.setFocusable(true);
+		editTextEmail.setFocusableInTouchMode(true);
+		
+		// Hago visible la Password
+		EditText editTextPass = (EditText) findViewById(R.id.et_password);
+		editTextPass.setVisibility(View.VISIBLE);
+		
 	}
 
 	private void fetchDatosPersonales() {
@@ -85,6 +110,9 @@ public class DatosPersonalesActivity extends BaseSpiceActivity {
 	        case R.id.btn_guardar:
 	        	saveUser();
 	            return true;
+	        case R.id.menu_guardar:
+	        	saveUser();
+	            return true;
 	        case R.id.btn_sincronizar:
 	        	sincronizar();
 	            return true;
@@ -102,6 +130,10 @@ public class DatosPersonalesActivity extends BaseSpiceActivity {
 		String et_email = editTextEmail.getText().toString();
 		editTextEmail = null;
 		
+		EditText editTextPass = (EditText) findViewById(R.id.et_password);
+		String et_password = editTextPass.getText().toString();
+		editTextPass = null;
+		
 		EditText editTextDni = (EditText) findViewById(R.id.et_dni);
 		String et_dni = editTextDni.getText().toString();
 		editTextDni = null;
@@ -117,12 +149,26 @@ public class DatosPersonalesActivity extends BaseSpiceActivity {
 		EditText editTextTelefono = (EditText) findViewById(R.id.et_telefono);
 		String et_telefono = editTextTelefono.getText().toString();
 		editTextTelefono = null;
+				
+		User user = new User(et_email, et_password, et_dni, et_nombre, et_apellido, et_telefono, diaNacimiento, mesNacimiento, anioNacimiento);
 		
-		User user = new User(et_email, et_dni, et_nombre, et_apellido, et_telefono, diaNacimiento, mesNacimiento, anioNacimiento);
+		if(registro == true)
+			crearUsuario(user);
+		
 		user.save(this.getApplicationContext());
 		
-		Toast.makeText(getApplicationContext(), "Datos Guardados", Toast.LENGTH_SHORT).show();
+		if(registro == false)
+			Toast.makeText(getApplicationContext(), "Datos Guardados", Toast.LENGTH_SHORT).show();
+		else
+			Toast.makeText(getApplicationContext(), "Usuario Creado.\nVerifique su email para confirmar el registro", Toast.LENGTH_LONG).show();
+			
 		this.finish();
+		
+	}
+
+	private void crearUsuario(User user) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	private void sincronizar() {
