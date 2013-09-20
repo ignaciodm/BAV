@@ -2,6 +2,7 @@ package com.proyecto.bav;
 
 import java.lang.reflect.Type;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -42,6 +43,7 @@ public class NewAddressActivity extends BaseSpiceActivity {
 
 	// Con esta variable "bloqueo" el Request de Provincia, Partido, Localidad y Comisarias
 	public int lookingFor;
+	public ProgressDialog myProgressDialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -174,6 +176,7 @@ public class NewAddressActivity extends BaseSpiceActivity {
 
 		if (lookingFor == 0) {
 			lookingFor = 1;
+			myProgressDialog = ProgressDialog.show(this, "Por favor, espere...", "Buscando Provincias...", true);
 			getSpiceManager().execute(new GetProvincesRequest(),
 					"provincias", DurationInMillis.ONE_MINUTE,
 					new ProvincesRequestListener(this));
@@ -186,7 +189,8 @@ public class NewAddressActivity extends BaseSpiceActivity {
 		if(provincia != null) {
 		
 			if (lookingFor == 0) {
-				lookingFor = 1;
+				lookingFor = 1;			
+				myProgressDialog = ProgressDialog.show(this, "Por favor, espere...", "Buscando Partidos...", true);
 				getSpiceManager().execute(new GetProvinceRequest(provincia),
 						"provincia/" + provincia.getId(), 
 						DurationInMillis.ONE_MINUTE,
@@ -204,7 +208,8 @@ public class NewAddressActivity extends BaseSpiceActivity {
 		
 		if(partido != null){
 			if (lookingFor == 0) {			
-				lookingFor = 1;			
+				lookingFor = 1;		
+				myProgressDialog = ProgressDialog.show(this, "Por favor, espere...", "Buscando Localidades...", true);
 				getSpiceManager().execute(new GetPartidoRequest(partido),
 						"partidos/" + partido.getId(), 
 						DurationInMillis.ONE_MINUTE,
@@ -221,6 +226,7 @@ public class NewAddressActivity extends BaseSpiceActivity {
 		if (localidad != null){
 			if (lookingFor == 0) {			
 				lookingFor = 1;
+				myProgressDialog = ProgressDialog.show(this, "Por favor, espere...", "Buscando Comisarias...", true);
 				getSpiceManager().execute(new GetLocalidadRequest(localidad),
 						"localidades/" + localidad.getId(), 
 						DurationInMillis.ONE_MINUTE,

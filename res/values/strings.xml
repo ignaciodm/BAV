@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">TEA - Botón de Pánico</string>
+    <string name="app_name">TEA - Botón Antipánico</string>
     <string name="guardar">Guardar</string>
 
     <!-- Login Activity -->
     <string name="title_activity_login">TEA - Login</string>
     <string name="login_hint_email">Email</string>
     <string name="login_hint_password">Contraseña</string>
+    <string name="login_logo_tea">Logo Tea</string>
     <string name="btn_login">Iniciar sesión</string>
+    <string name="btn_registrar">Registrarse</string>
+    <string name="btn_olvidePass">Olvidé mi contraseña</string>
 
     <!-- Main Activity -->
     <string name="btn_main_denunciar">Denunciar</string>

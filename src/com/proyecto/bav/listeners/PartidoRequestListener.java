@@ -27,6 +27,7 @@ public class PartidoRequestListener implements
 		activity.lookingFor = 0;
 		Toast toast = Toast.makeText(activity.getApplicationContext(), "Fail Localidad", Toast.LENGTH_SHORT);
 		toast.show();
+		activity.myProgressDialog.dismiss();
     }
 	
 	@Override
@@ -58,7 +59,7 @@ public class PartidoRequestListener implements
         AlertDialog alert = builder.create();
         alert.show();
         activity.lookingFor = 0;
-		
+        activity.myProgressDialog.dismiss();
 	}
 
 }

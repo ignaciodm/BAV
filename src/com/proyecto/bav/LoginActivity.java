@@ -22,7 +22,7 @@ public class LoginActivity extends BaseSpiceActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.login, menu);
+		getMenuInflater().inflate(R.menu.login, menu);getMenuInflater();
 		return true;
 	}
 	
@@ -42,4 +42,17 @@ public class LoginActivity extends BaseSpiceActivity {
 			this.finish();
 		
 	}
+	
+	/** Called when the user clicks the Registrarse button */
+	public void registrarse(View view) {
+
+		
+	}
+	
+	/** Called when the user clicks the olvidePass button */
+	public void olvidePass(View view) {
+
+		
+	}
+	
 }

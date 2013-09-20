@@ -16,7 +16,7 @@
     android:state_pressed="false" >
     <shape>
         <solid 
-            android:color="#B5B5B5" /> 
+            android:color="#464646" /> 
         <corners
             android:bottomRightRadius="15dp" />                        
     </shape>

@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".DisplayAddressesActivity" >
+    tools:context=".DisplayAddressesActivity"
+    android:background="#000000" >
    
     <ListView
         android:id="@+id/addresses_list"

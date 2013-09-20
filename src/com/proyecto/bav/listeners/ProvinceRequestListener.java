@@ -25,7 +25,8 @@ public class ProvinceRequestListener implements RequestListener<ProvinceResult> 
     public void onRequestFailure( SpiceException spiceException ) {	
 		activity.lookingFor = 0;	
 		Toast toast = Toast.makeText(activity.getApplicationContext(), "Fail Partido", Toast.LENGTH_SHORT);
-		toast.show();		
+		toast.show();	
+		activity.myProgressDialog.dismiss();
     }
 	
 	@Override
@@ -53,6 +54,7 @@ public class ProvinceRequestListener implements RequestListener<ProvinceResult> 
         AlertDialog alert = builder.create();
         alert.show();
         activity.lookingFor = 0;
+        activity.myProgressDialog.dismiss();
 		
 	}
 }

@@ -26,6 +26,7 @@ public class ProvincesRequestListener implements RequestListener<ProvincesResult
 		activity.lookingFor = 0;
 		Toast toast = Toast.makeText(activity.getApplicationContext(), "Fail Provincia", Toast.LENGTH_SHORT);
 		toast.show();
+		activity.myProgressDialog.dismiss();
     }
 	
 	@Override
@@ -53,6 +54,6 @@ public class ProvincesRequestListener implements RequestListener<ProvincesResult
 		AlertDialog alert = builder.create();
 		alert.show();
 		activity.lookingFor = 0;
-		
+		activity.myProgressDialog.dismiss();		
 	}
 }
