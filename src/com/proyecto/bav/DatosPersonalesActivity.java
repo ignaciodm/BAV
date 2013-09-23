@@ -20,6 +20,8 @@ import com.proyecto.bav.models.User;
 
 public class DatosPersonalesActivity extends BaseSpiceActivity {
 	
+	private final static int CONFIRMAR_PASS = 1;
+	
 	private int diaNacimiento;
 	private int mesNacimiento;
 	private int anioNacimiento;	
@@ -83,10 +85,10 @@ public class DatosPersonalesActivity extends BaseSpiceActivity {
 	    // Handle item selection
 	    switch (item.getItemId()) {
 	        case R.id.btn_guardar:
-	        	saveUser();
+	        	confirmarPass();
 	            return true;
 	        case R.id.menu_guardar:
-	        	saveUser();
+	        	confirmarPass();
 	            return true;
 	        case R.id.btn_sincronizar:
 	        	sincronizar();
@@ -99,8 +101,20 @@ public class DatosPersonalesActivity extends BaseSpiceActivity {
 	    }
 	}
 	
+	private void confirmarPass() {
+		Intent intent = new Intent(this, ConfirmarPassActivity.class);
+		startActivityForResult(intent, CONFIRMAR_PASS);		
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode == CONFIRMAR_PASS)
+			if(resultCode == RESULT_OK)
+				saveUser();         
+	}
+
 	private void saveUser() {
-		
+				
 		EditText editTextEmail = (EditText) findViewById(R.id.et_email);
 		String et_email = editTextEmail.getText().toString();
 		editTextEmail = null;
@@ -125,7 +139,8 @@ public class DatosPersonalesActivity extends BaseSpiceActivity {
 		
 		user.save(this.getApplicationContext());
 		Toast.makeText(getApplicationContext(), "Datos Guardados", Toast.LENGTH_SHORT).show();
-		this.finish();		
+		this.finish();	
+		
 	}
 
 	private void sincronizar() {

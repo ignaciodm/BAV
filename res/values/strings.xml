@@ -50,10 +50,14 @@
     <string name="new_address_partido">Partido</string>
     <string name="new_address_localidad">Localidad</string>
     <string name="new_address_policeStation">Comisaría</string>
-    
+
     <!-- CambiarPassActivity -->
     <string name="pass_anterior">Contraseña anterior</string>
     <string name="pass_nueva">Contraseña nueva</string>
     <string name="repetir_pass_nueva">Repetir contraseña</string>
+    
+    <!-- ConfirmarPassActivity -->
+    <string name="btn_aceptar">Aceptar</string>
+    <string name="txt_confirmar_pass">Para guardar, introduzca su contraseña</string>
 
 </resources>

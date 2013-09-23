@@ -23,7 +23,7 @@ public class ModificarPassActivity extends BaseSpiceActivity {
 		return true;
 	}
 	
-	/** Called when the user clicks the Cambiar Contraseña button */
+	/** Called when the user clicks the Modificar Contraseña button */
 	public void modificarPass(View view) {
 		
 		EditText etPassAnterior = (EditText) findViewById(R.id.et_pass_anterior);

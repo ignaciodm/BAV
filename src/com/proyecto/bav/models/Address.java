@@ -5,10 +5,11 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.ArrayList;
+import java.util.Random;
 
 import android.content.Context;
 
@@ -20,6 +21,9 @@ public class Address {
 
 	private static final String FILE_NAME = "direcciones";
 
+	@SerializedName("id")
+	private int id;
+	
 	@SerializedName("descripcion")
 	private String description;
 	
@@ -65,6 +69,45 @@ public class Address {
 				Localidad localidad, 
 				Comisaria policeStation) {
 		
+		this.setId(new Random().nextInt());
+		this.setDescription(descripcion);
+		this.setStreet(street);
+		this.setDpto(dpto);
+		this.setEntreCalle1(entreCalle1);
+		this.setEntreCalle2(entreCalle2);
+		this.setProvincia(provincia);
+		this.setPartido(partido);
+		this.setLocalidad(localidad);
+		this.setPoliceStation(policeStation);
+		
+		try{
+			this.setNumber(Integer.parseInt(numero));
+		} catch (Exception e) { 
+			// Nada, el número es vacío
+		}
+		
+		try{
+			this.setPiso(Integer.parseInt(piso));
+		} catch (Exception e) { 
+			// Nada, el piso es vacío
+		}
+		
+	}
+
+	public Address(int addressID, 
+			String descripcion, 
+			String street,
+			String numero, 
+			String piso,
+			String dpto, 
+			String entreCalle1,
+			String entreCalle2, 
+			Provincia provincia, 
+			Partido partido, 
+			Localidad localidad, 
+			Comisaria policeStation) {
+		
+		this.setId(addressID);
 		this.setDescription(descripcion);
 		this.setStreet(street);
 		this.setDpto(dpto);
@@ -270,14 +313,19 @@ public class Address {
 
 	}
 	
-	public boolean equals(Object obj){
-		
-		Address a = (Address) obj;
-		
-		if(this.getDescription().equals(a.getDescription()))
-			return true;
-		
-		return false;		
+	public int getId() {
+		return id;
 	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	public boolean equals(Object obj){		
+		Address a = (Address) obj;		
+		if(this.getId() == a.getId())
+			return true;		
+		return false;		
+	}	
 
 }

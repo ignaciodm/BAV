@@ -31,6 +31,8 @@ import com.proyecto.bav.requests.GetProvincesRequest;
 
 public class NewAddressActivity extends BaseSpiceActivity {
 
+	private final static int CONFIRMAR_PASS = 1;
+	
 	public EditText provinceEditText;
 	public EditText partidoEditText;
 	public EditText localidadEditText;
@@ -40,6 +42,9 @@ public class NewAddressActivity extends BaseSpiceActivity {
 	public Partido partido;
 	public Localidad localidad;
 	public Comisaria comisaria;
+	
+	private boolean nuevaDireccion;
+	private int addressID;
 
 	// Con esta variable "bloqueo" el Request de Provincia, Partido, Localidad y Comisarias
 	public int lookingFor;
@@ -59,24 +64,21 @@ public class NewAddressActivity extends BaseSpiceActivity {
 		comisariaEditText = (EditText) findViewById(R.id.new_address_policeStation);
 
 		Intent intent = getIntent();
-		boolean nuevaDirección = intent.getBooleanExtra(
-				DisplayAddressesActivity.NUEVA_DIRECCION, true);
+		nuevaDireccion = intent.getBooleanExtra(DisplayAddressesActivity.NUEVA_DIRECCION, true);
 
-		if (nuevaDirección == false)
+		if (nuevaDireccion == false)
 			cargarDatosDireccionSeleccionada();
 
 	}
 
 	private void cargarDatosDireccionSeleccionada() {
 		Intent intent = getIntent();
-		String nuevaDirecciónJson = intent
-				.getStringExtra(DisplayAddressesActivity.DIRECCION_SELECCIONADA);
+		String nuevaDirecciónJson = intent.getStringExtra(DisplayAddressesActivity.DIRECCION_SELECCIONADA);
 
 		Address address = null;
 
 		Gson gson = new Gson();
-		Type addressType = new TypeToken<Address>() {
-		}.getType();
+		Type addressType = new TypeToken<Address>(){}.getType();
 
 		try {
 			address = gson.fromJson(nuevaDirecciónJson, addressType);
@@ -87,6 +89,8 @@ public class NewAddressActivity extends BaseSpiceActivity {
 	}
 
 	private void cargarDireccionEnPantalla(Address address) {
+		
+		addressID = address.getId();
 
 		EditText editAddressDescripcion = (EditText) findViewById(R.id.new_address_description);
 		editAddressDescripcion.setText(address.getDescription());
@@ -166,14 +170,26 @@ public class NewAddressActivity extends BaseSpiceActivity {
 		// Handle item selection
 		switch (item.getItemId()) {
 		case R.id.btn_guardar:
-			saveAddress();
+			confirmarPass();
 			return true;
 		case R.id.menu_guardar:
-			saveAddress();
+			confirmarPass();
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}
+	}
+	
+	private void confirmarPass() {
+		Intent intent = new Intent(this, ConfirmarPassActivity.class);
+		startActivityForResult(intent, CONFIRMAR_PASS);		
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode == CONFIRMAR_PASS)
+			if(resultCode == RESULT_OK)
+				saveAddress();
 	}
 
 	public void displayProvinces(View view) {
@@ -245,8 +261,7 @@ public class NewAddressActivity extends BaseSpiceActivity {
 	public void saveAddress() {
 
 		EditText editTextAddressDescripcion = (EditText) findViewById(R.id.new_address_description);
-		String et_address_descripcion = editTextAddressDescripcion.getText()
-				.toString();
+		String et_address_descripcion = editTextAddressDescripcion.getText().toString();
 		editTextAddressDescripcion = null;
 
 		EditText editTextAddressStreet = (EditText) findViewById(R.id.new_address_street);
@@ -266,23 +281,34 @@ public class NewAddressActivity extends BaseSpiceActivity {
 		editTextAddressDpto = null;
 
 		EditText editTextEntreCalle1 = (EditText) findViewById(R.id.new_address_entreCalle1);
-		String et_address_entreCalle1 = editTextEntreCalle1.getText()
-				.toString();
+		String et_address_entreCalle1 = editTextEntreCalle1.getText().toString();
 		editTextEntreCalle1 = null;
 
 		EditText editTextEntreCalle2 = (EditText) findViewById(R.id.new_address_entreCalle2);
-		String et_address_entreCalle2 = editTextEntreCalle2.getText()
-				.toString();
+		String et_address_entreCalle2 = editTextEntreCalle2.getText().toString();
 		editTextEntreCalle2 = null;
 
-		Address address = new Address(et_address_descripcion,
+		Address address = null;
+		if(nuevaDireccion == true)		
+			address = new Address(et_address_descripcion,
 				et_address_street, et_address_numero, et_address_piso,
 				et_address_dpto, et_address_entreCalle1,
 				et_address_entreCalle2, provincia, partido, localidad,
 				comisaria);
+		else
+			address = new Address(addressID, et_address_descripcion,
+					et_address_street, et_address_numero, et_address_piso,
+					et_address_dpto, et_address_entreCalle1,
+					et_address_entreCalle2, provincia, partido, localidad,
+					comisaria);
 
 		Address.save(address, this.getApplicationContext());
-		Toast.makeText(getApplicationContext(), "Dirección creada", Toast.LENGTH_SHORT).show();
+		
+		if(nuevaDireccion == true)
+			Toast.makeText(getApplicationContext(), "Dirección creada", Toast.LENGTH_SHORT).show();
+		else
+			Toast.makeText(getApplicationContext(), "Dirección modificada", Toast.LENGTH_SHORT).show();		
+		
 		this.finish();
 
 		// getSpiceManager().execute( new PostAddressSpiceRequest(address),

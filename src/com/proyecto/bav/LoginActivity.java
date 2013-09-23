@@ -45,15 +45,12 @@ public class LoginActivity extends BaseSpiceActivity {
 		// if(email.equals("admin") && password.equals("123") )
 			this.startActivity(intent);
 			this.finish();
-		
 	}
 	
 	/** Called when the user clicks the Registrarse button */
 	public void registrarse(View view) {
-
 		Intent intent = new Intent(this, RegistroActivity.class);
-		startActivity(intent);
-	
+		startActivity(intent);	
 	}
 	
 	/** Called when the user clicks the olvidePass button */
