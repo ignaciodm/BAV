@@ -6,7 +6,6 @@ import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,7 +17,7 @@ import android.widget.Toast;
 
 import com.proyecto.bav.models.User;
 
-public class DatosPersonalesActivity extends BaseSpiceActivity {
+public class RegistroActivity extends BaseSpiceActivity {
 	
 	private int diaNacimiento;
 	private int mesNacimiento;
@@ -27,54 +26,13 @@ public class DatosPersonalesActivity extends BaseSpiceActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_datos_personales);
-		fetchDatosPersonales();		
-	}
-
-	private void fetchDatosPersonales() {
-		
-		User user = User.getUser(this.getApplicationContext());
-		
-		if(user != null) {
-		
-			EditText editTextEmail = (EditText) findViewById(R.id.et_email);
-			editTextEmail.setText(user.getEmail());
-			editTextEmail = null;
-			
-			EditText editTextDni = (EditText) findViewById(R.id.et_dni);
-			editTextDni.setText(user.getDniString());
-			editTextDni = null;
-			
-			EditText editTextNombre = (EditText) findViewById(R.id.et_nombre);
-			editTextNombre.setText(user.getNombres());
-			editTextNombre = null;
-			
-			EditText editTextApellido = (EditText) findViewById(R.id.et_apellido);
-			editTextApellido.setText(user.getApellidos());
-			editTextApellido = null;
-			
-			EditText editTextTelefono = (EditText) findViewById(R.id.et_telefono);
-			editTextTelefono.setText(user.getTelefonoString());
-			editTextTelefono = null; 
-			
-			diaNacimiento = user.getDiaNacimiento();
-			mesNacimiento = user.getMesNacimiento();
-			anioNacimiento = user.getAnioNacimiento();
-			
-			if(diaNacimiento != 0){
-				EditText editTextFechaNacimiento = (EditText) findViewById(R.id.et_fecha_nacimiento);
-				editTextFechaNacimiento.setText(diaNacimiento + " - " + getMonthName(mesNacimiento) + " - " + anioNacimiento);
-				editTextFechaNacimiento = null;
-			}
-		
-		}
-		
+		setContentView(R.layout.activity_registro);		
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.datos_personales, menu);
+		getMenuInflater().inflate(R.menu.registro, menu);
 		return true;
 	}
 	
@@ -88,12 +46,6 @@ public class DatosPersonalesActivity extends BaseSpiceActivity {
 	        case R.id.menu_guardar:
 	        	saveUser();
 	            return true;
-	        case R.id.btn_sincronizar:
-	        	sincronizar();
-	            return true;
-	        case R.id.menu_sincronizar:
-	        	sincronizar();
-	            return true;
 	        default:
 	            return super.onOptionsItemSelected(item);
 	    }
@@ -104,6 +56,10 @@ public class DatosPersonalesActivity extends BaseSpiceActivity {
 		EditText editTextEmail = (EditText) findViewById(R.id.et_email);
 		String et_email = editTextEmail.getText().toString();
 		editTextEmail = null;
+		
+		EditText editTextPass = (EditText) findViewById(R.id.et_password);
+		String et_password = editTextPass.getText().toString();
+		editTextPass = null;
 		
 		EditText editTextDni = (EditText) findViewById(R.id.et_dni);
 		String et_dni = editTextDni.getText().toString();
@@ -121,21 +77,19 @@ public class DatosPersonalesActivity extends BaseSpiceActivity {
 		String et_telefono = editTextTelefono.getText().toString();
 		editTextTelefono = null;
 				
-		User user = new User(et_email, et_dni, et_nombre, et_apellido, et_telefono, diaNacimiento, mesNacimiento, anioNacimiento);
+		User user = new User(et_email, et_password, et_dni, et_nombre, et_apellido, et_telefono, diaNacimiento, mesNacimiento, anioNacimiento);
 		
-		user.save(this.getApplicationContext());
-		Toast.makeText(getApplicationContext(), "Datos Guardados", Toast.LENGTH_SHORT).show();
-		this.finish();		
+		crearUsuario(user);
+		
+		Toast.makeText(getApplicationContext(), "Usuario Creado.\nVerifique su email para confirmar el registro.", Toast.LENGTH_LONG).show();
+			
+		this.finish();
+		
 	}
 
-	private void sincronizar() {
-		// TODO Auto-generated method stub		
-	}
-	
-	/** Called when the user clicks the Cambiar Contraseña button */
-	public void modificarPass(View view) {
-		Intent intent = new Intent(this, ModificarPassActivity.class);
-		startActivity(intent);
+	private void crearUsuario(User user) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	/** Called when the user clicks the Fecha de Nacimiento EditText */

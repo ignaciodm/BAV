@@ -17,42 +17,60 @@
         android:icon="@drawable/ic_tea_logo"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-        
         <activity
             android:name="com.proyecto.bav.LoginActivity"
+            android:label="@string/title_activity_login"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden"
-            android:label="@string/title_activity_login" >
-            
+            android:windowSoftInputMode="stateHidden" >
             <intent-filter android:label="@string/app_name" >
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            
         </activity>
         
         <activity
             android:name="com.proyecto.bav.MainActivity"
-            android:screenOrientation="portrait"
-            android:label="" >
+            android:label=""
+            android:screenOrientation="portrait" >
         </activity>
         
         <activity
-            android:name="com.proyecto.bav.DatosPersonalesActivity"
+            android:name="com.proyecto.bav.RegistroActivity"
+            android:label="@string/title_activity_registro"
+            android:parentActivityName="com.proyecto.bav.MainActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden"
-            android:label="@string/title_activity_datos_personales"
-            android:parentActivityName="com.proyecto.bav.MainActivity" >
+            android:windowSoftInputMode="stateHidden" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.proyecto.bav.MainActivity" />
         </activity>
         
         <activity
-            android:name="com.proyecto.bav.DisplayAddressesActivity"
+            android:name="com.proyecto.bav.DatosPersonalesActivity"
+            android:label="@string/title_activity_datos_personales"
+            android:parentActivityName="com.proyecto.bav.LoginActivity"
             android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.proyecto.bav.LoginActivity" />
+        </activity>
+        
+        <activity
+            android:name="com.proyecto.bav.ModificarPassActivity"
+            android:theme="@android:style/Theme.Dialog"
+            android:parentActivityName="com.proyecto.bav.DatosPersonalesActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.proyecto.bav.DatosPersonalesActivity" />
+        </activity>
+        
+        <activity
+            android:name="com.proyecto.bav.DisplayAddressesActivity"
             android:label="@string/title_activity_display_addresses"
-            android:parentActivityName="com.proyecto.bav.MainActivity" >
+            android:parentActivityName="com.proyecto.bav.MainActivity"
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.proyecto.bav.MainActivity" />
@@ -60,18 +78,18 @@
         
         <activity
             android:name="com.proyecto.bav.NewAddressActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden"
             android:label="@string/title_activity_new_address"
-            android:parentActivityName="com.proyecto.bav.DisplayAddressesActivity" >
+            android:parentActivityName="com.proyecto.bav.DisplayAddressesActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.proyecto.bav.DisplayAddressesActivity" />
-        </activity>        
-        
+        </activity>
+
         <service
             android:name="com.proyecto.bav.SimpleSpiceService"
-            android:exported="false" />
+            android:exported="false" />        
         
     </application>
 

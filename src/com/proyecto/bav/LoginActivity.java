@@ -51,8 +51,7 @@ public class LoginActivity extends BaseSpiceActivity {
 	/** Called when the user clicks the Registrarse button */
 	public void registrarse(View view) {
 
-		Intent intent = new Intent(this, DatosPersonalesActivity.class);	
-		intent.putExtra(REGISTRO, true);
+		Intent intent = new Intent(this, RegistroActivity.class);
 		startActivity(intent);
 	
 	}

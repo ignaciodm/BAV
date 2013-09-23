@@ -64,7 +64,7 @@
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:text="@string/olvidePass"        
-        android:textColor="@color/bright_text_dark_focused"
+        android:textColor="@color/text_white_to_red"
         android:textSize="12sp" />
 
     <Button
@@ -78,7 +78,7 @@
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:text="@string/btn_registrar"
-        android:textColor="@color/bright_text_dark_focused"        
+        android:textColor="@color/text_white_to_red"        
         android:textSize="14sp" />
 
 </RelativeLayout>

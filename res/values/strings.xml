@@ -3,6 +3,7 @@
 
     <string name="app_name">TEA - Botón Antipánico</string>
     <string name="guardar">Guardar</string>
+    <string name="title_activity_registro">Registro</string>
 
     <!-- Login Activity -->
     <string name="title_activity_login">TEA - Login</string>
@@ -19,37 +20,40 @@
     <string name="main_datos_personales">Datos Personales</string>
     <string name="main_show_addresses">Mis Direcciones</string>
     <string name="main_sincronizar">Sincronizar</string>
-    
+
     <!-- Datos Personales -->
-	<string name="title_activity_datos_personales">Datos Personales</string>
-	<string name="dp_email">E-mail</string>
-	<string name="dp_password">Contraseña</string>
-	<string name="dp_dni">DNI</string>
-	<string name="dp_nombre">Nombres</string>
-	<string name="dp_apellido">Apellidos</string>
-	<string name="dp_telefono">Teléfono</string>
-	<string name="dp_fecha_nacimiento">Fecha de Nacimiento</string>
-	<string name="dp_seleccionar_mes">Seleccionar Mes</string>
-	
+    <string name="title_activity_datos_personales">Datos Personales</string>
+    <string name="btn_modificar_pass">Modificar Contraseña</string>
+    <string name="dp_email">E-mail</string>
+    <string name="dp_password">Contraseña</string>
+    <string name="dp_dni">DNI</string>
+    <string name="dp_nombre">Nombres</string>
+    <string name="dp_apellido">Apellidos</string>
+    <string name="dp_telefono">Teléfono</string>
+    <string name="dp_fecha_nacimiento">Fecha de Nacimiento</string>
+    <string name="dp_seleccionar_mes">Seleccionar Mes</string>
 
     <!-- DisplayAddressesActivity -->
     <string name="title_activity_display_addresses">Mis Direcciones</string>
     <string name="dis_addr_new_address">Agregar nueva dirección</string>
 
     <!-- New Address -->
+    <string name="title_activity_new_address">Nueva Dirección</string>
     <string name="new_address_description">Descripción</string>
     <string name="new_address_street">Calle</string>
     <string name="new_address_street_number">Número</string>
     <string name="new_address_street_piso">Piso</string>
     <string name="new_address_street_dpto">Dpto</string>
     <string name="new_address_entreCalle1">Entre calle 1</string>
-    <string name="new_address_entreCalle2">Entre calle 2</string>    
+    <string name="new_address_entreCalle2">Entre calle 2</string>
     <string name="new_address_provincia">Provincia</string>
     <string name="new_address_partido">Partido</string>
     <string name="new_address_localidad">Localidad</string>
     <string name="new_address_policeStation">Comisaría</string>
-
-    <!-- NewAddressActivity -->
-    <string name="title_activity_new_address">Nueva Dirección</string>
+    
+    <!-- CambiarPassActivity -->
+    <string name="pass_anterior">Contraseña anterior</string>
+    <string name="pass_nueva">Contraseña nueva</string>
+    <string name="repetir_pass_nueva">Repetir contraseña</string>
 
 </resources>

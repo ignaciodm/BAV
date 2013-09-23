@@ -65,6 +65,29 @@ public class User {
 		}			
 		
 	}
+	
+public User(String et_email, String et_dni, String et_nombre, String et_apellido, String et_telefono, int diaNacimiento, int mesNacimiento, int anioNacimiento) {
+		
+		this.setEmail(et_email);
+		this.setNombres(et_nombre);
+		this.setApellidos(et_apellido);
+		this.setDiaNacimiento(diaNacimiento);
+		this.setMesNacimiento(mesNacimiento);
+		this.setAnioNacimiento(anioNacimiento);
+		
+		try {
+			this.setDni(Integer.parseInt(et_dni));
+		} catch (Exception e) {
+			// Nada. Si tira excepción no se colocó DNI
+		}
+		
+		try {
+			this.setTelefono(Integer.parseInt(et_telefono));
+		} catch (Exception e) {
+			// Nada. Si tira excepción no se colocó teléfono
+		}			
+		
+	}
 
 	public String getEmail() {
 		return email;
