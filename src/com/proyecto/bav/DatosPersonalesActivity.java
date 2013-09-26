@@ -102,8 +102,52 @@ public class DatosPersonalesActivity extends BaseSpiceActivity {
 	}
 	
 	private void confirmarPass() {
+		
+		EditText editTextDni = (EditText) findViewById(R.id.et_dni);
+		String et_dni = editTextDni.getText().toString();
+		editTextDni = null;
+		
+		if(et_dni.length() == 0){
+			Toast.makeText(getApplicationContext(), "Por favor, ingrese un DNI", Toast.LENGTH_SHORT).show();
+			return;
+		}
+			
+		
+		EditText editTextNombre = (EditText) findViewById(R.id.et_nombre);
+		String et_nombre = editTextNombre.getText().toString();
+		editTextNombre = null;
+		
+		if(et_nombre.length() == 0)
+		{
+			Toast.makeText(getApplicationContext(), "Por favor, ingrese un Nombre", Toast.LENGTH_SHORT).show();
+			return;
+		}	
+		
+		EditText editTextApellido = (EditText) findViewById(R.id.et_apellido);
+		String et_apellido = editTextApellido.getText().toString();
+		editTextApellido = null;
+		
+		if(et_apellido.length() == 0){
+			Toast.makeText(getApplicationContext(), "Por favor, ingrese un Apellido", Toast.LENGTH_SHORT).show();
+			return;
+		}
+		
+		EditText editTextTelefono = (EditText) findViewById(R.id.et_telefono);
+		String et_telefono = editTextTelefono.getText().toString();
+		editTextTelefono = null;
+		
+		if(et_telefono.length() == 0){
+			Toast.makeText(getApplicationContext(), "Por favor, ingrese un Teléfono", Toast.LENGTH_SHORT).show();
+			return;
+		}
+		
+		if(anioNacimiento == 0){
+			Toast.makeText(getApplicationContext(), "Por favor, ingrese una Fecha de Nacimiento", Toast.LENGTH_SHORT).show();
+			return;
+		}
+		
 		Intent intent = new Intent(this, ConfirmarPassActivity.class);
-		startActivityForResult(intent, CONFIRMAR_PASS);		
+		startActivityForResult(intent, CONFIRMAR_PASS);	
 	}
 	
 	@Override

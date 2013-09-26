@@ -54,7 +54,8 @@ public class MainActivity extends BaseSpiceActivity {
 	
 	/** Called when the user clicks the Denunciar button */
 	public void enviarDenuncia(View view) {
-		
+		Intent intent = new Intent(this, DireccionesDenunciarActivity.class);
+		startActivity(intent);
 	}
 
 }

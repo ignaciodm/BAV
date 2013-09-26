@@ -57,31 +57,70 @@ public class RegistroActivity extends BaseSpiceActivity {
 		String et_email = editTextEmail.getText().toString();
 		editTextEmail = null;
 		
+		if(et_email.length() == 0){
+			Toast.makeText(getApplicationContext(), "Por favor, ingrese un email", Toast.LENGTH_SHORT).show();
+			return;
+		}
+		else if (!et_email.contains("@")){
+			Toast.makeText(getApplicationContext(), "Por favor, ingrese un email válido", Toast.LENGTH_SHORT).show();
+			return;
+		}
+		
 		EditText editTextPass = (EditText) findViewById(R.id.et_password);
 		String et_password = editTextPass.getText().toString();
 		editTextPass = null;
+		
+		if(et_password.length() == 0){
+			Toast.makeText(getApplicationContext(), "Por favor, ingrese una password", Toast.LENGTH_SHORT).show();
+			return;
+		}
 		
 		EditText editTextDni = (EditText) findViewById(R.id.et_dni);
 		String et_dni = editTextDni.getText().toString();
 		editTextDni = null;
 		
+		if(et_dni.length() == 0){
+			Toast.makeText(getApplicationContext(), "Por favor, ingrese un DNI", Toast.LENGTH_SHORT).show();
+			return;
+		}
+		
 		EditText editTextNombre = (EditText) findViewById(R.id.et_nombre);
 		String et_nombre = editTextNombre.getText().toString();
 		editTextNombre = null;
+		
+		if(et_nombre.length() == 0){
+			Toast.makeText(getApplicationContext(), "Por favor, ingrese un Nombre", Toast.LENGTH_SHORT).show();
+			return;
+		}
 		
 		EditText editTextApellido = (EditText) findViewById(R.id.et_apellido);
 		String et_apellido = editTextApellido.getText().toString();
 		editTextApellido = null;
 		
+		if(et_apellido.length() == 0){
+			Toast.makeText(getApplicationContext(), "Por favor, ingrese un Apellido", Toast.LENGTH_SHORT).show();
+			return;
+		}
+		
 		EditText editTextTelefono = (EditText) findViewById(R.id.et_telefono);
 		String et_telefono = editTextTelefono.getText().toString();
 		editTextTelefono = null;
+		
+		if(et_telefono.length() == 0){
+			Toast.makeText(getApplicationContext(), "Por favor, ingrese un Teléfono", Toast.LENGTH_SHORT).show();
+			return;
+		}
+		
+		if(anioNacimiento == 0){
+			Toast.makeText(getApplicationContext(), "Por favor, ingrese una Fecha de Nacimiento", Toast.LENGTH_SHORT).show();
+			return;
+		}
 				
 		User user = new User(et_email, et_password, et_dni, et_nombre, et_apellido, et_telefono, diaNacimiento, mesNacimiento, anioNacimiento);
 		
 		crearUsuario(user);
 		
-		Toast.makeText(getApplicationContext(), "Usuario Creado.\nVerifique su email para confirmar el registro.", Toast.LENGTH_LONG).show();
+		Toast.makeText(getApplicationContext(), "Usuario Creado.\nVerifique su cuenta de email para confirmar el registro.", Toast.LENGTH_LONG).show();
 			
 		this.finish();
 		

@@ -181,6 +181,39 @@ public class NewAddressActivity extends BaseSpiceActivity {
 	}
 	
 	private void confirmarPass() {
+		
+		EditText editTextAddressDescripcion = (EditText) findViewById(R.id.new_address_description);
+		String et_address_descripcion = editTextAddressDescripcion.getText().toString();
+		editTextAddressDescripcion = null;
+		
+		if(et_address_descripcion.length() == 0){
+			Toast.makeText(getApplicationContext(), "Por favor, ingrese una Descripción", Toast.LENGTH_SHORT).show();
+			return;
+		}
+
+		EditText editTextAddressStreet = (EditText) findViewById(R.id.new_address_street);
+		String et_address_street = editTextAddressStreet.getText().toString();
+		editTextAddressStreet = null;
+		
+		if(et_address_street.length() == 0){
+			Toast.makeText(getApplicationContext(), "Por favor, ingrese una Calle", Toast.LENGTH_SHORT).show();
+			return;
+		}
+
+		EditText editTextAddressNumero = (EditText) findViewById(R.id.new_address_street_number);
+		String et_address_numero = editTextAddressNumero.getText().toString();
+		editTextAddressNumero = null;
+		
+		if(et_address_numero.length() == 0){
+			Toast.makeText(getApplicationContext(), "Por favor, ingrese un Número de Calle", Toast.LENGTH_SHORT).show();
+			return;
+		}
+		
+		if(comisaria == null){
+			Toast.makeText(getApplicationContext(), "Por favor, seleccione una Comisaría", Toast.LENGTH_SHORT).show();
+			return;
+		}
+		
 		Intent intent = new Intent(this, ConfirmarPassActivity.class);
 		startActivityForResult(intent, CONFIRMAR_PASS);		
 	}
