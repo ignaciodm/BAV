@@ -58,11 +58,11 @@ public class RegistroActivity extends BaseSpiceActivity {
 		editTextEmail = null;
 		
 		if(et_email.length() == 0){
-			Toast.makeText(getApplicationContext(), "Por favor, ingrese un email", Toast.LENGTH_SHORT).show();
+			Toast.makeText(getApplicationContext(), "Por favor, ingrese un E-mail", Toast.LENGTH_SHORT).show();
 			return;
 		}
 		else if (!et_email.contains("@")){
-			Toast.makeText(getApplicationContext(), "Por favor, ingrese un email válido", Toast.LENGTH_SHORT).show();
+			Toast.makeText(getApplicationContext(), "Por favor, ingrese un E-mail válido", Toast.LENGTH_SHORT).show();
 			return;
 		}
 		
@@ -71,7 +71,7 @@ public class RegistroActivity extends BaseSpiceActivity {
 		editTextPass = null;
 		
 		if(et_password.length() == 0){
-			Toast.makeText(getApplicationContext(), "Por favor, ingrese una password", Toast.LENGTH_SHORT).show();
+			Toast.makeText(getApplicationContext(), "Por favor, ingrese una Contraseña", Toast.LENGTH_SHORT).show();
 			return;
 		}
 		
