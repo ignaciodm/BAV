@@ -1,6 +1,8 @@
 package com.proyecto.bav.listeners;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import android.app.AlertDialog;
@@ -35,6 +37,14 @@ public class LocalidadRequestListener implements
 		
 		final List<Comisaria> comisarias = result.getComisarias();
 		
+		// Para ordenar por Descripción
+		Collections.sort(comisarias, new Comparator<Comisaria>() {
+			@Override
+			public int compare(Comisaria c1, Comisaria c2) {
+				return c1.getNombre().compareTo(c2.getNombre());
+			}			
+	    });
+		
     	List<String> comisariasNames = new ArrayList<String>();
     	
     	for (Comisaria comisaria : comisarias) {
@@ -45,7 +55,11 @@ public class LocalidadRequestListener implements
         
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         
-        builder.setTitle("Seleccione una Localidad");
+        if(comisarias.size() == 0)
+			builder.setTitle("Todavía no hay Comisarías de su Localidad en nuestro sistema");
+		else
+			builder.setTitle("Seleccione una Comisaría");
+        
         builder.setItems(charComisariasNames, new DialogInterface.OnClickListener() {
         	
             public void onClick(DialogInterface dialog, int comisariaIndex) {

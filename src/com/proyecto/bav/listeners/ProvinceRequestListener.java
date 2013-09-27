@@ -1,6 +1,8 @@
 package com.proyecto.bav.listeners;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import android.app.AlertDialog;
@@ -34,6 +36,14 @@ public class ProvinceRequestListener implements RequestListener<ProvinceResult> 
 		
 		final List<Partido> partidos = result.getPartidos();
 		
+		// Para ordenar por Descripción
+		Collections.sort(partidos, new Comparator<Partido>() {
+			@Override
+			public int compare(Partido p1, Partido p2) {
+				return p1.getNombre().compareTo(p2.getNombre());
+			}			
+	    });
+
     	List<String> partidosNames = new ArrayList<String>();
     	
     	for (Partido partido : partidos) {
@@ -43,7 +53,12 @@ public class ProvinceRequestListener implements RequestListener<ProvinceResult> 
     	CharSequence[] charPartidosNames = partidosNames.toArray(new CharSequence[partidosNames.size()]);
         
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-        builder.setTitle("Seleccione un Partido");
+        
+        if(partidos.size() == 0)
+			builder.setTitle("Todavía no hay Partidos de su Provincia en nuestro sistema");
+		else
+			builder.setTitle("Seleccione un Partido");
+        
         builder.setItems(charPartidosNames, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int partidoIndex) {
             	activity.partido = partidos.get(partidoIndex);

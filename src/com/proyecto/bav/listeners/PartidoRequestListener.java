@@ -1,6 +1,8 @@
 package com.proyecto.bav.listeners;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import android.app.AlertDialog;
@@ -35,6 +37,14 @@ public class PartidoRequestListener implements
 		
 		final List<Localidad> localidades = result.getLocalidades();
 		
+		// Para ordenar por Descripción
+		Collections.sort(localidades, new Comparator<Localidad>() {
+			@Override
+			public int compare(Localidad l1, Localidad l2) {
+				return l1.getNombre().compareTo(l2.getNombre());
+			}			
+	    });
+		
     	List<String> localidadesNames = new ArrayList<String>();
     	
     	for (Localidad localidad : localidades) {
@@ -45,7 +55,11 @@ public class PartidoRequestListener implements
         
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         
-        builder.setTitle("Seleccione una Localidad");
+        if(localidades.size() == 0)
+			builder.setTitle("Todavía no hay Localidades de su Partido en nuestro sistema");
+		else
+			builder.setTitle("Seleccione una Localidad");        
+        
         builder.setItems(charPartidosNames, new DialogInterface.OnClickListener() {
         	
             public void onClick(DialogInterface dialog, int localidadIndex) {

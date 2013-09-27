@@ -1,6 +1,8 @@
 package com.proyecto.bav.listeners;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import android.app.AlertDialog;
@@ -34,6 +36,14 @@ public class ProvincesRequestListener implements RequestListener<ProvincesResult
 		
 		final List<Provincia> provincias = result.getProvincias();
 		
+		// Para ordenar por Descripción
+		Collections.sort(provincias, new Comparator<Provincia>() {
+			@Override
+			public int compare(Provincia p1, Provincia p2) {
+				return p1.getNombre().compareTo(p2.getNombre());
+			}			
+	    });
+		
 		List<String> provincesNames = new ArrayList<String>();
 
 		for (Provincia province : provincias) {
@@ -43,7 +53,12 @@ public class ProvincesRequestListener implements RequestListener<ProvincesResult
 		CharSequence[] charProvinceNames = provincesNames.toArray(new CharSequence[provincesNames.size()]);
 
 		AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-		builder.setTitle("Seleccione una Provincia");
+		
+		if(provincias.size() == 0)
+			builder.setTitle("No hay Provincias cargadas en el sistema");
+		else
+			builder.setTitle("Seleccione una Provincia");
+		
 		builder.setItems(charProvinceNames, new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int provinceIndex) {
 				activity.provincia = provincias.get(provinceIndex);

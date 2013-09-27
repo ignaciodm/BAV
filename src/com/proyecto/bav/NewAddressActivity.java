@@ -226,12 +226,18 @@ public class NewAddressActivity extends BaseSpiceActivity {
 	}
 
 	public void displayProvinces(View view) {
+		
+		// Si selecciono una Provincia, tengo que borrar la Comisaría, la Localidad y el Partido
+		borrarPartido();
+		borrarLocalidad();
+		borrarComisaria();
 
 		if (lookingFor == 0) {
 			lookingFor = 1;
 			myProgressDialog = ProgressDialog.show(this, "Por favor, espere...", "Buscando Provincias...", true);
 			getSpiceManager().execute(new GetProvincesRequest(),
-					"provincias", DurationInMillis.ONE_MINUTE,
+					null, 
+					DurationInMillis.ONE_MINUTE,
 					new ProvincesRequestListener(this));
 		}
 
@@ -240,12 +246,16 @@ public class NewAddressActivity extends BaseSpiceActivity {
 	public void displayPartidos(View view) {
 		
 		if(provincia != null) {
+			
+			// Si selecciono un Partido, tengo que borrar la Comisaría y la Localidad
+			borrarLocalidad();
+			borrarComisaria();
 		
 			if (lookingFor == 0) {
 				lookingFor = 1;			
 				myProgressDialog = ProgressDialog.show(this, "Por favor, espere...", "Buscando Partidos...", true);
 				getSpiceManager().execute(new GetProvinceRequest(provincia),
-						"provincia/" + provincia.getId(), 
+						null, 
 						DurationInMillis.ONE_MINUTE,
 						new ProvinceRequestListener(this));
 			}
@@ -256,15 +266,19 @@ public class NewAddressActivity extends BaseSpiceActivity {
 			
 		
 	}
-	
+
 	public void displayLocalidades(View view) {
 		
 		if(partido != null){
+			
+			// Si selecciono una Localidad, tengo que borrar la Comisaría
+			borrarComisaria();
+			
 			if (lookingFor == 0) {			
 				lookingFor = 1;		
 				myProgressDialog = ProgressDialog.show(this, "Por favor, espere...", "Buscando Localidades...", true);
 				getSpiceManager().execute(new GetPartidoRequest(partido),
-						"partidos/" + partido.getId(), 
+						null, 
 						DurationInMillis.ONE_MINUTE,
 						new PartidoRequestListener(this));
 			}
@@ -272,8 +286,8 @@ public class NewAddressActivity extends BaseSpiceActivity {
 		else {
 			Toast.makeText(getApplicationContext(), "Primero selecione un Partido", Toast.LENGTH_SHORT).show();
 		}
-	}
-	
+	}	
+
 	public void displayComisarias(View view) {
 		
 		if (localidad != null){
@@ -281,7 +295,7 @@ public class NewAddressActivity extends BaseSpiceActivity {
 				lookingFor = 1;
 				myProgressDialog = ProgressDialog.show(this, "Por favor, espere...", "Buscando Comisarias...", true);
 				getSpiceManager().execute(new GetLocalidadRequest(localidad),
-						"localidades/" + localidad.getId(), 
+						null, 
 						DurationInMillis.ONE_MINUTE,
 						new LocalidadRequestListener(this));
 			}
@@ -289,6 +303,21 @@ public class NewAddressActivity extends BaseSpiceActivity {
 		else {
 			Toast.makeText(getApplicationContext(), "Primero selecione una Localidad", Toast.LENGTH_SHORT).show();
 		}		
+	}
+	
+	private void borrarPartido() {
+		partido = null;
+		this.partidoEditText.setText("");
+	}
+	
+	private void borrarLocalidad() {
+		localidad = null;
+		this.localidadEditText.setText("");
+	}
+	
+	private void borrarComisaria() {
+		comisaria = null;
+		this.comisariaEditText.setText("");
 	}
 
 	public void saveAddress() {

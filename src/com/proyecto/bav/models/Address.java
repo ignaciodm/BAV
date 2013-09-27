@@ -273,6 +273,7 @@ public class Address {
 			public int compare(Address a1, Address a2) {
 				return a1.getDescription().compareTo(a2.getDescription());
 			}
+			
 	    });
 		
 		return addresses;
