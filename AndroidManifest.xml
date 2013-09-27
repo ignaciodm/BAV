@@ -80,14 +80,19 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.proyecto.bav.DisplayAddressesActivity" />
         </activity>
+        
         <activity
             android:name="com.proyecto.bav.ConfirmarPassActivity"
             android:theme="@android:style/Theme.Dialog" >
- >
         </activity>
         
         <activity
             android:name="com.proyecto.bav.DireccionesDenunciarActivity"
+            android:theme="@android:style/Theme.Dialog" >
+        </activity>
+       
+        <activity
+            android:name="com.proyecto.bav.ConfirmarAnioActivity"
             android:theme="@android:style/Theme.Dialog" >
         </activity>
 

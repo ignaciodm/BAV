@@ -3,6 +3,7 @@ package com.proyecto.bav;
 import java.util.List;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -19,10 +20,13 @@ import android.widget.Toast;
 import com.proyecto.bav.models.Address;
 
 public class DireccionesDenunciarActivity extends BaseSpiceActivity {
+	
+	private final static int CONFIRMAR_ANIO = 1;
 
 	private DireccionesDenunciarActivity activity;
 	private static AddressesAdapter adapter;
 	private List<Address> addresses;
+	private Address address;
 	ListView listView;
 	
 	@Override
@@ -56,10 +60,10 @@ public class DireccionesDenunciarActivity extends BaseSpiceActivity {
 
 				/*** Denunciar con la Dirección Seleccionada ***/				
 				// Get de la dirección
-				Address a = addresses.get(position);				
+				address = addresses.get(position);				
 							
-				Toast.makeText(getApplicationContext(), "Denunciando desde: " + a.getDescription(), Toast.LENGTH_SHORT).show();
-				activity.finish();
+				Intent intent = new Intent(activity, ConfirmarAnioActivity.class);
+				startActivityForResult(intent, CONFIRMAR_ANIO);
 				
 			}
 			
@@ -72,6 +76,15 @@ public class DireccionesDenunciarActivity extends BaseSpiceActivity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.direcciones_denunciar, menu);
 		return true;
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode == CONFIRMAR_ANIO)
+			if(resultCode == RESULT_OK){
+				Toast.makeText(getApplicationContext(), "Denunciando desde: " + address.getDescription(), Toast.LENGTH_LONG).show();  
+				this.finish();
+			}
 	}
 	
 	private class AddressesAdapter extends ArrayAdapter<Address> {

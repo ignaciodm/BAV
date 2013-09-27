@@ -59,5 +59,9 @@
     <!-- ConfirmarPassActivity -->
     <string name="btn_aceptar">Aceptar</string>
     <string name="txt_confirmar_pass">Para guardar, introduzca su contraseña</string>
+    
+    <!-- ConfirmarAnioActivity -->
+    <string name="confirmar_anio">Año de Nacimiento</string>
+    <string name="txt_confirmar_anio">Para enviar la denuncia, introduzca su año de nacimiento</string>
 
 </resources>

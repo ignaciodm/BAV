@@ -8,8 +8,6 @@ import android.view.Window;
 import android.widget.Toast;
 
 public class ConfirmarPassActivity extends BaseSpiceActivity {
-	
-	public final static String CONTRASENA_OK = "com.proyecto.bav.CONTRASENA_OK";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,4 +41,5 @@ public class ConfirmarPassActivity extends BaseSpiceActivity {
 		}
 		
 	}
+	
 }
