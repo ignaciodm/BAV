@@ -13,17 +13,5 @@
         android:orderInCategory="2"
         android:showAsAction="always"
         android:title="@string/main_show_addresses"/>
-     
-     <item
-        android:id="@+id/menu_datos_personales"
-        android:orderInCategory="4"
-        android:showAsAction="never"
-        android:title="@string/main_datos_personales"/>
-     
-     <item
-        android:id="@+id/menu_show_addresses"
-        android:orderInCategory="5"
-        android:showAsAction="never"
-        android:title="@string/main_show_addresses" />
 
 </menu>

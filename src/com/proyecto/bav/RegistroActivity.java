@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,13 +27,25 @@ public class RegistroActivity extends BaseSpiceActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_registro);		
+		setContentView(R.layout.activity_registro);
+		setBackgroundAPILowerThan11();
+	}
+	
+	private void setBackgroundAPILowerThan11() {		
+		if(android.os.Build.VERSION.SDK_INT <= android.os.Build.VERSION_CODES.HONEYCOMB){		
+			findViewById(R.id.et_fecha_nacimiento).setBackgroundResource(R.drawable.background_edittext_bot_left_redondeado_api8);
+			findViewById(R.id.btn_select_date).setBackgroundResource(R.drawable.background_button_bot_right_redondeado_api8);			
+		}		
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.registro, menu);
+		
+		if(android.os.Build.VERSION.SDK_INT <= 11){
+			menu.findItem(R.id.btn_guardar).setIcon(R.drawable.ic_guardar_black);
+		}
+		
 		return true;
 	}
 	
@@ -41,9 +54,6 @@ public class RegistroActivity extends BaseSpiceActivity {
 	    // Handle item selection
 	    switch (item.getItemId()) {
 	        case R.id.btn_guardar:
-	        	saveUser();
-	            return true;
-	        case R.id.menu_guardar:
 	        	saveUser();
 	            return true;
 	        default:

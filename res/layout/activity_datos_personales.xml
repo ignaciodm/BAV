@@ -18,7 +18,7 @@
 		<Button
 		    android:id="@+id/cambiarPass"
 		    android:layout_width="fill_parent"
-       		android:layout_height="wrap_content"
+       		android:layout_height="40dp"
 		    android:background="@drawable/background_button_redondeado"
         	android:textStyle="bold"
 		    android:onClick="modificarPass"

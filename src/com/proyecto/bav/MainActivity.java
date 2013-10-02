@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 public class MainActivity extends BaseSpiceActivity {
 
@@ -18,6 +19,12 @@ public class MainActivity extends BaseSpiceActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
+		
+		if(android.os.Build.VERSION.SDK_INT <= 11){
+			menu.findItem(R.id.btn_datos_personales).setIcon(R.drawable.ic_datos_personales_black);
+			menu.findItem(R.id.btn_show_addresses).setIcon(R.drawable.ic_address_black);
+		}
+		
 		return true;
 	}
 	
@@ -28,13 +35,7 @@ public class MainActivity extends BaseSpiceActivity {
 	    	case R.id.btn_datos_personales:
 	    		showDatosPersonales();
 	    		return true;
-	    	case R.id.menu_datos_personales:
-	    		showDatosPersonales();
-	    		return true;
 	        case R.id.btn_show_addresses:
-	        	showAddresses();
-	            return true;
-	        case R.id.menu_show_addresses:
 	        	showAddresses();
 	            return true;
 	        default:
@@ -50,6 +51,11 @@ public class MainActivity extends BaseSpiceActivity {
 	private void showAddresses() {
 		Intent intent = new Intent(this, DisplayAddressesActivity.class);
 		startActivity(intent);
+	}
+	
+	/** Called when the user clicks the Cerrar Sesion button */
+	public void cerrarSesion(View view) {
+		Toast.makeText(getApplicationContext(), "Cerrar Sesión", Toast.LENGTH_LONG).show();
 	}
 	
 	/** Called when the user clicks the Denunciar button */

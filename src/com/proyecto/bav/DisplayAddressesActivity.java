@@ -132,8 +132,13 @@ public class DisplayAddressesActivity extends BaseSpiceActivity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.display_addresses, menu);
+		
+		if(android.os.Build.VERSION.SDK_INT <= 11){
+			menu.findItem(R.id.btn_new_address).setIcon(R.drawable.ic_new_address_black);
+			menu.findItem(R.id.btn_sincronizar).setIcon(R.drawable.ic_sincronizar_black);
+		}
+		
 		return true;
 	}	
 	
@@ -144,13 +149,7 @@ public class DisplayAddressesActivity extends BaseSpiceActivity {
 	        case R.id.btn_new_address:
 	        	newAddress();
 	            return true;
-	        case R.id.menu_new_address:
-	        	newAddress();
-	            return true;
 	        case R.id.btn_sincronizar:
-	        	sincronizar();
-	            return true;
-	        case R.id.menu_sincronizar:
 	        	sincronizar();
 	            return true;
 	        default:

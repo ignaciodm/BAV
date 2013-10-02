@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,7 +31,15 @@ public class DatosPersonalesActivity extends BaseSpiceActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_datos_personales);
+		setBackgroundAPILowerThan11();
 		fetchDatosPersonales();		
+	}
+
+	private void setBackgroundAPILowerThan11() {		
+		if(android.os.Build.VERSION.SDK_INT <= 11){
+			findViewById(R.id.et_fecha_nacimiento).setBackgroundResource(R.drawable.background_edittext_bot_left_redondeado_api8);
+			findViewById(R.id.btn_select_date).setBackgroundResource(R.drawable.background_button_bot_right_redondeado_api8);
+		}		
 	}
 
 	private void fetchDatosPersonales() {
@@ -75,8 +84,13 @@ public class DatosPersonalesActivity extends BaseSpiceActivity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.datos_personales, menu);
+		
+		if(android.os.Build.VERSION.SDK_INT <= 11){
+			menu.findItem(R.id.btn_sincronizar).setIcon(R.drawable.ic_sincronizar_black);
+			menu.findItem(R.id.btn_guardar).setIcon(R.drawable.ic_guardar_black);
+		}
+		
 		return true;
 	}
 	
@@ -87,13 +101,7 @@ public class DatosPersonalesActivity extends BaseSpiceActivity {
 	        case R.id.btn_guardar:
 	        	confirmarPass();
 	            return true;
-	        case R.id.menu_guardar:
-	        	confirmarPass();
-	            return true;
 	        case R.id.btn_sincronizar:
-	        	sincronizar();
-	            return true;
-	        case R.id.menu_sincronizar:
 	        	sincronizar();
 	            return true;
 	        default:

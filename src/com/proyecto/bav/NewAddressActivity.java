@@ -162,6 +162,11 @@ public class NewAddressActivity extends BaseSpiceActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.new_address, menu);
+		
+		if(android.os.Build.VERSION.SDK_INT <= 11){
+			menu.findItem(R.id.btn_guardar).setIcon(R.drawable.ic_guardar_black);
+		}
+		
 		return true;
 	}
 
@@ -170,9 +175,6 @@ public class NewAddressActivity extends BaseSpiceActivity {
 		// Handle item selection
 		switch (item.getItemId()) {
 		case R.id.btn_guardar:
-			confirmarPass();
-			return true;
-		case R.id.menu_guardar:
 			confirmarPass();
 			return true;
 		default:
