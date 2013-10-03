@@ -27,6 +27,7 @@
     <string name="btn_modificar_pass">Modificar Contraseña</string>
     <string name="dp_email">E-mail</string>
     <string name="dp_password">Contraseña</string>
+    <string name="dp_password_conf">Confirmar Contraseña</string>
     <string name="dp_dni">DNI</string>
     <string name="dp_nombre">Nombres</string>
     <string name="dp_apellido">Apellidos</string>

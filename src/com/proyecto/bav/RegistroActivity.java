@@ -54,14 +54,14 @@ public class RegistroActivity extends BaseSpiceActivity {
 	    // Handle item selection
 	    switch (item.getItemId()) {
 	        case R.id.btn_guardar:
-	        	saveUser();
+	        	RegistrarUser();
 	            return true;
 	        default:
 	            return super.onOptionsItemSelected(item);
 	    }
 	}
 	
-	private void saveUser() {
+	private void RegistrarUser() {
 		
 		EditText editTextEmail = (EditText) findViewById(R.id.et_email);
 		String et_email = editTextEmail.getText().toString();
@@ -82,6 +82,16 @@ public class RegistroActivity extends BaseSpiceActivity {
 		
 		if(et_password.length() == 0){
 			Toast.makeText(getApplicationContext(), "Por favor, ingrese una Contraseña", Toast.LENGTH_SHORT).show();
+			return;
+		}
+		
+		EditText editTextPassConf = (EditText) findViewById(R.id.et_password_confirmacion);
+		String et_password_conf = editTextPassConf.getText().toString();
+		editTextPass = null;
+		
+		if(!et_password_conf.equals(et_password))
+		{
+			Toast.makeText(getApplicationContext(), "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
 			return;
 		}
 		

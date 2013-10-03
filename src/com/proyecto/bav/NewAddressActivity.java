@@ -236,7 +236,12 @@ public class NewAddressActivity extends BaseSpiceActivity {
 
 		if (lookingFor == 0) {
 			lookingFor = 1;
-			myProgressDialog = ProgressDialog.show(this, "Por favor, espere...", "Buscando Provincias...", true);
+			
+			myProgressDialog = new ProgressDialog(this, R.style.ProgressDialogTheme);
+			myProgressDialog.setTitle("Por favor, espere...");
+			myProgressDialog.setMessage("Buscando Provincias...");
+			myProgressDialog.show();
+			
 			getSpiceManager().execute(new GetProvincesRequest(),
 					null, 
 					DurationInMillis.ONE_MINUTE,
@@ -254,8 +259,13 @@ public class NewAddressActivity extends BaseSpiceActivity {
 			borrarComisaria();
 		
 			if (lookingFor == 0) {
-				lookingFor = 1;			
-				myProgressDialog = ProgressDialog.show(this, "Por favor, espere...", "Buscando Partidos...", true);
+				lookingFor = 1;	
+				
+				myProgressDialog = new ProgressDialog(this, R.style.ProgressDialogTheme);
+				myProgressDialog.setTitle("Por favor, espere...");
+				myProgressDialog.setMessage("Buscando Partidos...");
+				myProgressDialog.show();
+				
 				getSpiceManager().execute(new GetProvinceRequest(provincia),
 						null, 
 						DurationInMillis.ONE_MINUTE,
@@ -278,7 +288,12 @@ public class NewAddressActivity extends BaseSpiceActivity {
 			
 			if (lookingFor == 0) {			
 				lookingFor = 1;		
-				myProgressDialog = ProgressDialog.show(this, "Por favor, espere...", "Buscando Localidades...", true);
+				
+				myProgressDialog = new ProgressDialog(this, R.style.ProgressDialogTheme);
+				myProgressDialog.setTitle("Por favor, espere...");
+				myProgressDialog.setMessage("Buscando Localidades...");
+				myProgressDialog.show();
+				
 				getSpiceManager().execute(new GetPartidoRequest(partido),
 						null, 
 						DurationInMillis.ONE_MINUTE,
@@ -295,7 +310,12 @@ public class NewAddressActivity extends BaseSpiceActivity {
 		if (localidad != null){
 			if (lookingFor == 0) {			
 				lookingFor = 1;
-				myProgressDialog = ProgressDialog.show(this, "Por favor, espere...", "Buscando Comisarias...", true);
+				
+				myProgressDialog = new ProgressDialog(this, R.style.ProgressDialogTheme);
+				myProgressDialog.setTitle("Por favor, espere...");
+				myProgressDialog.setMessage("Buscando Comisarias...");
+				myProgressDialog.show();
+				
 				getSpiceManager().execute(new GetLocalidadRequest(localidad),
 						null, 
 						DurationInMillis.ONE_MINUTE,

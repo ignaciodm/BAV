@@ -26,7 +26,7 @@ public class ProvinceRequestListener implements RequestListener<ProvinceResult> 
 	@Override
     public void onRequestFailure( SpiceException spiceException ) {	
 		activity.lookingFor = 0;	
-		Toast toast = Toast.makeText(activity.getApplicationContext(), "Error en la conexión.\nIntente nuevamente.", Toast.LENGTH_SHORT);
+		Toast toast = Toast.makeText(activity.getApplicationContext(), "Error en la conexión\nIntente nuevamente", Toast.LENGTH_SHORT);
 		toast.show();	
 		activity.myProgressDialog.dismiss();
     }

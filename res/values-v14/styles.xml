@@ -5,9 +5,33 @@
         AppBaseTheme from BOTH res/values/styles.xml and
         res/values-v11/styles.xml on API 14+ devices.
     -->
-    <style name="ProyectoTeaTheme" parent="android:Theme.Holo">
+    <style name="ProyectoTeaTheme" parent="android:style/Theme.Holo">
         <!-- API 14 theme customizations can go here. -->
         <item name="android:textColor">@android:color/white</item>
+        <item name="android:actionBarItemBackground">@drawable/selectable_action_bar_background</item>        
+        <item name="android:actionBarStyle">@style/ActionBar.Style</item>        
     </style>
+    
+    <style name="ActionBar.Style" parent="@android:style/Widget.Holo.ActionBar">
+        <item name="android:background">@drawable/action_bar_bottom_line</item>
+    </style>
+    
+    <style name="ProgressDialogTheme" parent="@android:style/Theme.Dialog">
+	    <item name="android:alertDialogStyle">@style/CustomAlertDialogStyle</item>
+	    <item name="android:textColorPrimary">#FFFFFF</item>
+	</style>
+    
+    <style name="CustomAlertDialogStyle">
+	    <item name="android:bottomBright">@color/black</item>
+	    <item name="android:bottomDark">@color/black</item>
+	    <item name="android:bottomMedium">@color/black</item>
+	    <item name="android:centerBright">@color/black</item>
+	    <item name="android:centerDark">@color/black</item>
+	    <item name="android:centerMedium">@color/black</item>
+	    <item name="android:fullBright">@color/black</item>
+	    <item name="android:fullDark">@color/black</item>
+	    <item name="android:topBright">@color/black</item>
+	    <item name="android:topDark">@color/black</item>
+	</style>
 
 </resources>

@@ -40,6 +40,19 @@
         	android:paddingRight="10dp"
         	android:layout_marginTop="10dp"
         	android:background="@drawable/background_edittext_cuadrado" />
+    	
+    	<EditText 
+	        android:id="@+id/et_password_confirmacion"
+        	android:hint="@string/dp_password_conf"
+        	android:inputType="textPassword"
+        	android:textStyle="bold"
+        	android:textColor="@android:color/black"
+        	android:layout_height="40dp"
+        	android:layout_width="fill_parent"
+        	android:paddingLeft="10dp"
+        	android:paddingRight="10dp"
+        	android:layout_marginTop="10dp"
+        	android:background="@drawable/background_edittext_cuadrado" />
     
     	<EditText 
 	        android:id="@+id/et_dni"
