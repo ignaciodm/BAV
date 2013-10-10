@@ -61,9 +61,15 @@
     <!-- ConfirmarPassActivity -->
     <string name="btn_aceptar">Aceptar</string>
     <string name="txt_confirmar_pass">Para guardar, ingrese su contraseña</string>
-    
+
     <!-- ConfirmarAnioActivity -->
     <string name="confirmar_anio">Año de Nacimiento</string>
     <string name="txt_confirmar_anio">Para enviar la denuncia, ingrese su año de nacimiento</string>
+    
+    <!-- DatePickerActivity -->
+    <string name="date_day">Día</string>
+    <string name="date_month">Mes</string>
+    <string name="date_year">Año</string>
+    <string name="txt_fecha_nacimiento">Ingrese su Fecha de Nacimiento</string>    
 
 </resources>

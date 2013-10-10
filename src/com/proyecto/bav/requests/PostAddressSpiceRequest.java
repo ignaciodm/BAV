@@ -6,8 +6,7 @@ import com.google.gson.Gson;
 import com.proyecto.bav.models.Address;
 import com.proyecto.bav.results.AddressResult;
 
-public class PostAddressSpiceRequest extends
-		SimpleSpiceRequest<AddressResult> {
+public class PostAddressSpiceRequest extends SimpleSpiceRequest<AddressResult> {
 
 	private String path;
 	private Address address;

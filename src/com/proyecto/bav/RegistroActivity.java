@@ -1,34 +1,36 @@
 package com.proyecto.bav;
 
-import java.util.Calendar;
-
 import android.annotation.SuppressLint;
-import android.app.DatePickerDialog;
-import android.app.Dialog;
-import android.app.DialogFragment;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.DatePicker;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.proyecto.bav.models.User;
 
 public class RegistroActivity extends BaseSpiceActivity {
 	
+	private RegistroActivity activity;
 	private int diaNacimiento;
 	private int mesNacimiento;
 	private int anioNacimiento;	
+	public int lookingFor;
+	public ProgressDialog myProgressDialog;
+	private EditText fechaNacimiento;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_registro);
 		setBackgroundAPILowerThan11();
+		fechaNacimiento = (EditText) this.findViewById(R.id.et_fecha_nacimiento);
 	}
 	
 	private void setBackgroundAPILowerThan11() {		
@@ -140,46 +142,45 @@ public class RegistroActivity extends BaseSpiceActivity {
 		
 		crearUsuario(user);
 		
-		Toast.makeText(getApplicationContext(), "Usuario Creado.\nVerifique su cuenta de email para confirmar el registro.", Toast.LENGTH_LONG).show();
-			
-		this.finish();
+		activity = this;
 		
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+		alertDialogBuilder.setMessage("Cuenta creada exitosamente.\n\nVerifique su cuenta de email para confirmar el registro.");
+	    alertDialogBuilder.setNeutralButton("Aceptar", new DialogInterface.OnClickListener() {
+		   public void onClick(DialogInterface dialog, int which) {
+			   activity.finish();
+		   }
+		});
+	    AlertDialog alert = alertDialogBuilder.create();
+	    alert.show();
+	    Button b = alert.getButton(DialogInterface.BUTTON_NEUTRAL);
+	    b.setBackgroundResource(R.drawable.background_button_rectangular);
+
 	}
 
 	private void crearUsuario(User user) {
-		// TODO Auto-generated method stub
+		
+		if (lookingFor == 0) {
+			lookingFor = 1;
+			
+			myProgressDialog = new ProgressDialog(this, R.style.ProgressDialogTheme);
+			myProgressDialog.setTitle("Por favor, espere...");
+			myProgressDialog.setMessage("Creando cuenta...");
+			myProgressDialog.show();
+			
+//			getSpiceManager().execute(new GetProvincesRequest(),
+//					null, 
+//					DurationInMillis.ONE_MINUTE,
+//					new ProvincesRequestListener(this));
+		}
 		
 	}
 	
 	/** Called when the user clicks the Fecha de Nacimiento EditText */
 	@SuppressLint("NewApi")
 	public void selectDate(View view) {
-		DialogFragment newFragment = new DatePickerFragment();
-	    newFragment.show(getFragmentManager(), "datePicker");
-	}
-	
-	@SuppressLint({ "NewApi", "ValidFragment" })
-	public class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
-
-		@Override
-		public Dialog onCreateDialog(Bundle savedInstanceState) {
-			// Use the current date as the default date in the picker
-			final Calendar c = Calendar.getInstance();
-			int year = c.get(Calendar.YEAR);
-			int month = c.get(Calendar.MONTH);
-			int day = c.get(Calendar.DAY_OF_MONTH);
-
-			// Create a new instance of DatePickerDialog and return it
-			return new DatePickerDialog(getActivity(), this, year, month, day);
-		}
-
-		public void onDateSet(DatePicker view, int year, int month, int day) {
-			diaNacimiento = day;
-			mesNacimiento = month+1;
-			anioNacimiento = year;
-			((TextView) getActivity().findViewById(R.id.et_fecha_nacimiento)).setText(diaNacimiento + " - " + getMonthName(mesNacimiento) + " - " + anioNacimiento);
-		}		
-		
+		Intent intent = new Intent(this, DatePickerActivity.class);
+		startActivityForResult(intent, DatosPersonalesActivity.SELECT_FECHA_NACIMIENTO);	
 	}
 	
 	private String getMonthName(int month) {
@@ -213,6 +214,19 @@ public class RegistroActivity extends BaseSpiceActivity {
 			return "";
 		}			
 		
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {  
+		
+		if (requestCode == DatosPersonalesActivity.SELECT_FECHA_NACIMIENTO)
+			if(resultCode == RESULT_OK){
+				diaNacimiento = data.getIntExtra(DatePickerActivity.DAY, 1);
+				mesNacimiento = data.getIntExtra(DatePickerActivity.MONTH, 1);
+				anioNacimiento = data.getIntExtra(DatePickerActivity.YEAR, 1);
+				fechaNacimiento.setText(diaNacimiento + " - " + getMonthName(mesNacimiento) + " - " + anioNacimiento);
+			}
+				
 	}
 
 }

@@ -1,22 +1,30 @@
 package com.proyecto.bav;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.octo.android.robospice.persistence.DurationInMillis;
+import com.proyecto.bav.listeners.LoginRequestListener;
+import com.proyecto.bav.requests.PostLoginRequest;
 
 public class LoginActivity extends BaseSpiceActivity {
 	
 	public final static String REGISTRO = "com.proyecto.bav.REGISTRO";
+	
+	public ProgressDialog myProgressDialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
+		
+		EditText editTextEmail = (EditText) findViewById(R.id.et_email);
+		editTextEmail.setText("pabloserra89@gmail.com");
 		
 		// Si el usuario ya está logueado, voy directo a la aplicación
 //		Intent intent = new Intent(this, MainActivity.class);
@@ -32,9 +40,7 @@ public class LoginActivity extends BaseSpiceActivity {
 	}
 	
 	/** Called when the user clicks the Login button */
-	public void loginApp(View view) {
-
-		Intent intent = new Intent(this, MainActivity.class);	
+	public void loginApp(View view) {		
 		
 		EditText editTextEmail = (EditText) findViewById(R.id.et_email);
 		String email = editTextEmail.getText().toString();
@@ -42,11 +48,21 @@ public class LoginActivity extends BaseSpiceActivity {
 		EditText editTextPassword = (EditText) findViewById(R.id.et_password);
 		String password = editTextPassword.getText().toString();
 		
-		// if(email.equals("admin") && password.equals("123") )
-			this.startActivity(intent);
-			this.finish();
+		myProgressDialog = new ProgressDialog(this, R.style.ProgressDialogTheme);
+		myProgressDialog.setTitle("Por favor, espere...");
+		myProgressDialog.setMessage("Iniciando Sesión...");
+		myProgressDialog.show();
+		
+		getSpiceManager().execute(new PostLoginRequest(getLoginJSON(email, password)),
+				null, 
+				DurationInMillis.ONE_MINUTE,
+				new LoginRequestListener(this));
 	}
 	
+	private String getLoginJSON(String email, String password) {
+		return "{\"email\":" + "\"" + email + "\"" + "," + "\"password\":" + "\"" + password + "\""+ "}";
+	}
+
 	/** Called when the user clicks the Registrarse button */
 	public void registrarse(View view) {
 		Intent intent = new Intent(this, RegistroActivity.class);

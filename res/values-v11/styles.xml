@@ -14,7 +14,7 @@
         <item name="android:background">@drawable/action_bar_bottom_line</item>
     </style>
     
-    <style name="ProgressDialogTheme" parent="@android:style/Theme.Dialog">
+    <style name="ProgressDialogTheme" parent="@android:style/Theme.Holo.Dialog">
 	    <item name="android:alertDialogStyle">@style/CustomAlertDialogStyle</item>
 	    <item name="android:textColorPrimary">#FFFFFF</item>
 	</style>

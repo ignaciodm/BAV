@@ -7,11 +7,13 @@ import java.util.List;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
 import com.proyecto.bav.NewAddressActivity;
+import com.proyecto.bav.R;
 import com.proyecto.bav.models.Comisaria;
 import com.proyecto.bav.results.LocalidadResult;
 
@@ -53,25 +55,34 @@ public class LocalidadRequestListener implements
     	
     	CharSequence[] charComisariasNames = comisariasNames.toArray(new CharSequence[comisariasNames.size()]);
         
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(activity);
         
-        if(comisarias.size() == 0)
-			builder.setTitle("Todavía no hay Comisarías de su Localidad en nuestro sistema");
-		else
-			builder.setTitle("Seleccione una Comisaría");
+        if(comisarias.size() == 0){
+			alertDialog.setMessage("Todavía no hay Comisarías de su Localidad en nuestro sistema");
+			alertDialog.setNeutralButton("Aceptar", new DialogInterface.OnClickListener() {
+			   public void onClick(DialogInterface dialog, int which) {
+				   dialog.dismiss();
+			   }
+			});
+        }
+		else{
+			
+	        alertDialog.setItems(charComisariasNames, new DialogInterface.OnClickListener() {	        	
+	            public void onClick(DialogInterface dialog, int comisariaIndex) {
+	            	activity.comisaria = comisarias.get(comisariaIndex);
+	            	activity.comisariaEditText.setText(activity.comisaria.getNombre());
+	            }	            
+	        });
+	        
+		}
         
-        builder.setItems(charComisariasNames, new DialogInterface.OnClickListener() {
-        	
-            public void onClick(DialogInterface dialog, int comisariaIndex) {
-                // Do something with the selection
-            	activity.comisaria = comisarias.get(comisariaIndex);
-            	activity.comisariaEditText.setText(activity.comisaria.getNombre());
-            }
-            
-        });
-        
-        AlertDialog alert = builder.create();
+        AlertDialog alert = alertDialog.create();
         alert.show();
+		
+	    Button b = alert.getButton(DialogInterface.BUTTON_NEUTRAL);
+	    if(b != null)
+	    	b.setBackgroundResource(R.drawable.background_button_rectangular);
+	    
         activity.lookingFor = 0;
         activity.myProgressDialog.dismiss();
 	}

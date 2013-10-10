@@ -7,11 +7,13 @@ import java.util.List;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
 import com.proyecto.bav.NewAddressActivity;
+import com.proyecto.bav.R;
 import com.proyecto.bav.models.Partido;
 import com.proyecto.bav.results.ProvinceResult;
 
@@ -52,22 +54,34 @@ public class ProvinceRequestListener implements RequestListener<ProvinceResult> 
     	
     	CharSequence[] charPartidosNames = partidosNames.toArray(new CharSequence[partidosNames.size()]);
         
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(activity);
         
-        if(partidos.size() == 0)
-			builder.setTitle("Todavía no hay Partidos de su Provincia en nuestro sistema");
-		else
-			builder.setTitle("Seleccione un Partido");
+        if(partidos.size() == 0){
+			alertDialog.setMessage("Todavía no hay Partidos de su Provincia en nuestro sistema");
+			alertDialog.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+			   public void onClick(DialogInterface dialog, int which) {
+				   dialog.dismiss();
+			   }
+			});
+        }
+		else{
+			
+	        alertDialog.setItems(charPartidosNames, new DialogInterface.OnClickListener() {
+	            public void onClick(DialogInterface dialog, int partidoIndex) {
+	            	activity.partido = partidos.get(partidoIndex);
+	            	activity.partidoEditText.setText(activity.partido.getNombre());
+	            }
+	        });
+	        
+		}
         
-        builder.setItems(charPartidosNames, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int partidoIndex) {
-            	activity.partido = partidos.get(partidoIndex);
-            	activity.partidoEditText.setText(activity.partido.getNombre());
-            }
-        });
-        
-        AlertDialog alert = builder.create();
+        AlertDialog alert = alertDialog.create();
         alert.show();
+		
+	    Button b = alert.getButton(DialogInterface.BUTTON_NEUTRAL);
+	    if(b != null)
+	    	b.setBackgroundResource(R.drawable.background_button_rectangular);
+	    
         activity.lookingFor = 0;
         activity.myProgressDialog.dismiss();
 		

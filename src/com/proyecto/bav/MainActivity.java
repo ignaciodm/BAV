@@ -1,18 +1,23 @@
 package com.proyecto.bav;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
+import android.widget.Button;
 
 public class MainActivity extends BaseSpiceActivity {
+	
+	private MainActivity activity;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		activity = this;
 	}
 
 	@Override
@@ -53,11 +58,48 @@ public class MainActivity extends BaseSpiceActivity {
 		startActivity(intent);
 	}
 	
-	/** Called when the user clicks the Cerrar Sesion button */
-	public void cerrarSesion(View view) {
-		Toast.makeText(getApplicationContext(), "Cerrar Sesión", Toast.LENGTH_LONG).show();
+	@Override
+	protected void onResume() {
+	    super.onResume();
 	}
 	
+	/** Called when the user clicks the Cerrar Sesion button */
+	public void cerrarSesion(View view) {
+		
+		// Destruir Token
+		cerrarSesion();				
+	}
+	
+	private void cerrarSesion() {
+		
+		AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+		
+		alertDialog.setMessage("¿Está seguro que desea cerrar la sesión?");
+		
+		alertDialog.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+				Intent intent = new Intent(activity, LoginActivity.class);
+				activity.startActivity(intent);
+				activity.finish();
+			}
+		});
+		
+		alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.dismiss();
+			}
+		});
+		
+		AlertDialog alert = alertDialog.create();
+        alert.show();
+		
+        Button b;
+	    b = alert.getButton(DialogInterface.BUTTON_POSITIVE);
+	    b.setBackgroundResource(R.drawable.background_button_rectangular);
+	    b = alert.getButton(DialogInterface.BUTTON_NEGATIVE);
+	    b.setBackgroundResource(R.drawable.background_button_rectangular);
+	}
+
 	/** Called when the user clicks the Denunciar button */
 	public void enviarDenuncia(View view) {
 		Intent intent = new Intent(this, DireccionesDenunciarActivity.class);

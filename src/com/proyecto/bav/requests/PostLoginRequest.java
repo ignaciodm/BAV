@@ -7,21 +7,27 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.util.List;
 
+import com.google.api.client.http.ByteArrayContent;
 import com.google.api.client.http.HttpResponse;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.proyecto.bav.models.Provincia;
+import com.proyecto.bav.results.LoginResult;
 import com.proyecto.bav.results.ProvincesResult;
 
-public class GetProvincesRequest extends
-		GetSpiceRequest<ProvincesResult> {
+public class PostLoginRequest extends PostSpiceRequest<LoginResult> {
 
-	public GetProvincesRequest() {
-		super(ProvincesResult.class);
-		this.setPath("/provincias.json?auth_token=7b24afd3345007ef8e33b192ac7b475b75922749");
+	public PostLoginRequest(String content) {
+		
+		super(LoginResult.class);
+		this.setPath("/login");
+		
+		ByteArrayContent requestContent = ByteArrayContent.fromString("application/json", content);
+		this.setHttpContent(requestContent);
+		
 	}
-
-	protected ProvincesResult parseResponse(final HttpResponse response) throws IOException {
+	
+	protected LoginResult parseResponse(final HttpResponse response) throws IOException {
 		
 		StringBuilder sb = new StringBuilder();
 		InputStream inputStream = null;
@@ -45,19 +51,21 @@ public class GetProvincesRequest extends
 
 		String json =  sb.toString();
 		Gson gson = new Gson();
-		json = json.substring("{\"provincias\":[".length() -1 , json.length()-1);		
 		
-		Type provincesType = new TypeToken<List<Provincia>>() {																																																																						}.getType();
-		List<Provincia> provincias = null;
-		try {
-			provincias = gson.fromJson(json, provincesType);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+//		json = json.substring("{\"provincias\":[".length() -1 , json.length()-1);		
+//		
+//		Type provincesType = new TypeToken<List<Provincia>>() {																																																																						}.getType();
+//		List<Provincia> provincias = null;
+//		try {
+//			provincias = gson.fromJson(json, provincesType);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
 		
-		ProvincesResult result = new ProvincesResult();
-		result.setProvincias(provincias);
+		LoginResult result = new LoginResult();
+//		result.setProvincias(provincias);
 		
 		return result;
 	}
+
 }

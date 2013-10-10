@@ -7,11 +7,14 @@ import java.util.List;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
+import com.proyecto.bav.DatePickerActivity;
 import com.proyecto.bav.NewAddressActivity;
+import com.proyecto.bav.R;
 import com.proyecto.bav.models.Provincia;
 import com.proyecto.bav.results.ProvincesResult;
 
@@ -52,22 +55,35 @@ public class ProvincesRequestListener implements RequestListener<ProvincesResult
 
 		CharSequence[] charProvinceNames = provincesNames.toArray(new CharSequence[provincesNames.size()]);
 
-		AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+		AlertDialog.Builder alertDialog = new AlertDialog.Builder(activity);
 		
-		if(provincias.size() == 0)
-			builder.setTitle("No hay Provincias cargadas en el sistema");
-		else
-			builder.setTitle("Seleccione una Provincia");
-		
-		builder.setItems(charProvinceNames, new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int provinceIndex) {
-				activity.provincia = provincias.get(provinceIndex);
-				activity.provinceEditText.setText(activity.provincia.getNombre());
-			}
-		});
+		if(provincias.size() == 0){
+			alertDialog.setMessage("No hay Provincias cargadas en el sistema");
+			alertDialog.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+			   public void onClick(DialogInterface dialog, int which) {
+				   dialog.dismiss();
+			   }
+			});
+			
+        }
+		else{
+			
+			alertDialog.setItems(charProvinceNames, new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int provinceIndex) {
+					activity.provincia = provincias.get(provinceIndex);
+					activity.provinceEditText.setText(activity.provincia.getNombre());
+				}
+			});
+			
+		}
 
-		AlertDialog alert = builder.create();
+		AlertDialog alert = alertDialog.create();
 		alert.show();
+		
+	    Button b = alert.getButton(DialogInterface.BUTTON_NEUTRAL);
+	    if(b != null)
+	    	b.setBackgroundResource(R.drawable.background_button_rectangular);
+	    
 		activity.lookingFor = 0;
 		activity.myProgressDialog.dismiss();		
 	}
