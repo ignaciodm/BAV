@@ -91,18 +91,69 @@ public class DatePickerActivity extends Activity {
 
 	private boolean fechaValida(int date_day, int date_month, int date_year) {
 		
-		if(date_day == 0)
+		if(date_day <= 0)
 			return false;
 		
-		if(date_month == 0)
+		if(date_month <= 0)
 			return false;
 		
-		if(date_year == 0)
+		if(date_year <= 0)
 			return false;
+		
+		switch (date_month) {
+		case 1:
+			if(date_day > 31)
+				return false;
+		case 2:
+			if(esBisiesto(date_year)){
+				if(date_day > 29)
+					return false;
+			}
+			else {
+				if(date_day > 28)
+					return false;	
+			}
+		case 3:
+			if(date_day > 31)
+				return false;	
+		case 4:
+			if(date_day > 30)
+				return false;	
+		case 5:
+			if(date_day > 31)
+				return false;	
+		case 6:
+			if(date_day > 30)
+				return false;	
+		case 7:
+			if(date_day > 31)
+				return false;	
+		case 8:
+			if(date_day > 31)
+				return false;	
+		case 9:
+			if(date_day > 30)
+				return false;	
+		case 10:
+			if(date_day > 31)
+				return false;	
+		case 11:
+			if(date_day > 30)
+				return false;	
+		case 12:
+			if(date_day > 31)
+				return false;	
+		default:
+			break;			
+		}
 		
 		return true;
 	}
 	
+	private boolean esBisiesto(int year) {		
+		return ( ( year %4 == 0 && year % 100 !=0) || (year % 400 == 0));
+	}
+
 	/** Called when the user clicks the Mes Field */
 	public void selectDate(View view) {
 		
