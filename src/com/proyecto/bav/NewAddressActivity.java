@@ -3,12 +3,14 @@ package com.proyecto.bav;
 import java.lang.reflect.Type;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -45,9 +47,6 @@ public class NewAddressActivity extends BaseSpiceActivity {
 	
 	private boolean nuevaDireccion;
 	private int addressID;
-
-	// Con esta variable "bloqueo" el Request de Provincia, Partido, Localidad y Comisarias
-	public int lookingFor;
 	
 	public ProgressDialog myProgressDialog;
 
@@ -176,7 +175,7 @@ public class NewAddressActivity extends BaseSpiceActivity {
 		switch (item.getItemId()) {
 		case R.id.btn_guardar:
 			confirmarPass();
-			return true;
+			return true;		
 		default:
 			return super.onOptionsItemSelected(item);
 		}
@@ -225,29 +224,33 @@ public class NewAddressActivity extends BaseSpiceActivity {
 		if (requestCode == CONFIRMAR_PASS)
 			if(resultCode == RESULT_OK)
 				saveAddress();
+	}	
+	
+	public void guardar_new_address(View view) {
+		confirmarPass();
 	}
-
+	
 	public void displayProvinces(View view) {
 		
 		// Si selecciono una Provincia, tengo que borrar la Comisaría, la Localidad y el Partido
 		borrarPartido();
 		borrarLocalidad();
 		borrarComisaria();
-
-		if (lookingFor == 0) {
-			lookingFor = 1;
+		
+		// Con esto cierro el Teclado si queda abierto
+		InputMethodManager mgr = (InputMethodManager) 
+		getSystemService(Context.INPUT_METHOD_SERVICE);
+		mgr.hideSoftInputFromWindow(provinceEditText.getWindowToken(), 0);
 			
-			myProgressDialog = new ProgressDialog(this, R.style.ProgressDialogTheme);
-			myProgressDialog.setTitle("Por favor, espere...");
-			myProgressDialog.setMessage("Buscando Provincias...");
-			myProgressDialog.show();
-			
-			getSpiceManager().execute(new GetProvincesRequest(),
-					null, 
-					DurationInMillis.ONE_MINUTE,
-					new ProvincesRequestListener(this));
-		}
-
+		myProgressDialog = new ProgressDialog(this, R.style.ProgressDialogTheme);
+		myProgressDialog.setTitle("Por favor, espere...");
+		myProgressDialog.setMessage("Buscando Provincias...");
+		myProgressDialog.show();
+		
+		getSpiceManager().execute(new GetProvincesRequest(),
+				null, 
+				DurationInMillis.ONE_MINUTE,
+				new ProvincesRequestListener(this));
 	}
 
 	public void displayPartidos(View view) {
@@ -257,25 +260,25 @@ public class NewAddressActivity extends BaseSpiceActivity {
 			// Si selecciono un Partido, tengo que borrar la Comisaría y la Localidad
 			borrarLocalidad();
 			borrarComisaria();
-		
-			if (lookingFor == 0) {
-				lookingFor = 1;	
+			
+			// Con esto cierro el Teclado si queda abierto
+			InputMethodManager mgr = (InputMethodManager) 
+			getSystemService(Context.INPUT_METHOD_SERVICE);
+			mgr.hideSoftInputFromWindow(partidoEditText.getWindowToken(), 0);
 				
-				myProgressDialog = new ProgressDialog(this, R.style.ProgressDialogTheme);
-				myProgressDialog.setTitle("Por favor, espere...");
-				myProgressDialog.setMessage("Buscando Partidos...");
-				myProgressDialog.show();
-				
-				getSpiceManager().execute(new GetProvinceRequest(provincia),
-						null, 
-						DurationInMillis.ONE_MINUTE,
-						new ProvinceRequestListener(this));
-			}
+			myProgressDialog = new ProgressDialog(this, R.style.ProgressDialogTheme);
+			myProgressDialog.setTitle("Por favor, espere...");
+			myProgressDialog.setMessage("Buscando Partidos...");
+			myProgressDialog.show();
+			
+			getSpiceManager().execute(new GetProvinceRequest(provincia),
+					null, 
+					DurationInMillis.ONE_MINUTE,
+					new ProvinceRequestListener(this));
 		}
 		else {
 			Toast.makeText(getApplicationContext(), "Primero selecione una Provincia", Toast.LENGTH_SHORT).show();
-		}
-			
+		}			
 		
 	}
 
@@ -286,19 +289,20 @@ public class NewAddressActivity extends BaseSpiceActivity {
 			// Si selecciono una Localidad, tengo que borrar la Comisaría
 			borrarComisaria();
 			
-			if (lookingFor == 0) {			
-				lookingFor = 1;		
+			// Con esto cierro el Teclado si queda abierto
+			InputMethodManager mgr = (InputMethodManager) 
+			getSystemService(Context.INPUT_METHOD_SERVICE);
+			mgr.hideSoftInputFromWindow(localidadEditText.getWindowToken(), 0);
 				
-				myProgressDialog = new ProgressDialog(this, R.style.ProgressDialogTheme);
-				myProgressDialog.setTitle("Por favor, espere...");
-				myProgressDialog.setMessage("Buscando Localidades...");
-				myProgressDialog.show();
-				
-				getSpiceManager().execute(new GetPartidoRequest(partido),
-						null, 
-						DurationInMillis.ONE_MINUTE,
-						new PartidoRequestListener(this));
-			}
+			myProgressDialog = new ProgressDialog(this, R.style.ProgressDialogTheme);
+			myProgressDialog.setTitle("Por favor, espere...");
+			myProgressDialog.setMessage("Buscando Localidades...");
+			myProgressDialog.show();
+			
+			getSpiceManager().execute(new GetPartidoRequest(partido),
+					null, 
+					DurationInMillis.ONE_MINUTE,
+					new PartidoRequestListener(this));
 		}
 		else {
 			Toast.makeText(getApplicationContext(), "Primero selecione un Partido", Toast.LENGTH_SHORT).show();
@@ -308,19 +312,21 @@ public class NewAddressActivity extends BaseSpiceActivity {
 	public void displayComisarias(View view) {
 		
 		if (localidad != null){
-			if (lookingFor == 0) {			
-				lookingFor = 1;
+			
+			// Con esto cierro el Teclado si queda abierto
+			InputMethodManager mgr = (InputMethodManager) 
+			getSystemService(Context.INPUT_METHOD_SERVICE);
+			mgr.hideSoftInputFromWindow(comisariaEditText.getWindowToken(), 0);
 				
-				myProgressDialog = new ProgressDialog(this, R.style.ProgressDialogTheme);
-				myProgressDialog.setTitle("Por favor, espere...");
-				myProgressDialog.setMessage("Buscando Comisarias...");
-				myProgressDialog.show();
-				
-				getSpiceManager().execute(new GetLocalidadRequest(localidad),
-						null, 
-						DurationInMillis.ONE_MINUTE,
-						new LocalidadRequestListener(this));
-			}
+			myProgressDialog = new ProgressDialog(this, R.style.ProgressDialogTheme);
+			myProgressDialog.setTitle("Por favor, espere...");
+			myProgressDialog.setMessage("Buscando Comisarias...");
+			myProgressDialog.show();
+			
+			getSpiceManager().execute(new GetLocalidadRequest(localidad),
+					null, 
+					DurationInMillis.ONE_MINUTE,
+					new LocalidadRequestListener(this));
 		}
 		else {
 			Toast.makeText(getApplicationContext(), "Primero selecione una Localidad", Toast.LENGTH_SHORT).show();

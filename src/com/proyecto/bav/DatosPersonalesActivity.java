@@ -51,11 +51,11 @@ public class DatosPersonalesActivity extends BaseSpiceActivity {
 			editTextDni = null;
 			
 			EditText editTextNombre = (EditText) findViewById(R.id.et_nombre);
-			editTextNombre.setText(user.getNombres());
+			editTextNombre.setText(user.getNombre());
 			editTextNombre = null;
 			
 			EditText editTextApellido = (EditText) findViewById(R.id.et_apellido);
-			editTextApellido.setText(user.getApellidos());
+			editTextApellido.setText(user.getApellido());
 			editTextApellido = null;
 			
 			EditText editTextTelefono = (EditText) findViewById(R.id.et_telefono);

@@ -51,12 +51,13 @@ public class LoginRequestListener implements RequestListener<LoginResult> {
 	@Override
 	public void onRequestSuccess(LoginResult result) {
 		
-		// Guardar Token
+		result.getUser().save(activity.getApplicationContext());
 		
 		activity.myProgressDialog.dismiss();
 		Intent intent = new Intent(activity, MainActivity.class);
 		activity.startActivity(intent);
-		activity.finish();		
+		activity.finish();	
+		
 	}
 
 }

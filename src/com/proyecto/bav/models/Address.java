@@ -247,6 +247,10 @@ public class Address {
 		writeFile(json, FILE_NAME, context);
 		
 	}
+	
+	public static void destroy(Context context) {
+		writeFile("", FILE_NAME, context);
+	}
 
 	public static List<Address> getAddresses(Context context) {
 		

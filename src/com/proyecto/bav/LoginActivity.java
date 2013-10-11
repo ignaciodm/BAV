@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.octo.android.robospice.persistence.DurationInMillis;
 import com.proyecto.bav.listeners.LoginRequestListener;
+import com.proyecto.bav.models.User;
 import com.proyecto.bav.requests.PostLoginRequest;
 
 public class LoginActivity extends BaseSpiceActivity {
@@ -23,13 +24,13 @@ public class LoginActivity extends BaseSpiceActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
 		
-		EditText editTextEmail = (EditText) findViewById(R.id.et_email);
-		editTextEmail.setText("pabloserra89@gmail.com");
-		
 		// Si el usuario ya está logueado, voy directo a la aplicación
-//		Intent intent = new Intent(this, MainActivity.class);
-//		this.startActivity(intent);
-//		this.finish();
+		User user = User.getUser(this.getApplicationContext());
+		if(user != null){
+			Intent intent = new Intent(this, MainActivity.class);
+			this.startActivity(intent);
+			this.finish();
+		}		
 	}
 
 	@Override

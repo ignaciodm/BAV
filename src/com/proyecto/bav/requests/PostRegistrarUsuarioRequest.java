@@ -12,18 +12,20 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.proyecto.bav.models.User;
 import com.proyecto.bav.results.LoginResult;
+import com.proyecto.bav.results.UsuarioResult;
 
-public class PostLoginRequest extends PostSpiceRequest<LoginResult> {
 
-	public PostLoginRequest(String content) {		
-		super(LoginResult.class);
-		this.setPath("/login");
+public class PostRegistrarUsuarioRequest extends PostSpiceRequest<UsuarioResult>{
+
+	public PostRegistrarUsuarioRequest(String content) {		
+		super(UsuarioResult.class);
+		this.setPath("/usuarios");
 		
 		ByteArrayContent requestContent = ByteArrayContent.fromString("application/json", content);
-		this.setHttpContent(requestContent);		
+		this.setHttpContent(requestContent);
 	}
 	
-	protected LoginResult parseResponse(final HttpResponse response) throws IOException {
+	protected UsuarioResult parseResponse(final HttpResponse response) throws IOException {
 		
 		StringBuilder sb = new StringBuilder();
 		InputStream inputStream = null;
@@ -45,21 +47,12 @@ public class PostLoginRequest extends PostSpiceRequest<LoginResult> {
 			e.printStackTrace();
 		}
 
-		User user = null;
 		String json =  sb.toString();
 		Gson gson = new Gson();
-
-		Type userType = new TypeToken<User>() {}.getType();
-
-		try {
-			user = gson.fromJson(json, userType);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}		
+				
+		UsuarioResult usuarioResult = new UsuarioResult();
 		
-		LoginResult loginResult = new LoginResult(user);
-		
-		return loginResult;
+		return usuarioResult;
 	}
 
 }

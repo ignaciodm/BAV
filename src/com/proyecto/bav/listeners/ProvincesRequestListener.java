@@ -28,7 +28,6 @@ public class ProvincesRequestListener implements RequestListener<ProvincesResult
 
 	@Override
     public void onRequestFailure( SpiceException spiceException ) {
-		activity.lookingFor = 0;
 		Toast toast = Toast.makeText(activity.getApplicationContext(), "Error en la conexión\nIntente nuevamente", Toast.LENGTH_SHORT);
 		toast.show();
 		activity.myProgressDialog.dismiss();
@@ -84,7 +83,6 @@ public class ProvincesRequestListener implements RequestListener<ProvincesResult
 	    if(b != null)
 	    	b.setBackgroundResource(R.drawable.background_button_rectangular);
 	    
-		activity.lookingFor = 0;
 		activity.myProgressDialog.dismiss();		
 	}
 }

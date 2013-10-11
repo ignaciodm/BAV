@@ -188,6 +188,17 @@
 	        	android:focusableInTouchMode="false"
 		        android:background="@drawable/background_edittext_bot_redondeado"
 		        android:onClick="displayComisarias" />
+		     
+		     <Button
+		        android:id="@+id/guardar_new_address"
+		        android:layout_width="fill_parent"
+		        android:layout_height="45dp"
+		        android:layout_marginTop="20dp"
+		        android:background="@drawable/background_button_redondeado"
+		        android:onClick="guardar_new_address"
+		        android:text="@string/guardar"
+		        android:textColor="@android:color/white"
+		        android:textStyle="bold" />
 	     
 	</LinearLayout>
 

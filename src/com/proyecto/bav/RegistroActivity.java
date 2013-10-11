@@ -1,36 +1,56 @@
 package com.proyecto.bav;
 
+import java.lang.reflect.Type;
+
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.octo.android.robospice.persistence.DurationInMillis;
+import com.proyecto.bav.listeners.RegistrarUsuarioRequestListener;
 import com.proyecto.bav.models.User;
+import com.proyecto.bav.requests.PostRegistrarUsuarioRequest;
 
 public class RegistroActivity extends BaseSpiceActivity {
 	
-	private RegistroActivity activity;
 	private int diaNacimiento;
 	private int mesNacimiento;
-	private int anioNacimiento;	
-	public int lookingFor;
+	private int anioNacimiento;
 	public ProgressDialog myProgressDialog;
-	private EditText fechaNacimiento;
+	public EditText editTextFechaNacimiento;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_registro);
 		setBackgroundAPILowerThan11();
-		fechaNacimiento = (EditText) this.findViewById(R.id.et_fecha_nacimiento);
+		editTextFechaNacimiento = (EditText) this.findViewById(R.id.et_fecha_nacimiento);
+		
+		EditText editTextEmail = (EditText) findViewById(R.id.et_email);
+		editTextEmail.setText("pabloserra89@gmail.com");
+		EditText editTextPass = (EditText) findViewById(R.id.et_password);
+		editTextPass.setText("1");
+		EditText editTextPassConf = (EditText) findViewById(R.id.et_password_confirmacion);
+		editTextPassConf.setText("1");
+		EditText editTextDni = (EditText) findViewById(R.id.et_dni);
+		editTextDni.setText("34270751");
+		EditText editTextNom = (EditText) findViewById(R.id.et_nombre);
+		editTextNom.setText("Pablo");
+		EditText editTextApe = (EditText) findViewById(R.id.et_apellido);
+		editTextApe.setText("Serra");
+		EditText editTextTel = (EditText) findViewById(R.id.et_telefono);
+		editTextTel.setText("12345678");		
+		diaNacimiento = 18;
+		mesNacimiento = 3;
+		anioNacimiento = 1989;		
 	}
 	
 	private void setBackgroundAPILowerThan11() {		
@@ -138,42 +158,26 @@ public class RegistroActivity extends BaseSpiceActivity {
 			return;
 		}
 				
-		User user = new User(et_email, et_password, et_dni, et_nombre, et_apellido, et_telefono, diaNacimiento, mesNacimiento, anioNacimiento);
-		
-		crearUsuario(user);
-		
-		activity = this;
-		
-		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-		alertDialogBuilder.setMessage("Cuenta creada exitosamente.\n\nVerifique su cuenta de email para confirmar el registro.");
-	    alertDialogBuilder.setNeutralButton("Aceptar", new DialogInterface.OnClickListener() {
-		   public void onClick(DialogInterface dialog, int which) {
-			   activity.finish();
-		   }
-		});
-	    AlertDialog alert = alertDialogBuilder.create();
-	    alert.show();
-	    Button b = alert.getButton(DialogInterface.BUTTON_NEUTRAL);
-	    b.setBackgroundResource(R.drawable.background_button_rectangular);
+		User user = new User(et_email, et_password, et_dni, et_nombre, et_apellido, et_telefono, diaNacimiento, mesNacimiento, anioNacimiento);		
+		registrarUsuario(user);		
 
 	}
 
-	private void crearUsuario(User user) {
+	private void registrarUsuario(User user) {
 		
-		if (lookingFor == 0) {
-			lookingFor = 1;
-			
-			myProgressDialog = new ProgressDialog(this, R.style.ProgressDialogTheme);
-			myProgressDialog.setTitle("Por favor, espere...");
-			myProgressDialog.setMessage("Creando cuenta...");
-			myProgressDialog.show();
-			
-//			getSpiceManager().execute(new GetProvincesRequest(),
-//					null, 
-//					DurationInMillis.ONE_MINUTE,
-//					new ProvincesRequestListener(this));
-		}
+		myProgressDialog = new ProgressDialog(this, R.style.ProgressDialogTheme);
+		myProgressDialog.setTitle("Por favor, espere...");
+		myProgressDialog.setMessage("Creando cuenta...");
+		myProgressDialog.show();
 		
+		Gson gson = new Gson();
+		Type userType = new TypeToken<User>() {}.getType();
+		String json = gson.toJson(user, userType);
+		
+		getSpiceManager().execute(new PostRegistrarUsuarioRequest(json),
+				null, 
+				DurationInMillis.ONE_MINUTE,
+				new RegistrarUsuarioRequestListener(this));		
 	}
 	
 	/** Called when the user clicks the Fecha de Nacimiento EditText */
@@ -224,7 +228,7 @@ public class RegistroActivity extends BaseSpiceActivity {
 				diaNacimiento = data.getIntExtra(DatePickerActivity.DAY, 1);
 				mesNacimiento = data.getIntExtra(DatePickerActivity.MONTH, 1);
 				anioNacimiento = data.getIntExtra(DatePickerActivity.YEAR, 1);
-				fechaNacimiento.setText(diaNacimiento + " - " + getMonthName(mesNacimiento) + " - " + anioNacimiento);
+				editTextFechaNacimiento.setText(diaNacimiento + " - " + getMonthName(mesNacimiento) + " - " + anioNacimiento);
 			}
 				
 	}

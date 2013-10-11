@@ -49,6 +49,12 @@ public class DisplayAddressesActivity extends BaseSpiceActivity {
 	    super.onRestart();
 	    fetchAddresses();
 	}
+	
+	@Override
+	protected void onResume() {
+	    super.onResume();
+	    fetchAddresses();
+	}
 
 	private void fetchAddresses() {
 		
@@ -79,13 +85,11 @@ public class DisplayAddressesActivity extends BaseSpiceActivity {
 		            	
 						case 0:
 							
-							Toast toast = Toast.makeText(getApplicationContext(), "Borrando...", Toast.LENGTH_SHORT);
+							Toast toast = Toast.makeText(getApplicationContext(), "Direccion eliminada", Toast.LENGTH_SHORT);
 							toast.show();
 							Address.delete(posicionDireccionSeleccionada, getApplicationContext());
 							
-							Intent intent = getIntent();
-							finish();
-							startActivity(intent);	
+							fetchAddresses();	
 							
 							break;
 							
@@ -158,7 +162,8 @@ public class DisplayAddressesActivity extends BaseSpiceActivity {
 	}
 	
 	private void sincronizar() {
-		// TODO Auto-generated method stub		
+		// TODO Auto-generated method stub
+		fetchAddresses();
 	}
 
 	private void newAddress() {

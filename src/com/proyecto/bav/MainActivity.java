@@ -1,5 +1,8 @@
 package com.proyecto.bav;
 
+import com.proyecto.bav.models.Address;
+import com.proyecto.bav.models.User;
+
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -64,10 +67,10 @@ public class MainActivity extends BaseSpiceActivity {
 	}
 	
 	/** Called when the user clicks the Cerrar Sesion button */
-	public void cerrarSesion(View view) {
-		
-		// Destruir Token
-		cerrarSesion();				
+	public void cerrarSesion(View view) {		
+		User.destroy(this.getApplicationContext());
+		Address.destroy(this.getApplicationContext());
+		cerrarSesion();	
 	}
 	
 	private void cerrarSesion() {

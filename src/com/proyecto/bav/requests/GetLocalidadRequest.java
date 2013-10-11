@@ -15,7 +15,7 @@ public class GetLocalidadRequest extends
 
 	public GetLocalidadRequest(Localidad localidad) {
 		super(LocalidadResult.class);
-		this.setPath("/localidades/" + localidad.getId() + ".json");
+		this.setPath("/localidades/" + localidad.getId() + ".json?auth_token=e4ef602438e77f90ed73da9a9046546faa260b96");
 	}
 
 	protected LocalidadResult parseResponse(final HttpResponse response) throws IOException {

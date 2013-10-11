@@ -21,14 +21,20 @@ public class User {
 	
 	private String password;
 	
+	@SerializedName("id")
+	private int id;
+	
+	@SerializedName("auth_token")
+	private String auth_token;
+	
 	@SerializedName("dni")
 	private int dni;
 
-	@SerializedName("nombres")
-	private String nombres;
+	@SerializedName("nombre")
+	private String nombre;
 	
-	@SerializedName("apellidos")
-	private String apellidos;
+	@SerializedName("apellido")
+	private String apellido;
 	
 	@SerializedName("telefono")
 	private int telefono;
@@ -46,8 +52,8 @@ public class User {
 		
 		this.setEmail(et_email);
 		this.setPassword(password);
-		this.setNombres(et_nombre);
-		this.setApellidos(et_apellido);
+		this.setNombre(et_nombre);
+		this.setApellido(et_apellido);
 		this.setDiaNacimiento(diaNacimiento);
 		this.setMesNacimiento(mesNacimiento);
 		this.setAnioNacimiento(anioNacimiento);
@@ -66,11 +72,11 @@ public class User {
 		
 	}
 	
-public User(String et_email, String et_dni, String et_nombre, String et_apellido, String et_telefono, int diaNacimiento, int mesNacimiento, int anioNacimiento) {
+	public User(String et_email, String et_dni, String et_nombre, String et_apellido, String et_telefono, int diaNacimiento, int mesNacimiento, int anioNacimiento) {
 		
 		this.setEmail(et_email);
-		this.setNombres(et_nombre);
-		this.setApellidos(et_apellido);
+		this.setNombre(et_nombre);
+		this.setApellido(et_apellido);
 		this.setDiaNacimiento(diaNacimiento);
 		this.setMesNacimiento(mesNacimiento);
 		this.setAnioNacimiento(anioNacimiento);
@@ -105,20 +111,20 @@ public User(String et_email, String et_dni, String et_nombre, String et_apellido
 		this.dni = dni;
 	}
 
-	public String getNombres() {
-		return nombres;
+	public String getNombre() {
+		return nombre;
 	}
 
-	public void setNombres(String nombres) {
-		this.nombres = nombres;
+	public void setNombre(String nombres) {
+		this.nombre = nombres;
 	}
 
-	public String getApellidos() {
-		return apellidos;
+	public String getApellido() {
+		return apellido;
 	}
 
-	public void setApellidos(String apellidos) {
-		this.apellidos = apellidos;
+	public void setApellido(String apellidos) {
+		this.apellido = apellidos;
 	}
 
 	public int getTelefono() {
@@ -136,6 +142,15 @@ public User(String et_email, String et_dni, String et_nombre, String et_apellido
 		String json = gson.toJson(this, userType);
 		writeFile(json, FILE_NAME, context);
 		
+	}
+	
+	public static void destroy(Context context) {
+		writeFile("", FILE_NAME, context);
+	}
+	
+	public static String getTokenUser(Context context){		
+		User user = User.getUser(context);		
+		return user.getAuth_token();
 	}
 	
 	public static User getUser(Context context) {
@@ -240,6 +255,21 @@ public User(String et_email, String et_dni, String et_nombre, String et_apellido
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getAuth_token() {
+		return auth_token;
+	}
+
+	public void setAuth_token(String auth_token) {
+		this.auth_token = auth_token;
+	}
 	
 }
