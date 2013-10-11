@@ -7,6 +7,7 @@ import java.util.List;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.view.ContextThemeWrapper;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -54,7 +55,8 @@ public class LocalidadRequestListener implements
     	
     	CharSequence[] charComisariasNames = comisariasNames.toArray(new CharSequence[comisariasNames.size()]);
         
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(activity);
+    	//AlertDialog.Builder alertDialog = new AlertDialog.Builder(activity);
+    	AlertDialog.Builder alertDialog = new AlertDialog.Builder(new ContextThemeWrapper(activity, R.style.AlertDialogCustom));
         
         if(comisarias.size() == 0){
 			alertDialog.setMessage("Todavía no hay Comisarías de su Localidad en nuestro sistema");

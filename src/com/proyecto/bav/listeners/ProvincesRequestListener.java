@@ -7,12 +7,12 @@ import java.util.List;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.view.ContextThemeWrapper;
 import android.widget.Button;
 import android.widget.Toast;
 
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
-import com.proyecto.bav.DatePickerActivity;
 import com.proyecto.bav.NewAddressActivity;
 import com.proyecto.bav.R;
 import com.proyecto.bav.models.Provincia;
@@ -54,7 +54,8 @@ public class ProvincesRequestListener implements RequestListener<ProvincesResult
 
 		CharSequence[] charProvinceNames = provincesNames.toArray(new CharSequence[provincesNames.size()]);
 
-		AlertDialog.Builder alertDialog = new AlertDialog.Builder(activity);
+		//AlertDialog.Builder alertDialog = new AlertDialog.Builder(activity);
+		AlertDialog.Builder alertDialog = new AlertDialog.Builder(new ContextThemeWrapper(activity, R.style.AlertDialogCustom));
 		
 		if(provincias.size() == 0){
 			alertDialog.setMessage("No hay Provincias cargadas en el sistema");

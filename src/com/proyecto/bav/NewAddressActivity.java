@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.octo.android.robospice.persistence.DurationInMillis;
+import com.proyecto.bav.listeners.AddressRequestListener;
 import com.proyecto.bav.listeners.LocalidadRequestListener;
 import com.proyecto.bav.listeners.PartidoRequestListener;
 import com.proyecto.bav.listeners.ProvinceRequestListener;
@@ -26,10 +27,12 @@ import com.proyecto.bav.models.Comisaria;
 import com.proyecto.bav.models.Localidad;
 import com.proyecto.bav.models.Partido;
 import com.proyecto.bav.models.Provincia;
+import com.proyecto.bav.models.User;
 import com.proyecto.bav.requests.GetLocalidadRequest;
 import com.proyecto.bav.requests.GetPartidoRequest;
 import com.proyecto.bav.requests.GetProvinceRequest;
 import com.proyecto.bav.requests.GetProvincesRequest;
+import com.proyecto.bav.requests.PostAddressRequest;
 
 public class NewAddressActivity extends BaseSpiceActivity {
 
@@ -96,12 +99,12 @@ public class NewAddressActivity extends BaseSpiceActivity {
 		editAddressDescripcion = null;
 
 		EditText editAddressCalle = (EditText) findViewById(R.id.new_address_street);
-		editAddressCalle.setText(address.getStreet());
+		editAddressCalle.setText(address.getCalle());
 		editAddressCalle = null;
 
-		if (address.getNumber() != null) {
+		if (address.getNumero() != null) {
 			EditText editAddressNumero = (EditText) findViewById(R.id.new_address_street_number);
-			editAddressNumero.setText(String.valueOf(address.getNumber()));
+			editAddressNumero.setText(String.valueOf(address.getNumero()));
 			editAddressNumero = null;
 		}
 
@@ -224,10 +227,6 @@ public class NewAddressActivity extends BaseSpiceActivity {
 		if (requestCode == CONFIRMAR_PASS)
 			if(resultCode == RESULT_OK)
 				saveAddress();
-	}	
-	
-	public void guardar_new_address(View view) {
-		confirmarPass();
 	}
 	
 	public void displayProvinces(View view) {
@@ -391,20 +390,21 @@ public class NewAddressActivity extends BaseSpiceActivity {
 					et_address_dpto, et_address_entreCalle1,
 					et_address_entreCalle2, provincia, partido, localidad,
 					comisaria);
-
-		Address.save(address, this.getApplicationContext());
+		
+		Gson gson = new Gson();
+		Type addressType = new TypeToken<Address>() {}.getType();
+		String json = gson.toJson(address, addressType);
+		
+		myProgressDialog = new ProgressDialog(this, R.style.ProgressDialogTheme);
+		myProgressDialog.setTitle("Por favor, espere...");
+		myProgressDialog.setMessage("Creando Dirección...");
+		myProgressDialog.show();
 		
 		if(nuevaDireccion == true)
-			Toast.makeText(getApplicationContext(), "Dirección creada", Toast.LENGTH_SHORT).show();
-		else
-			Toast.makeText(getApplicationContext(), "Dirección modificada", Toast.LENGTH_SHORT).show();		
-		
-		this.finish();
-
-		// getSpiceManager().execute( new PostAddressSpiceRequest(address),
-		// "json",
-		// DurationInMillis.ONE_MINUTE,
-		// new AddressRequestListener(address, this));
+			getSpiceManager().execute(new PostAddressRequest(json, User.getUserId(this.getApplicationContext()), "be2c9685a9823949304e6ab85ca4de141fd6ad32"),
+					null, 
+					DurationInMillis.ONE_MINUTE,
+					new AddressRequestListener(this));
 
 	}
 	

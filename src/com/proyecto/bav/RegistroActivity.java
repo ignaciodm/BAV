@@ -33,24 +33,6 @@ public class RegistroActivity extends BaseSpiceActivity {
 		setContentView(R.layout.activity_registro);
 		setBackgroundAPILowerThan11();
 		editTextFechaNacimiento = (EditText) this.findViewById(R.id.et_fecha_nacimiento);
-		
-		EditText editTextEmail = (EditText) findViewById(R.id.et_email);
-		editTextEmail.setText("pabloserra89@gmail.com");
-		EditText editTextPass = (EditText) findViewById(R.id.et_password);
-		editTextPass.setText("1");
-		EditText editTextPassConf = (EditText) findViewById(R.id.et_password_confirmacion);
-		editTextPassConf.setText("1");
-		EditText editTextDni = (EditText) findViewById(R.id.et_dni);
-		editTextDni.setText("34270751");
-		EditText editTextNom = (EditText) findViewById(R.id.et_nombre);
-		editTextNom.setText("Pablo");
-		EditText editTextApe = (EditText) findViewById(R.id.et_apellido);
-		editTextApe.setText("Serra");
-		EditText editTextTel = (EditText) findViewById(R.id.et_telefono);
-		editTextTel.setText("12345678");		
-		diaNacimiento = 18;
-		mesNacimiento = 3;
-		anioNacimiento = 1989;		
 	}
 	
 	private void setBackgroundAPILowerThan11() {		

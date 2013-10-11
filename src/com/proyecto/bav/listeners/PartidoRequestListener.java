@@ -7,6 +7,7 @@ import java.util.List;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.view.ContextThemeWrapper;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -54,7 +55,8 @@ public class PartidoRequestListener implements
     	
     	CharSequence[] charPartidosNames = localidadesNames.toArray(new CharSequence[localidadesNames.size()]);
         
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(activity);
+    	//AlertDialog.Builder alertDialog = new AlertDialog.Builder(activity);
+    	AlertDialog.Builder alertDialog = new AlertDialog.Builder(new ContextThemeWrapper(activity, R.style.AlertDialogCustom));
         
         if(localidades.size() == 0){
 			alertDialog.setMessage("Todavía no hay Localidades de su Partido en nuestro sistema");

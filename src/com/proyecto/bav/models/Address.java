@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Random;
 
 import android.content.Context;
 
@@ -27,11 +26,11 @@ public class Address {
 	@SerializedName("descripcion")
 	private String description;
 	
-	@SerializedName("street")
-	private String street;
+	@SerializedName("calle")
+	private String calle;
 
-	@SerializedName("number")
-	private Integer number;
+	@SerializedName("numero")
+	private Integer numero;
 	
 	@SerializedName("piso")
 	private Integer piso;
@@ -54,8 +53,14 @@ public class Address {
 	@SerializedName("localidad")
 	private Localidad localidad;
 	
+	@SerializedName("localidad_id")
+	private int localidad_id;
+	
 	@SerializedName("policeStation")
 	private Comisaria policeStation;
+	
+	@SerializedName("comisaria_id")
+	private int comisaria_id;
 	
 	public Address(String descripcion, 
 				String street,
@@ -69,19 +74,20 @@ public class Address {
 				Localidad localidad, 
 				Comisaria policeStation) {
 		
-		this.setId(new Random().nextInt());
 		this.setDescription(descripcion);
-		this.setStreet(street);
+		this.setCalle(street);
 		this.setDpto(dpto);
 		this.setEntreCalle1(entreCalle1);
 		this.setEntreCalle2(entreCalle2);
 		this.setProvincia(provincia);
 		this.setPartido(partido);
 		this.setLocalidad(localidad);
+		this.setLocalidad_id(localidad.getId());
 		this.setPoliceStation(policeStation);
+		this.setComisaria_id(policeStation.getId());
 		
 		try{
-			this.setNumber(Integer.parseInt(numero));
+			this.setNumero(Integer.parseInt(numero));
 		} catch (Exception e) { 
 			// Nada, el número es vacío
 		}
@@ -109,17 +115,19 @@ public class Address {
 		
 		this.setId(addressID);
 		this.setDescription(descripcion);
-		this.setStreet(street);
+		this.setCalle(street);
 		this.setDpto(dpto);
 		this.setEntreCalle1(entreCalle1);
 		this.setEntreCalle2(entreCalle2);
 		this.setProvincia(provincia);
 		this.setPartido(partido);
 		this.setLocalidad(localidad);
+		this.setLocalidad_id(localidad.getId());
 		this.setPoliceStation(policeStation);
+		this.setComisaria_id(policeStation.getId());
 		
 		try{
-			this.setNumber(Integer.parseInt(numero));
+			this.setNumero(Integer.parseInt(numero));
 		} catch (Exception e) { 
 			// Nada, el número es vacío
 		}
@@ -140,20 +148,12 @@ public class Address {
 		this.description = description;
 	}
 
-	public String getStreet() {
-		return street;
+	public Integer getNumero() {		
+		return numero;
 	}
 
-	public void setStreet(String street) {
-		this.street = street;
-	}
-
-	public Integer getNumber() {		
-		return number;
-	}
-
-	public void setNumber(Integer number) {
-		this.number = number;
+	public void setNumero(Integer number) {
+		this.numero = number;
 	}
 	
 	public Integer getPiso() {
@@ -331,6 +331,30 @@ public class Address {
 		if(this.getId() == a.getId())
 			return true;		
 		return false;		
+	}
+
+	public String getCalle() {
+		return calle;
+	}
+
+	public void setCalle(String calle) {
+		this.calle = calle;
+	}
+
+	public int getLocalidad_id() {
+		return localidad_id;
+	}
+
+	public void setLocalidad_id(int localidad_id) {
+		this.localidad_id = localidad_id;
+	}
+
+	public int getComisaria_id() {
+		return comisaria_id;
+	}
+
+	public void setComisaria_id(int comisaria_id) {
+		this.comisaria_id = comisaria_id;
 	}	
 
 }

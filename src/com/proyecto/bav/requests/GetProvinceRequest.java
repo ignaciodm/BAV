@@ -15,7 +15,7 @@ public class GetProvinceRequest extends
 
 	public GetProvinceRequest(Provincia province) {
 		super(ProvinceResult.class);
-		this.setPath("/provincias/" + province.getId() + ".json?auth_token=e4ef602438e77f90ed73da9a9046546faa260b96");
+		this.setPath("/provincias/" + province.getId() + ".json?auth_token=be2c9685a9823949304e6ab85ca4de141fd6ad32");
 	}
 
 	protected ProvinceResult parseResponse(final HttpResponse response) throws IOException {

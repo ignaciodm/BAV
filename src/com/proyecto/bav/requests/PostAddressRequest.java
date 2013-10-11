@@ -5,23 +5,25 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
-import java.util.List;
 
+import com.google.api.client.http.ByteArrayContent;
 import com.google.api.client.http.HttpResponse;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.proyecto.bav.models.Provincia;
-import com.proyecto.bav.results.ProvincesResult;
+import com.proyecto.bav.models.Address;
+import com.proyecto.bav.results.AddressResult;
 
-public class GetProvincesRequest extends
-		GetSpiceRequest<ProvincesResult> {
+public class PostAddressRequest extends PostSpiceRequest<AddressResult>{
 
-	public GetProvincesRequest() {
-		super(ProvincesResult.class);
-		this.setPath("/provincias.json?auth_token=be2c9685a9823949304e6ab85ca4de141fd6ad32");
+	public PostAddressRequest(String content, int userID, String token) {
+		super(AddressResult.class);
+		this.setPath("/usuarios/" + userID + "/direcciones?auth_token=" + token);
+		
+		ByteArrayContent requestContent = ByteArrayContent.fromString("application/json", content);
+		this.setHttpContent(requestContent);		
 	}
-
-	protected ProvincesResult parseResponse(final HttpResponse response) throws IOException {
+	
+	protected AddressResult parseResponse(final HttpResponse response) throws IOException {
 		
 		StringBuilder sb = new StringBuilder();
 		InputStream inputStream = null;
@@ -43,21 +45,21 @@ public class GetProvincesRequest extends
 			e.printStackTrace();
 		}
 
+		Address address = null;
 		String json =  sb.toString();
 		Gson gson = new Gson();
-		json = json.substring("{\"provincias\":[".length() -1 , json.length()-1);		
-		
-		Type provincesType = new TypeToken<List<Provincia>>() {																																																																						}.getType();
-		List<Provincia> provincias = null;
+
+		Type addressType = new TypeToken<Address>() {}.getType();
+
 		try {
-			provincias = gson.fromJson(json, provincesType);
+			address = gson.fromJson(json, addressType);
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		}		
 		
-		ProvincesResult result = new ProvincesResult();
-		result.setProvincias(provincias);
+		AddressResult addressResult = new AddressResult(address);
 		
-		return result;
+		return addressResult;
 	}
+
 }

@@ -7,6 +7,7 @@ import java.util.List;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.view.ContextThemeWrapper;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -53,7 +54,8 @@ public class ProvinceRequestListener implements RequestListener<ProvinceResult> 
     	
     	CharSequence[] charPartidosNames = partidosNames.toArray(new CharSequence[partidosNames.size()]);
         
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(activity);
+    	//AlertDialog.Builder alertDialog = new AlertDialog.Builder(activity);
+    	AlertDialog.Builder alertDialog = new AlertDialog.Builder(new ContextThemeWrapper(activity, R.style.AlertDialogCustom));
         
         if(partidos.size() == 0){
 			alertDialog.setMessage("Todavía no hay Partidos de su Provincia en nuestro sistema");

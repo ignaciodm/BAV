@@ -82,8 +82,7 @@
             android:label="@string/title_activity_new_address"
             android:parentActivityName="com.proyecto.bav.DisplayAddressesActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden"
-            android:theme="@android:style/Theme.Dialog" >
+            android:windowSoftInputMode="stateHidden" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.proyecto.bav.DisplayAddressesActivity" />
@@ -106,7 +105,7 @@
         
         <activity
             android:name="com.proyecto.bav.DatePickerActivity"
-            android:theme="@android:style/Theme.Dialog" >
+            android:theme="@style/AlertDialogCustom" >
         </activity>
 
         <service

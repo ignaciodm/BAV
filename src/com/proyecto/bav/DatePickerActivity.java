@@ -39,7 +39,6 @@ public class DatePickerActivity extends Activity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.date_picker, menu);
 		return true;
 	}
@@ -58,8 +57,7 @@ public class DatePickerActivity extends Activity {
 			date_day = Integer.parseInt(editTextDateDay.getText().toString());
 		} catch (Exception e) {
 			date_day = 0;
-		}
-		
+		}		
 		
 		EditText editTextDateYear = (EditText) findViewById(R.id.date_year);
 		int date_year;

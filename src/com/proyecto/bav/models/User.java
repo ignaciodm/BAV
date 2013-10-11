@@ -153,6 +153,11 @@ public class User {
 		return user.getAuth_token();
 	}
 	
+	public static int getUserId(Context context) {
+		User user = User.getUser(context);		
+		return user.getId();
+	}
+	
 	public static User getUser(Context context) {
 		
 		User user = null;
@@ -270,6 +275,6 @@ public class User {
 
 	public void setAuth_token(String auth_token) {
 		this.auth_token = auth_token;
-	}
+	}	
 	
 }

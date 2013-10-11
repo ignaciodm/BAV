@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -76,7 +77,7 @@ public class DisplayAddressesActivity extends BaseSpiceActivity {
 				opciones.add("Borrar Dirección"); // Posicion 0
 				CharSequence[] opcionesList = opciones.toArray(new CharSequence[opciones.size()]);
 				
-				AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+				AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(activity, R.style.AlertDialogCustom));
 		        builder.setItems(opcionesList, new DialogInterface.OnClickListener() {
 		        	
 		            public void onClick(DialogInterface dialog, int posIndex) {
@@ -198,10 +199,10 @@ public class DisplayAddressesActivity extends BaseSpiceActivity {
                 descripcionText.setText(address.getDescription());
                     
                 TextView streetText = (TextView) view.findViewById(R.id.display_address_street);
-                if(address.getNumber() == null)
-                	streetText.setText(address.getStreet() + " " + "S/N");
+                if(address.getNumero() == null)
+                	streetText.setText(address.getCalle() + " " + "S/N");
                 else
-                	streetText.setText(address.getStreet() + " " + address.getNumber());
+                	streetText.setText(address.getCalle() + " " + address.getNumero());
             }
             
             return view;

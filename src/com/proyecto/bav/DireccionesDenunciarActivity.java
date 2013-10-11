@@ -113,10 +113,10 @@ public class DireccionesDenunciarActivity extends BaseSpiceActivity {
                 descripcionText.setText(address.getDescription());
                     
                 TextView streetText = (TextView) view.findViewById(R.id.display_address_street);
-                if(address.getNumber() == null)
-                	streetText.setText(address.getStreet() + " " + "S/N");
+                if(address.getNumero() == null)
+                	streetText.setText(address.getCalle() + " " + "S/N");
                 else
-                	streetText.setText(address.getStreet() + " " + address.getNumber());
+                	streetText.setText(address.getCalle() + " " + address.getNumero());
             }
             
             return view;

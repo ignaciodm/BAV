@@ -1,44 +1,33 @@
 package com.proyecto.bav.listeners;
 
-import android.content.Intent;
+import android.widget.Toast;
 
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
-import com.proyecto.bav.BaseSpiceActivity;
-import com.proyecto.bav.DisplayAddressesActivity;
+import com.proyecto.bav.NewAddressActivity;
 import com.proyecto.bav.models.Address;
 import com.proyecto.bav.results.AddressResult;
 
+public class AddressRequestListener implements RequestListener<AddressResult> {
+	
+	private NewAddressActivity activity;
 
-// ============================================================================================
-// INNER CLASSES
-// ============================================================================================
-
-public final class AddressRequestListener implements RequestListener< AddressResult > {
-
-    private Address address;
-	private BaseSpiceActivity activity;
-
-	public AddressRequestListener(Address address, BaseSpiceActivity activity) {
-		this.address = address;
-		this.activity = activity;
+	public AddressRequestListener(NewAddressActivity newAddressActivity) {
+		this.activity = newAddressActivity;
 	}
 
 	@Override
-    public void onRequestFailure( SpiceException spiceException ) {
-//        Toast.makeText( NewAddressActivity.this, "failure", Toast.LENGTH_SHORT ).show();
-		Address.save(address, activity.getApplicationContext());
-		Intent intent = new Intent(activity, DisplayAddressesActivity.class);
-		activity.startActivity(intent);
-    }
+	public void onRequestFailure(SpiceException result) {
+		Toast.makeText(activity.getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
+		activity.myProgressDialog.dismiss();
+	}
 
-    @Override
-    public void onRequestSuccess( final AddressResult result ) {
-//        Toast.makeText( NewAddressActivity.this, "success", Toast.LENGTH_SHORT ).show();
-//        String originalText = getString( R.string.textview_text );
-//        mLoremTextView.setText( originalText + result.getWeather().getCurren_weather().get( 0 ).getTemp() );
-    	Intent intent = new Intent(activity, DisplayAddressesActivity.class);
-		activity.startActivity(intent);
-    	Address.save(address, activity.getApplicationContext());
-    }
+	@Override
+	public void onRequestSuccess(AddressResult result) {		
+		Address.save(result.getAddress(), activity.getApplicationContext());		
+		Toast.makeText(activity.getApplicationContext(), "Dirección creada", Toast.LENGTH_SHORT).show();		
+		activity.myProgressDialog.dismiss();
+		activity.finish();
+	}
+
 }
