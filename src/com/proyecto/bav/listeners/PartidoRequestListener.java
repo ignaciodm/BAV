@@ -55,7 +55,6 @@ public class PartidoRequestListener implements
     	
     	CharSequence[] charPartidosNames = localidadesNames.toArray(new CharSequence[localidadesNames.size()]);
         
-    	//AlertDialog.Builder alertDialog = new AlertDialog.Builder(activity);
     	AlertDialog.Builder alertDialog = new AlertDialog.Builder(new ContextThemeWrapper(activity, R.style.AlertDialogCustom));
         
         if(localidades.size() == 0){
@@ -78,10 +77,6 @@ public class PartidoRequestListener implements
         
         AlertDialog alert = alertDialog.create();
         alert.show();
-		
-	    Button b = alert.getButton(DialogInterface.BUTTON_NEUTRAL);
-	    if(b != null)
-	    	b.setBackgroundResource(R.drawable.background_button_rectangular);
 	    
         activity.myProgressDialog.dismiss();
 	}

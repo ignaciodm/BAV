@@ -1,5 +1,6 @@
 package com.proyecto.bav;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -8,24 +9,30 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.octo.android.robospice.persistence.DurationInMillis;
+import com.proyecto.bav.listeners.UsuarioRequestListener;
 import com.proyecto.bav.models.User;
+import com.proyecto.bav.requests.GetUsuarioRequest;
 
 public class DatosPersonalesActivity extends BaseSpiceActivity {
 	
 	private final static int CONFIRMAR_PASS = 1;
 	final static int SELECT_FECHA_NACIMIENTO = 2;
+	final static int SINCRONIZAR = 3;
 	
 	private int diaNacimiento;
 	private int mesNacimiento;
 	private int anioNacimiento;
 	private EditText fechaNacimiento;
+	
+	public ProgressDialog myProgressDialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_datos_personales);
 		setBackgroundAPILowerThan11();
-		fetchDatosPersonales();		
+		fetchDatosPersonales();
 		fechaNacimiento = (EditText) this.findViewById(R.id.et_fecha_nacimiento);
 	}
 
@@ -36,7 +43,7 @@ public class DatosPersonalesActivity extends BaseSpiceActivity {
 		}		
 	}
 
-	private void fetchDatosPersonales() {
+	public void fetchDatosPersonales() {
 		
 		User user = User.getUser(this.getApplicationContext());
 		
@@ -93,17 +100,22 @@ public class DatosPersonalesActivity extends BaseSpiceActivity {
 	    // Handle item selection
 	    switch (item.getItemId()) {
 	        case R.id.btn_guardar:
-	        	confirmarPass();
+	        	confirmarPassSave();
 	            return true;
 	        case R.id.btn_sincronizar:
-	        	sincronizar();
+	        	confirmarPassUpdate();
 	            return true;
 	        default:
 	            return super.onOptionsItemSelected(item);
 	    }
 	}
 	
-	private void confirmarPass() {
+	private void confirmarPassUpdate() {
+		Intent intent = new Intent(this, ConfirmarPassActivity.class);
+		startActivityForResult(intent, SINCRONIZAR);
+	}
+	
+	private void confirmarPassSave() {
 		
 		EditText editTextDni = (EditText) findViewById(R.id.et_dni);
 		String et_dni = editTextDni.getText().toString();
@@ -166,7 +178,10 @@ public class DatosPersonalesActivity extends BaseSpiceActivity {
 				anioNacimiento = data.getIntExtra(DatePickerActivity.YEAR, 1);
 				fechaNacimiento.setText(diaNacimiento + " - " + getMonthName(mesNacimiento) + " - " + anioNacimiento);
 			}
-				
+		
+		if(requestCode == SINCRONIZAR)
+			if(resultCode == RESULT_OK)
+				sincronizar();				
 	}
 
 	private void saveUser() {
@@ -200,7 +215,19 @@ public class DatosPersonalesActivity extends BaseSpiceActivity {
 	}
 
 	private void sincronizar() {
-		// TODO Auto-generated method stub		
+		
+		myProgressDialog = new ProgressDialog(this, R.style.ProgressDialogTheme);
+		myProgressDialog.setTitle("Por favor, espere...");
+		myProgressDialog.setMessage("Sincronizando...");
+		myProgressDialog.show();
+		
+		User user = User.getUser(this.getApplicationContext());
+		
+		getSpiceManager().execute(new GetUsuarioRequest(user.getId(), "be2c9685a9823949304e6ab85ca4de141fd6ad32"),
+				null, 
+				DurationInMillis.ONE_MINUTE,
+				new UsuarioRequestListener(this));
+		
 	}
 	
 	/** Called when the user clicks the Cambiar Contraseña button */

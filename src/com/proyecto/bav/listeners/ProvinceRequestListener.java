@@ -78,10 +78,6 @@ public class ProvinceRequestListener implements RequestListener<ProvinceResult> 
         
         AlertDialog alert = alertDialog.create();
         alert.show();
-		
-	    Button b = alert.getButton(DialogInterface.BUTTON_NEUTRAL);
-	    if(b != null)
-	    	b.setBackgroundResource(R.drawable.background_button_rectangular);
 	    
         activity.myProgressDialog.dismiss();
 		

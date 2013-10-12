@@ -1,28 +1,26 @@
 package com.proyecto.bav.listeners;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 
 import com.octo.android.robospice.exception.NoNetworkException;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
+import com.proyecto.bav.DatosPersonalesActivity;
 import com.proyecto.bav.R;
-import com.proyecto.bav.RegistroActivity;
 import com.proyecto.bav.results.UsuarioResult;
 
-public class RegistrarUsuarioRequestListener implements RequestListener<UsuarioResult> {
+public class UsuarioRequestListener implements RequestListener<UsuarioResult> {
 
-	private RegistroActivity activity;
+private DatosPersonalesActivity activity;
 	
-	public RegistrarUsuarioRequestListener(RegistroActivity registroActivity) {
-		this.activity = registroActivity;
+	public UsuarioRequestListener(DatosPersonalesActivity datosPersonalesActivity) {
+		this.activity = datosPersonalesActivity;
 	}
 
 	@Override
-	public void onRequestFailure(SpiceException spiceException) {	
+	public void onRequestFailure(SpiceException spiceException) {
 		
 		AlertDialog.Builder alertDialog = new AlertDialog.Builder(activity);
 		alertDialog.setNeutralButton("Aceptar", new DialogInterface.OnClickListener() {
@@ -48,25 +46,22 @@ public class RegistrarUsuarioRequestListener implements RequestListener<UsuarioR
 	@Override
 	public void onRequestSuccess(UsuarioResult result) {
 		
+		result.getUser().save(activity.getApplicationContext());
+		
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(activity);
-		alertDialogBuilder.setMessage("Cuenta creada exitosamente.\n\nVerifique su cuenta de email para confirmar el registro.");
+		alertDialogBuilder.setMessage("Datos Personales sincronizados exitosamente");
 	    alertDialogBuilder.setNeutralButton("Aceptar", new DialogInterface.OnClickListener() {
 		   public void onClick(DialogInterface dialog, int which) {
-			   activity.myProgressDialog.dismiss();
-			   
-			   // Con esto cierro el Teclado si queda abierto
-				InputMethodManager mgr = (InputMethodManager) 
-				activity.getSystemService(Context.INPUT_METHOD_SERVICE);
-				mgr.hideSoftInputFromWindow(activity.editTextFechaNacimiento.getWindowToken(), 0);
-			   
-			   activity.finish();
+			   activity.fetchDatosPersonales();
+			   activity.myProgressDialog.dismiss();	
 		   }
 		});
 	    
 	    AlertDialog alert = alertDialogBuilder.create();
 	    alert.show();
 	    Button b = alert.getButton(DialogInterface.BUTTON_NEUTRAL);
-	    b.setBackgroundResource(R.drawable.background_button_rectangular);		
+	    b.setBackgroundResource(R.drawable.background_button_rectangular);
+		
 	}
 
 }
