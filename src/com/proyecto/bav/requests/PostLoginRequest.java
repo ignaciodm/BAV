@@ -48,14 +48,18 @@ public class PostLoginRequest extends PostSpiceRequest<LoginResult> {
 		User user = null;
 		String json =  sb.toString();
 		Gson gson = new Gson();
-
+ 
 		Type userType = new TypeToken<User>() {}.getType();
 
 		try {
 			user = gson.fromJson(json, userType);
 		} catch (Exception e) {
 			e.printStackTrace();
-		}		
+		}
+		
+		user.setAnioNacimiento(Integer.parseInt(user.getFechaDeNacimiento().substring(0,4)));
+		user.setMesNacimiento(Integer.parseInt(user.getFechaDeNacimiento().substring(5,7)));
+		user.setDiaNacimiento(Integer.parseInt(user.getFechaDeNacimiento().substring(8,10)));
 		
 		LoginResult loginResult = new LoginResult(user);
 		

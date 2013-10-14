@@ -21,11 +21,11 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.proyecto.bav.models.Address;
+import com.proyecto.bav.models.Dialog;
 
 public class DisplayAddressesActivity extends BaseSpiceActivity {
 	
@@ -86,8 +86,7 @@ public class DisplayAddressesActivity extends BaseSpiceActivity {
 		            	
 						case 0:
 							
-							Toast toast = Toast.makeText(getApplicationContext(), "Direccion eliminada", Toast.LENGTH_SHORT);
-							toast.show();
+							Dialog.showDialog(activity, false, true, "Direccion eliminada");
 							Address.delete(posicionDireccionSeleccionada, getApplicationContext());
 							
 							fetchAddresses();	

@@ -5,7 +5,8 @@ import android.view.Menu;
 import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
-import android.widget.Toast;
+
+import com.proyecto.bav.models.Dialog;
 
 public class ModificarPassActivity extends BaseSpiceActivity {
 
@@ -32,7 +33,7 @@ public class ModificarPassActivity extends BaseSpiceActivity {
 		
 		if(passAnterior.length() == 0)
 		{
-			Toast.makeText(getApplicationContext(), "La contraseña anterior no puede ser vacía", Toast.LENGTH_LONG).show();
+			Dialog.showDialog(this, false, false, "La contraseña anterior no puede ser vacía");
 			return;
 		}
 		
@@ -42,7 +43,7 @@ public class ModificarPassActivity extends BaseSpiceActivity {
 		
 		if(passNueva1.length() == 0)
 		{
-			Toast.makeText(getApplicationContext(), "La contraseña nueva no puede ser vacía", Toast.LENGTH_LONG).show();
+			Dialog.showDialog(this, false, false, "La contraseña nueva no puede ser vacía");
 			return;
 		}		
 		
@@ -52,12 +53,11 @@ public class ModificarPassActivity extends BaseSpiceActivity {
 		
 		if(!passNueva2.equals(passNueva1))
 		{
-			Toast.makeText(getApplicationContext(), "Las contraseñas no coinciden", Toast.LENGTH_LONG).show();
+			Dialog.showDialog(this, false, false, "Las contraseñas no coinciden");
 			return;
 		}	
 		
-		Toast.makeText(getApplicationContext(), "Contraseña modificada con éxito", Toast.LENGTH_SHORT).show();
-		this.finish();
+		Dialog.showDialog(this, true, false, "Contraseña modificada con éxito");
 	}
 
 }

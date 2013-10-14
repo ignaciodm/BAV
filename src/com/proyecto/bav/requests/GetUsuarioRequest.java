@@ -14,7 +14,7 @@ public class GetUsuarioRequest extends GetSpiceRequest<UsuarioResult>{
 
 	public GetUsuarioRequest(int userID, String token) {
 		super(UsuarioResult.class);
-		this.setPath("/usuarios/" + userID + ".json?auth_token=" + token);
+		this.setPath("/usuarios/" + userID + ".json?authToken=" + token);
 	}
 	
 	protected UsuarioResult parseResponse(final HttpResponse response) throws IOException {
@@ -42,6 +42,10 @@ public class GetUsuarioRequest extends GetSpiceRequest<UsuarioResult>{
 		String json =  sb.toString();
 		Gson gson = new Gson();
 		User user = gson.fromJson(json, User.class);
+		
+		user.setAnioNacimiento(Integer.parseInt(user.getFechaDeNacimiento().substring(0,4)));
+		user.setMesNacimiento(Integer.parseInt(user.getFechaDeNacimiento().substring(5,7)));
+		user.setDiaNacimiento(Integer.parseInt(user.getFechaDeNacimiento().substring(8,10)));
 		
 		UsuarioResult usuarioResult = new UsuarioResult(user);
 		

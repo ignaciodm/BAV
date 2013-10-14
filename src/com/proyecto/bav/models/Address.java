@@ -35,8 +35,8 @@ public class Address {
 	@SerializedName("piso")
 	private Integer piso;
 	
-	@SerializedName("dpto")
-	private String dpto;
+	@SerializedName("departamento")
+	private String departamento;
 	
 	@SerializedName("entreCalle1")
 	private String entreCalle1;
@@ -56,8 +56,8 @@ public class Address {
 	@SerializedName("localidad_id")
 	private int localidad_id;
 	
-	@SerializedName("policeStation")
-	private Comisaria policeStation;
+	@SerializedName("comisaria")
+	private Comisaria comisaria;
 	
 	@SerializedName("comisaria_id")
 	private int comisaria_id;
@@ -76,14 +76,14 @@ public class Address {
 		
 		this.setDescription(descripcion);
 		this.setCalle(street);
-		this.setDpto(dpto);
+		this.setDepartamento(dpto);
 		this.setEntreCalle1(entreCalle1);
 		this.setEntreCalle2(entreCalle2);
 		this.setProvincia(provincia);
 		this.setPartido(partido);
 		this.setLocalidad(localidad);
 		this.setLocalidad_id(localidad.getId());
-		this.setPoliceStation(policeStation);
+		this.setComisaria(policeStation);
 		this.setComisaria_id(policeStation.getId());
 		
 		try{
@@ -116,14 +116,14 @@ public class Address {
 		this.setId(addressID);
 		this.setDescription(descripcion);
 		this.setCalle(street);
-		this.setDpto(dpto);
+		this.setDepartamento(dpto);
 		this.setEntreCalle1(entreCalle1);
 		this.setEntreCalle2(entreCalle2);
 		this.setProvincia(provincia);
 		this.setPartido(partido);
 		this.setLocalidad(localidad);
 		this.setLocalidad_id(localidad.getId());
-		this.setPoliceStation(policeStation);
+		this.setComisaria(policeStation);
 		this.setComisaria_id(policeStation.getId());
 		
 		try{
@@ -164,12 +164,12 @@ public class Address {
 		this.piso = piso;
 	}
 
-	public String getDpto() {
-		return dpto;
+	public String getDepartamento() {
+		return departamento;
 	}
 
-	public void setDpto(String dpto) {
-		this.dpto = dpto;
+	public void setDepartamento(String dpto) {
+		this.departamento = dpto;
 	}
 
 	public String getEntreCalle1() {
@@ -212,12 +212,12 @@ public class Address {
 		this.localidad = localidad;
 	}
 
-	public Comisaria getPoliceStation() {
-		return policeStation;
+	public Comisaria getComisaria() {
+		return comisaria;
 	}
 
-	public void setPoliceStation(Comisaria policeStation) {
-		this.policeStation = policeStation;
+	public void setComisaria(Comisaria policeStation) {
+		this.comisaria = policeStation;
 	}
 
 	public static void save(Address address, Context context) {

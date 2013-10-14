@@ -24,8 +24,8 @@ public class User {
 	@SerializedName("id")
 	private int id;
 	
-	@SerializedName("auth_token")
-	private String auth_token;
+	@SerializedName("authToken")
+	private String authToken;
 	
 	@SerializedName("dni")
 	private int dni;
@@ -47,39 +47,32 @@ public class User {
 	
 	@SerializedName("anioNacimiento")
 	private int anioNacimiento;
+	
+	@SerializedName("fechaDeNacimiento")
+	private String fechaDeNacimiento;
+	
+	@SerializedName("bloqueado")
+	private String bloqueado;
 
 	public User(String et_email, String password, String et_dni, String et_nombre, String et_apellido, String et_telefono, int diaNacimiento, int mesNacimiento, int anioNacimiento) {
 		
-		this.setEmail(et_email);
-		this.setPassword(password);
-		this.setNombre(et_nombre);
-		this.setApellido(et_apellido);
-		this.setDiaNacimiento(diaNacimiento);
-		this.setMesNacimiento(mesNacimiento);
-		this.setAnioNacimiento(anioNacimiento);
-		
-		try {
-			this.setDni(Integer.parseInt(et_dni));
-		} catch (Exception e) {
-			// Nada. Si tira excepción no se colocó DNI
-		}
-		
-		try {
-			this.setTelefono(Integer.parseInt(et_telefono));
-		} catch (Exception e) {
-			// Nada. Si tira excepción no se colocó teléfono
-		}			
-		
+		this.setPassword(password);		
+		this.userConstructor(et_email, et_dni, et_nombre, et_apellido, et_telefono, diaNacimiento, mesNacimiento, anioNacimiento);		
 	}
 	
 	public User(String et_email, String et_dni, String et_nombre, String et_apellido, String et_telefono, int diaNacimiento, int mesNacimiento, int anioNacimiento) {
 		
+		this.userConstructor(et_email, et_dni, et_nombre, et_apellido, et_telefono, diaNacimiento, mesNacimiento, anioNacimiento);
+	}
+	
+	private void userConstructor(String et_email, String et_dni, String et_nombre, String et_apellido, String et_telefono, int diaNacimiento, int mesNacimiento, int anioNacimiento){
 		this.setEmail(et_email);
 		this.setNombre(et_nombre);
 		this.setApellido(et_apellido);
 		this.setDiaNacimiento(diaNacimiento);
 		this.setMesNacimiento(mesNacimiento);
 		this.setAnioNacimiento(anioNacimiento);
+		this.setFechaNacConFormato(anioNacimiento, mesNacimiento, diaNacimiento);
 		
 		try {
 			this.setDni(Integer.parseInt(et_dni));
@@ -91,8 +84,16 @@ public class User {
 			this.setTelefono(Integer.parseInt(et_telefono));
 		} catch (Exception e) {
 			// Nada. Si tira excepción no se colocó teléfono
-		}			
+		}
+	}
+
+	private void setFechaNacConFormato(int anioNacimiento, int mesNacimiento, int diaNacimiento) {
 		
+		String anioString = String.format("%04d", anioNacimiento);
+		String mesString = String.format("%02d", mesNacimiento);
+		String diaString = String.format("%02d", diaNacimiento);
+		
+		this.setFechaDeNacimiento(anioString + "-" + mesString + "-" + diaString);
 	}
 
 	public String getEmail() {
@@ -150,7 +151,7 @@ public class User {
 	
 	public static String getTokenUser(Context context){		
 		User user = User.getUser(context);		
-		return user.getAuth_token();
+		return user.getAuthToken();
 	}
 	
 	public static int getUserId(Context context) {
@@ -269,12 +270,28 @@ public class User {
 		this.id = id;
 	}
 
-	public String getAuth_token() {
-		return auth_token;
+	public String getAuthToken() {
+		return authToken;
 	}
 
-	public void setAuth_token(String auth_token) {
-		this.auth_token = auth_token;
+	public void setAuthToken(String auth_token) {
+		this.authToken = auth_token;
+	}
+
+	public String getFechaDeNacimiento() {
+		return fechaDeNacimiento;
+	}
+
+	public void setFechaDeNacimiento(String fechaDeNacimiento) {
+		this.fechaDeNacimiento = fechaDeNacimiento;
+	}
+
+	public String getBloqueado() {
+		return bloqueado;
+	}
+
+	public void setBloqueado(String bloqueado) {
+		this.bloqueado = bloqueado;
 	}	
 	
 }

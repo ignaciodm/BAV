@@ -16,9 +16,9 @@ import com.proyecto.bav.results.ProvincesResult;
 public class GetProvincesRequest extends
 		GetSpiceRequest<ProvincesResult> {
 
-	public GetProvincesRequest() {
+	public GetProvincesRequest(String authToken) {
 		super(ProvincesResult.class);
-		this.setPath("/provincias.json?auth_token=be2c9685a9823949304e6ab85ca4de141fd6ad32");
+		this.setPath("/provincias.json?authToken=" + authToken);
 	}
 
 	protected ProvincesResult parseResponse(final HttpResponse response) throws IOException {

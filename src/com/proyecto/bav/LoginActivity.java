@@ -6,10 +6,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.octo.android.robospice.persistence.DurationInMillis;
 import com.proyecto.bav.listeners.LoginRequestListener;
+import com.proyecto.bav.models.Dialog;
 import com.proyecto.bav.models.User;
 import com.proyecto.bav.requests.PostLoginRequest;
 
@@ -77,11 +77,11 @@ public class LoginActivity extends BaseSpiceActivity {
 		String email = editTextEmail.getText().toString();
 		
 		if(email.length() == 0)
-			Toast.makeText(getApplicationContext(), "Ingrese el e-mail", Toast.LENGTH_SHORT).show();
+			Dialog.showDialog(this, false, true, "Ingrese el e-mail");
 		else if (!email.contains("@"))
-			Toast.makeText(getApplicationContext(), "Ingrese un e-mail válido", Toast.LENGTH_SHORT).show();
+			Dialog.showDialog(this, false, true, "Ingrese un e-mail válido");
 		else
-			Toast.makeText(getApplicationContext(), "Olvidé mi contraseña", Toast.LENGTH_SHORT).show();
+			Dialog.showDialog(this, false, true, "Olvidé mi contraseña");
 		
 	}
 	

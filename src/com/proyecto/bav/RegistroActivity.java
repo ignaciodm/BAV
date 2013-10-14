@@ -10,12 +10,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.octo.android.robospice.persistence.DurationInMillis;
 import com.proyecto.bav.listeners.RegistrarUsuarioRequestListener;
+import com.proyecto.bav.models.Dialog;
 import com.proyecto.bav.models.User;
 import com.proyecto.bav.requests.PostRegistrarUsuarioRequest;
 
@@ -72,11 +72,11 @@ public class RegistroActivity extends BaseSpiceActivity {
 		editTextEmail = null;
 		
 		if(et_email.length() == 0){
-			Toast.makeText(getApplicationContext(), "Por favor, ingrese un E-mail", Toast.LENGTH_SHORT).show();
+			Dialog.showDialog(this, false, true, "Por favor, ingrese un E-mail");
 			return;
 		}
 		else if (!et_email.contains("@")){
-			Toast.makeText(getApplicationContext(), "Por favor, ingrese un E-mail válido", Toast.LENGTH_SHORT).show();
+			Dialog.showDialog(this, false, true, "Por favor, ingrese un E-mail válido");
 			return;
 		}
 		
@@ -85,7 +85,7 @@ public class RegistroActivity extends BaseSpiceActivity {
 		editTextPass = null;
 		
 		if(et_password.length() == 0){
-			Toast.makeText(getApplicationContext(), "Por favor, ingrese una Contraseña", Toast.LENGTH_SHORT).show();
+			Dialog.showDialog(this, false, true, "Por favor, ingrese una Contraseña");
 			return;
 		}
 		
@@ -95,7 +95,7 @@ public class RegistroActivity extends BaseSpiceActivity {
 		
 		if(!et_password_conf.equals(et_password))
 		{
-			Toast.makeText(getApplicationContext(), "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
+			Dialog.showDialog(this, false, true, "Las contraseñas no coinciden");
 			return;
 		}
 		
@@ -104,7 +104,7 @@ public class RegistroActivity extends BaseSpiceActivity {
 		editTextDni = null;
 		
 		if(et_dni.length() == 0){
-			Toast.makeText(getApplicationContext(), "Por favor, ingrese un DNI", Toast.LENGTH_SHORT).show();
+			Dialog.showDialog(this, false, true, "Por favor, ingrese un DNI");
 			return;
 		}
 		
@@ -113,7 +113,7 @@ public class RegistroActivity extends BaseSpiceActivity {
 		editTextNombre = null;
 		
 		if(et_nombre.length() == 0){
-			Toast.makeText(getApplicationContext(), "Por favor, ingrese un Nombre", Toast.LENGTH_SHORT).show();
+			Dialog.showDialog(this, false, true, "Por favor, ingrese un Nombre");
 			return;
 		}
 		
@@ -122,7 +122,7 @@ public class RegistroActivity extends BaseSpiceActivity {
 		editTextApellido = null;
 		
 		if(et_apellido.length() == 0){
-			Toast.makeText(getApplicationContext(), "Por favor, ingrese un Apellido", Toast.LENGTH_SHORT).show();
+			Dialog.showDialog(this, false, true, "Por favor, ingrese un Apellido");
 			return;
 		}
 		
@@ -131,12 +131,12 @@ public class RegistroActivity extends BaseSpiceActivity {
 		editTextTelefono = null;
 		
 		if(et_telefono.length() == 0){
-			Toast.makeText(getApplicationContext(), "Por favor, ingrese un Teléfono", Toast.LENGTH_SHORT).show();
+			Dialog.showDialog(this, false, true, "Por favor, ingrese un Teléfono");
 			return;
 		}
 		
 		if(anioNacimiento == 0){
-			Toast.makeText(getApplicationContext(), "Por favor, ingrese una Fecha de Nacimiento", Toast.LENGTH_SHORT).show();
+			Dialog.showDialog(this, false, true, "Por favor, ingrese una Fecha de Nacimiento");
 			return;
 		}
 				
@@ -159,7 +159,7 @@ public class RegistroActivity extends BaseSpiceActivity {
 		getSpiceManager().execute(new PostRegistrarUsuarioRequest(json),
 				null, 
 				DurationInMillis.ONE_MINUTE,
-				new RegistrarUsuarioRequestListener(this));		
+				new RegistrarUsuarioRequestListener(this));
 	}
 	
 	/** Called when the user clicks the Fecha de Nacimiento EditText */

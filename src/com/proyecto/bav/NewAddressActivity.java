@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -24,6 +23,7 @@ import com.proyecto.bav.listeners.ProvinceRequestListener;
 import com.proyecto.bav.listeners.ProvincesRequestListener;
 import com.proyecto.bav.models.Address;
 import com.proyecto.bav.models.Comisaria;
+import com.proyecto.bav.models.Dialog;
 import com.proyecto.bav.models.Localidad;
 import com.proyecto.bav.models.Partido;
 import com.proyecto.bav.models.Provincia;
@@ -115,7 +115,7 @@ public class NewAddressActivity extends BaseSpiceActivity {
 		}
 
 		EditText editAddressDpto = (EditText) findViewById(R.id.new_address_street_dpto);
-		editAddressDpto.setText(address.getDpto());
+		editAddressDpto.setText(address.getDepartamento());
 		editAddressDpto = null;
 
 		EditText editAddressEntreCalle1 = (EditText) findViewById(R.id.new_address_entreCalle1);
@@ -152,7 +152,7 @@ public class NewAddressActivity extends BaseSpiceActivity {
 
 		try {
 			EditText editAddressComisaria = (EditText) findViewById(R.id.new_address_policeStation);
-			comisaria = address.getPoliceStation();
+			comisaria = address.getComisaria();
 			editAddressComisaria.setText(comisaria.getNombre());
 			editAddressComisaria = null;
 		} catch (Exception e) {
@@ -191,7 +191,7 @@ public class NewAddressActivity extends BaseSpiceActivity {
 		editTextAddressDescripcion = null;
 		
 		if(et_address_descripcion.length() == 0){
-			Toast.makeText(getApplicationContext(), "Por favor, ingrese una Descripción", Toast.LENGTH_SHORT).show();
+			Dialog.showDialog(this, false, true, "Por favor, ingrese una Descripción");
 			return;
 		}
 
@@ -200,7 +200,7 @@ public class NewAddressActivity extends BaseSpiceActivity {
 		editTextAddressStreet = null;
 		
 		if(et_address_street.length() == 0){
-			Toast.makeText(getApplicationContext(), "Por favor, ingrese una Calle", Toast.LENGTH_SHORT).show();
+			Dialog.showDialog(this, false, true, "Por favor, ingrese una Calle");
 			return;
 		}
 
@@ -209,12 +209,12 @@ public class NewAddressActivity extends BaseSpiceActivity {
 		editTextAddressNumero = null;
 		
 		if(et_address_numero.length() == 0){
-			Toast.makeText(getApplicationContext(), "Por favor, ingrese un Número de Calle", Toast.LENGTH_SHORT).show();
+			Dialog.showDialog(this, false, true, "Por favor, ingrese un Número de Calle");
 			return;
 		}
 		
 		if(comisaria == null){
-			Toast.makeText(getApplicationContext(), "Por favor, seleccione una Comisaría", Toast.LENGTH_SHORT).show();
+			Dialog.showDialog(this, false, true, "Por favor, seleccione una Comisaría");
 			return;
 		}
 		
@@ -246,7 +246,7 @@ public class NewAddressActivity extends BaseSpiceActivity {
 		myProgressDialog.setMessage("Buscando Provincias...");
 		myProgressDialog.show();
 		
-		getSpiceManager().execute(new GetProvincesRequest(),
+		getSpiceManager().execute(new GetProvincesRequest(User.getTokenUser(getApplicationContext())),
 				null, 
 				DurationInMillis.ONE_MINUTE,
 				new ProvincesRequestListener(this));
@@ -270,13 +270,13 @@ public class NewAddressActivity extends BaseSpiceActivity {
 			myProgressDialog.setMessage("Buscando Partidos...");
 			myProgressDialog.show();
 			
-			getSpiceManager().execute(new GetProvinceRequest(provincia),
+			getSpiceManager().execute(new GetProvinceRequest(provincia, User.getTokenUser(getApplicationContext())),
 					null, 
 					DurationInMillis.ONE_MINUTE,
 					new ProvinceRequestListener(this));
 		}
 		else {
-			Toast.makeText(getApplicationContext(), "Primero selecione una Provincia", Toast.LENGTH_SHORT).show();
+			Dialog.showDialog(this, false, true, "Primero selecione una Provincia");
 		}			
 		
 	}
@@ -298,13 +298,13 @@ public class NewAddressActivity extends BaseSpiceActivity {
 			myProgressDialog.setMessage("Buscando Localidades...");
 			myProgressDialog.show();
 			
-			getSpiceManager().execute(new GetPartidoRequest(partido),
+			getSpiceManager().execute(new GetPartidoRequest(partido, User.getTokenUser(getApplicationContext())),
 					null, 
 					DurationInMillis.ONE_MINUTE,
 					new PartidoRequestListener(this));
 		}
 		else {
-			Toast.makeText(getApplicationContext(), "Primero selecione un Partido", Toast.LENGTH_SHORT).show();
+			Dialog.showDialog(this, false, true, "Primero selecione un Partido");
 		}
 	}	
 
@@ -322,13 +322,13 @@ public class NewAddressActivity extends BaseSpiceActivity {
 			myProgressDialog.setMessage("Buscando Comisarias...");
 			myProgressDialog.show();
 			
-			getSpiceManager().execute(new GetLocalidadRequest(localidad),
+			getSpiceManager().execute(new GetLocalidadRequest(localidad, User.getTokenUser(getApplicationContext())),
 					null, 
 					DurationInMillis.ONE_MINUTE,
 					new LocalidadRequestListener(this));
 		}
 		else {
-			Toast.makeText(getApplicationContext(), "Primero selecione una Localidad", Toast.LENGTH_SHORT).show();
+			Dialog.showDialog(this, false, true, "Primero selecione una Localidad");
 		}		
 	}
 	
@@ -401,7 +401,7 @@ public class NewAddressActivity extends BaseSpiceActivity {
 		myProgressDialog.show();
 		
 		if(nuevaDireccion == true)
-			getSpiceManager().execute(new PostAddressRequest(json, User.getUserId(this.getApplicationContext()), "be2c9685a9823949304e6ab85ca4de141fd6ad32"),
+			getSpiceManager().execute(new PostAddressRequest(json, User.getUserId(this.getApplicationContext()), User.getTokenUser(getApplicationContext())),
 					null, 
 					DurationInMillis.ONE_MINUTE,
 					new AddressRequestListener(this));

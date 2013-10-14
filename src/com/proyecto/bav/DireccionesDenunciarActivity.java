@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.proyecto.bav.models.Address;
+import com.proyecto.bav.models.Dialog;
 
 public class DireccionesDenunciarActivity extends BaseSpiceActivity {
 	
@@ -43,8 +44,7 @@ public class DireccionesDenunciarActivity extends BaseSpiceActivity {
 		addresses = Address.getAddresses(this.getApplicationContext());
 		
 		if(addresses.size() == 0){
-			Toast.makeText(getApplicationContext(), "No hay direcciones cargadas", Toast.LENGTH_SHORT).show();
-			activity.finish();
+			Dialog.showDialog(this, true, false, "No hay direcciones cargadas");
 		}
 		
 		listView = (ListView) findViewById(R.id.addresses_list);		

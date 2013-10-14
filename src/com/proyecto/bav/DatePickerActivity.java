@@ -14,7 +14,8 @@ import android.view.View;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.Toast;
+
+import com.proyecto.bav.models.Dialog;
 
 public class DatePickerActivity extends Activity {
 	
@@ -47,7 +48,7 @@ public class DatePickerActivity extends Activity {
 	public void aceptar(View view) {
 		
 		if(date_month == 0){
-			Toast.makeText(getApplicationContext(), "Por favor, ingrese el Mes", Toast.LENGTH_LONG).show();
+			Dialog.showDialog(this, false, false, "Por favor, ingrese el Mes");
 			return;
 		}
 		
@@ -69,7 +70,7 @@ public class DatePickerActivity extends Activity {
 		editTextDateYear = null;
 		
 		if(!fechaValida(date_day, date_month, date_year)){
-			Toast.makeText(getApplicationContext(), "Fecha Invalida", Toast.LENGTH_LONG).show();
+			Dialog.showDialog(this, false, false, "Fecha Invalida");
 			return;
 		}
 		

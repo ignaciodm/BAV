@@ -5,7 +5,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.Window;
-import android.widget.Toast;
+
+import com.proyecto.bav.models.Dialog;
 
 public class ConfirmarPassActivity extends BaseSpiceActivity {
 
@@ -37,7 +38,7 @@ public class ConfirmarPassActivity extends BaseSpiceActivity {
 			this.finish();
 		}
 		else {
-			Toast.makeText(getApplicationContext(), "Contraseña incorrecta", Toast.LENGTH_SHORT).show();
+			Dialog.showDialog(this, false, false, "Contraseña incorrecta");
 		}
 		
 	}

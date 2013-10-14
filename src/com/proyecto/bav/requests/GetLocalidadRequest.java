@@ -13,9 +13,9 @@ import com.proyecto.bav.results.LocalidadResult;
 public class GetLocalidadRequest extends
 		GetSpiceRequest<LocalidadResult> {
 
-	public GetLocalidadRequest(Localidad localidad) {
+	public GetLocalidadRequest(Localidad localidad, String authToken) {
 		super(LocalidadResult.class);
-		this.setPath("/localidades/" + localidad.getId() + ".json?auth_token=be2c9685a9823949304e6ab85ca4de141fd6ad32");
+		this.setPath("/localidades/" + localidad.getId() + ".json?authToken=" + authToken);
 	}
 
 	protected LocalidadResult parseResponse(final HttpResponse response) throws IOException {

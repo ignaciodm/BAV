@@ -17,7 +17,7 @@ public class PostAddressRequest extends PostSpiceRequest<AddressResult>{
 
 	public PostAddressRequest(String content, int userID, String token) {
 		super(AddressResult.class);
-		this.setPath("/usuarios/" + userID + "/direcciones?auth_token=" + token);
+		this.setPath("/usuarios/" + userID + "/direcciones?authToken=" + token);
 		
 		ByteArrayContent requestContent = ByteArrayContent.fromString("application/json", content);
 		this.setHttpContent(requestContent);		

@@ -7,10 +7,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.octo.android.robospice.persistence.DurationInMillis;
 import com.proyecto.bav.listeners.UsuarioRequestListener;
+import com.proyecto.bav.models.Dialog;
 import com.proyecto.bav.models.User;
 import com.proyecto.bav.requests.GetUsuarioRequest;
 
@@ -122,7 +122,7 @@ public class DatosPersonalesActivity extends BaseSpiceActivity {
 		editTextDni = null;
 		
 		if(et_dni.length() == 0){
-			Toast.makeText(getApplicationContext(), "Por favor, ingrese un DNI", Toast.LENGTH_SHORT).show();
+			Dialog.showDialog(this, false, true, "Por favor, ingrese un DNI");
 			return;
 		}
 			
@@ -133,7 +133,7 @@ public class DatosPersonalesActivity extends BaseSpiceActivity {
 		
 		if(et_nombre.length() == 0)
 		{
-			Toast.makeText(getApplicationContext(), "Por favor, ingrese un Nombre", Toast.LENGTH_SHORT).show();
+			Dialog.showDialog(this, false, true, "Por favor, ingrese un Nombre");
 			return;
 		}	
 		
@@ -142,7 +142,7 @@ public class DatosPersonalesActivity extends BaseSpiceActivity {
 		editTextApellido = null;
 		
 		if(et_apellido.length() == 0){
-			Toast.makeText(getApplicationContext(), "Por favor, ingrese un Apellido", Toast.LENGTH_SHORT).show();
+			Dialog.showDialog(this, false, true, "Por favor, ingrese un Apellido");
 			return;
 		}
 		
@@ -151,12 +151,12 @@ public class DatosPersonalesActivity extends BaseSpiceActivity {
 		editTextTelefono = null;
 		
 		if(et_telefono.length() == 0){
-			Toast.makeText(getApplicationContext(), "Por favor, ingrese un Teléfono", Toast.LENGTH_SHORT).show();
+			Dialog.showDialog(this, false, true, "Por favor, ingrese un Teléfono");
 			return;
 		}
 		
 		if(anioNacimiento == 0){
-			Toast.makeText(getApplicationContext(), "Por favor, ingrese una Fecha de Nacimiento", Toast.LENGTH_SHORT).show();
+			Dialog.showDialog(this, false, true, "Por favor, ingrese una Fecha de Nacimiento");
 			return;
 		}
 		
@@ -209,9 +209,7 @@ public class DatosPersonalesActivity extends BaseSpiceActivity {
 		User user = new User(et_email, et_dni, et_nombre, et_apellido, et_telefono, diaNacimiento, mesNacimiento, anioNacimiento);
 		
 		user.save(this.getApplicationContext());
-		Toast.makeText(getApplicationContext(), "Datos Guardados", Toast.LENGTH_SHORT).show();
-		this.finish();	
-		
+		Dialog.showDialog(this, true, true, "Datos Guardados");		
 	}
 
 	private void sincronizar() {
@@ -223,7 +221,7 @@ public class DatosPersonalesActivity extends BaseSpiceActivity {
 		
 		User user = User.getUser(this.getApplicationContext());
 		
-		getSpiceManager().execute(new GetUsuarioRequest(user.getId(), "be2c9685a9823949304e6ab85ca4de141fd6ad32"),
+		getSpiceManager().execute(new GetUsuarioRequest(user.getId(), user.getAuthToken()),
 				null, 
 				DurationInMillis.ONE_MINUTE,
 				new UsuarioRequestListener(this));

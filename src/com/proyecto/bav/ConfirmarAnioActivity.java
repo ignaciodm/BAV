@@ -7,8 +7,8 @@ import android.view.Menu;
 import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
-import android.widget.Toast;
 
+import com.proyecto.bav.models.Dialog;
 import com.proyecto.bav.models.User;
 
 public class ConfirmarAnioActivity extends Activity {
@@ -51,7 +51,7 @@ public class ConfirmarAnioActivity extends Activity {
 			this.finish();
 		}
 		else {
-			Toast.makeText(getApplicationContext(), "Año incorrecto", Toast.LENGTH_SHORT).show();
+			Dialog.showDialog(this, false, false, "Año incorrecto");
 		}
 		
 	}

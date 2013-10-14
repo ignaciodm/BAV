@@ -13,9 +13,9 @@ import com.proyecto.bav.results.PartidoResult;
 public class GetPartidoRequest extends
 		GetSpiceRequest<PartidoResult> {
 
-	public GetPartidoRequest(Partido partido) {
+	public GetPartidoRequest(Partido partido, String authToken) {
 		super(PartidoResult.class);
-		this.setPath("/partidos/" + partido.getId() + ".json?auth_token=be2c9685a9823949304e6ab85ca4de141fd6ad32");
+		this.setPath("/partidos/" + partido.getId() + ".json?authToken=" + authToken);
 	}
 
 	protected PartidoResult parseResponse(final HttpResponse response) throws IOException {
