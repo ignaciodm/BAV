@@ -2,11 +2,11 @@ package com.proyecto.bav.results;
 
 import com.proyecto.bav.models.Address;
 
-public class AddressResult {
+public class NewAddressResult {
 	
 	public Address address;
 	
-	public AddressResult(Address address) {
+	public NewAddressResult(Address address) {
 		this.setAddress(address);
 	}
 

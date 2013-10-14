@@ -7,16 +7,17 @@ import android.widget.Button;
 import com.octo.android.robospice.exception.NoNetworkException;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
-import com.proyecto.bav.DatosPersonalesActivity;
+import com.proyecto.bav.DisplayAddressesActivity;
 import com.proyecto.bav.R;
-import com.proyecto.bav.results.UsuarioResult;
+import com.proyecto.bav.models.Address;
+import com.proyecto.bav.results.AddressesResult;
 
-public class UsuarioRequestListener implements RequestListener<UsuarioResult> {
+public class AddressesRequestListener implements RequestListener<AddressesResult> {
 
-	private DatosPersonalesActivity activity;
+	private DisplayAddressesActivity activity;
 	
-	public UsuarioRequestListener(DatosPersonalesActivity datosPersonalesActivity) {
-		this.activity = datosPersonalesActivity;
+	public AddressesRequestListener(DisplayAddressesActivity displayAddressesActivity) {
+		this.activity = displayAddressesActivity;
 	}
 
 	@Override
@@ -44,15 +45,16 @@ public class UsuarioRequestListener implements RequestListener<UsuarioResult> {
 	}
 
 	@Override
-	public void onRequestSuccess(UsuarioResult result) {
+	public void onRequestSuccess(AddressesResult result) {
 		
-		result.getUser().save(activity.getApplicationContext());
+		for(Address a: result.getAddresses())
+			Address.save(a, activity.getApplicationContext());	
 		
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(activity);
-		alertDialogBuilder.setMessage("Datos Personales sincronizados exitosamente");
+		alertDialogBuilder.setMessage("Direcciones sincronizadas exitosamente");
 	    alertDialogBuilder.setNeutralButton("Aceptar", new DialogInterface.OnClickListener() {
 		   public void onClick(DialogInterface dialog, int which) {
-			   activity.fetchDatosPersonales();
+			   activity.fetchAddresses();
 			   activity.myProgressDialog.dismiss();	
 		   }
 		});

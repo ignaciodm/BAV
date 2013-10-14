@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -24,19 +25,26 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.octo.android.robospice.persistence.DurationInMillis;
+import com.proyecto.bav.listeners.AddressesRequestListener;
 import com.proyecto.bav.models.Address;
 import com.proyecto.bav.models.Dialog;
+import com.proyecto.bav.models.User;
+import com.proyecto.bav.requests.GetAddressesRequest;
 
 public class DisplayAddressesActivity extends BaseSpiceActivity {
 	
 	public final static String DIRECCION_SELECCIONADA = "com.proyecto.bav.DIRECCION_SELECCIONADA";
 	public final static String NUEVA_DIRECCION = "com.proyecto.bav.NUEVA_DIRECCION";
+	final static int SINCRONIZAR = 1;
 	
 	private DisplayAddressesActivity activity;
 	private static AddressesAdapter adapter;
 	private List<Address> addresses;
 	private int posicionDireccionSeleccionada;
 	ListView listView;
+	
+	public ProgressDialog myProgressDialog;
 	
 	protected void onCreate(Bundle savedInstanceState) {		
 		activity = this;
@@ -57,7 +65,7 @@ public class DisplayAddressesActivity extends BaseSpiceActivity {
 	    fetchAddresses();
 	}
 
-	private void fetchAddresses() {
+	public void fetchAddresses() {
 		
 		listView = (ListView) findViewById(R.id.addresses_list);
 		addresses = Address.getAddresses(this.getApplicationContext());
@@ -154,16 +162,40 @@ public class DisplayAddressesActivity extends BaseSpiceActivity {
 	        	newAddress();
 	            return true;
 	        case R.id.btn_sincronizar:
-	        	sincronizar();
+	        	confirmarPassUpdate();
 	            return true;
 	        default:
 	            return super.onOptionsItemSelected(item);
 	    }
 	}
 	
+	private void confirmarPassUpdate() {
+		Intent intent = new Intent(this, ConfirmarPassActivity.class);
+		startActivityForResult(intent, SINCRONIZAR);
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		
+		if(requestCode == SINCRONIZAR)
+			if(resultCode == RESULT_OK)
+				sincronizar();				
+	}
+	
 	private void sincronizar() {
-		// TODO Auto-generated method stub
-		fetchAddresses();
+		
+		myProgressDialog = new ProgressDialog(this, R.style.ProgressDialogTheme);
+		myProgressDialog.setTitle("Por favor, espere...");
+		myProgressDialog.setMessage("Sincronizando...");
+		myProgressDialog.show();
+		
+		User user = User.getUser(this.getApplicationContext());
+		
+		getSpiceManager().execute(new GetAddressesRequest(user.getId(), user.getAuthToken()),
+				null, 
+				DurationInMillis.ONE_MINUTE,
+				new AddressesRequestListener(this));
+		
 	}
 
 	private void newAddress() {

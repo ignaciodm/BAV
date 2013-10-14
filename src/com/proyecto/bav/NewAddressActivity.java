@@ -16,7 +16,7 @@ import android.widget.EditText;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.octo.android.robospice.persistence.DurationInMillis;
-import com.proyecto.bav.listeners.AddressRequestListener;
+import com.proyecto.bav.listeners.NewAddressRequestListener;
 import com.proyecto.bav.listeners.LocalidadRequestListener;
 import com.proyecto.bav.listeners.PartidoRequestListener;
 import com.proyecto.bav.listeners.ProvinceRequestListener;
@@ -32,7 +32,7 @@ import com.proyecto.bav.requests.GetLocalidadRequest;
 import com.proyecto.bav.requests.GetPartidoRequest;
 import com.proyecto.bav.requests.GetProvinceRequest;
 import com.proyecto.bav.requests.GetProvincesRequest;
-import com.proyecto.bav.requests.PostAddressRequest;
+import com.proyecto.bav.requests.PostNewAddressRequest;
 
 public class NewAddressActivity extends BaseSpiceActivity {
 
@@ -401,10 +401,10 @@ public class NewAddressActivity extends BaseSpiceActivity {
 		myProgressDialog.show();
 		
 		if(nuevaDireccion == true)
-			getSpiceManager().execute(new PostAddressRequest(json, User.getUserId(this.getApplicationContext()), User.getTokenUser(getApplicationContext())),
+			getSpiceManager().execute(new PostNewAddressRequest(json, User.getUserId(this.getApplicationContext()), User.getTokenUser(getApplicationContext())),
 					null, 
 					DurationInMillis.ONE_MINUTE,
-					new AddressRequestListener(this));
+					new NewAddressRequestListener(this));
 
 	}
 	

@@ -11,19 +11,19 @@ import com.google.api.client.http.HttpResponse;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.proyecto.bav.models.Address;
-import com.proyecto.bav.results.AddressResult;
+import com.proyecto.bav.results.NewAddressResult;
 
-public class PostAddressRequest extends PostSpiceRequest<AddressResult>{
+public class PostNewAddressRequest extends PostSpiceRequest<NewAddressResult>{
 
-	public PostAddressRequest(String content, int userID, String token) {
-		super(AddressResult.class);
+	public PostNewAddressRequest(String content, int userID, String token) {
+		super(NewAddressResult.class);
 		this.setPath("/usuarios/" + userID + "/direcciones?authToken=" + token);
 		
 		ByteArrayContent requestContent = ByteArrayContent.fromString("application/json", content);
 		this.setHttpContent(requestContent);		
 	}
 	
-	protected AddressResult parseResponse(final HttpResponse response) throws IOException {
+	protected NewAddressResult parseResponse(final HttpResponse response) throws IOException {
 		
 		StringBuilder sb = new StringBuilder();
 		InputStream inputStream = null;
@@ -57,7 +57,7 @@ public class PostAddressRequest extends PostSpiceRequest<AddressResult>{
 			e.printStackTrace();
 		}		
 		
-		AddressResult addressResult = new AddressResult(address);
+		NewAddressResult addressResult = new NewAddressResult(address);
 		
 		return addressResult;
 	}

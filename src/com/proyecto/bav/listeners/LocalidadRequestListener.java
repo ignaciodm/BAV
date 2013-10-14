@@ -8,8 +8,9 @@ import java.util.List;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.view.ContextThemeWrapper;
-import android.widget.Toast;
+import android.widget.Button;
 
+import com.octo.android.robospice.exception.NoNetworkException;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
 import com.proyecto.bav.NewAddressActivity;
@@ -28,8 +29,25 @@ public class LocalidadRequestListener implements
 
 	@Override
     public void onRequestFailure( SpiceException spiceException ) {
-		Toast toast = Toast.makeText(activity.getApplicationContext(), "Error en la conexión\nIntente nuevamente", Toast.LENGTH_SHORT);
-		toast.show();
+		
+		AlertDialog.Builder alertDialog = new AlertDialog.Builder(activity);
+		alertDialog.setNeutralButton("Aceptar", new DialogInterface.OnClickListener() {
+		   public void onClick(DialogInterface dialog, int which) {
+			   dialog.dismiss();
+		   }
+		});
+		
+		if (spiceException instanceof NoNetworkException)
+			alertDialog.setMessage("No hay conexión. Intente nuevamente");
+		else 
+			alertDialog.setMessage("Ha ocurrido un error con la conexión. Intente nuevamente");
+		
+		AlertDialog alert = alertDialog.create();
+        alert.show();
+		
+	    Button b = alert.getButton(DialogInterface.BUTTON_NEUTRAL);
+	    b.setBackgroundResource(R.drawable.background_button_rectangular);
+		
 		activity.myProgressDialog.dismiss();
     }
 	
