@@ -12,6 +12,7 @@ import com.octo.android.robospice.request.listener.RequestListener;
 import com.proyecto.bav.LoginActivity;
 import com.proyecto.bav.MainActivity;
 import com.proyecto.bav.R;
+import com.proyecto.bav.models.Address;
 import com.proyecto.bav.results.LoginResult;
 
 public class LoginRequestListener implements RequestListener<LoginResult> {
@@ -52,6 +53,9 @@ public class LoginRequestListener implements RequestListener<LoginResult> {
 	public void onRequestSuccess(LoginResult result) {
 		
 		result.getUser().save(activity.getApplicationContext());
+		
+		for(Address a: result.getAddresses())
+			Address.save(a, activity.getApplicationContext());		
 		
 		activity.myProgressDialog.dismiss();
 		Intent intent = new Intent(activity, MainActivity.class);

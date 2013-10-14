@@ -8,7 +8,6 @@ import java.util.List;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.view.ContextThemeWrapper;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.octo.android.robospice.persistence.exception.SpiceException;
