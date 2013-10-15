@@ -11,6 +11,7 @@ import com.octo.android.robospice.request.listener.RequestListener;
 import com.proyecto.bav.NewAddressActivity;
 import com.proyecto.bav.R;
 import com.proyecto.bav.models.Address;
+import com.proyecto.bav.models.Dialog;
 import com.proyecto.bav.results.NewAddressResult;
 
 public class NewAddressRequestListener implements RequestListener<NewAddressResult> {
@@ -47,10 +48,9 @@ public class NewAddressRequestListener implements RequestListener<NewAddressResu
 
 	@Override
 	public void onRequestSuccess(NewAddressResult result) {		
-		Address.save(result.getAddress(), activity.getApplicationContext());		
-		Toast.makeText(activity.getApplicationContext(), "Dirección creada", Toast.LENGTH_SHORT).show();		
+		Address.save(result.getAddress(), activity.getApplicationContext());
 		activity.myProgressDialog.dismiss();
-		activity.finish();
+		Dialog.showDialog(activity, true, true, "Dirección creada");
 	}
 
 }

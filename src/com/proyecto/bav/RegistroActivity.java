@@ -89,6 +89,11 @@ public class RegistroActivity extends BaseSpiceActivity {
 			return;
 		}
 		
+		if(et_password.length() < 8){
+			Dialog.showDialog(this, false, true, "La Contraseña debe tener al menos 8 caracteres");
+			return;
+		}
+		
 		EditText editTextPassConf = (EditText) findViewById(R.id.et_password_confirmacion);
 		String et_password_conf = editTextPassConf.getText().toString();
 		editTextPass = null;

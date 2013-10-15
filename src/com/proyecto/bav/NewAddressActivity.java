@@ -194,6 +194,11 @@ public class NewAddressActivity extends BaseSpiceActivity {
 			Dialog.showDialog(this, false, true, "Por favor, ingrese una Descripción");
 			return;
 		}
+		
+		if(et_address_descripcion.length() < 2){
+			Dialog.showDialog(this, false, true, "La Descripción debe ser de al menos 2 caracteres");
+			return;
+		}
 
 		EditText editTextAddressStreet = (EditText) findViewById(R.id.new_address_street);
 		String et_address_street = editTextAddressStreet.getText().toString();
@@ -201,6 +206,11 @@ public class NewAddressActivity extends BaseSpiceActivity {
 		
 		if(et_address_street.length() == 0){
 			Dialog.showDialog(this, false, true, "Por favor, ingrese una Calle");
+			return;
+		}
+		
+		if(et_address_street.length() < 2){
+			Dialog.showDialog(this, false, true, "La Calle debe ser de al menos 2 caracteres");
 			return;
 		}
 
