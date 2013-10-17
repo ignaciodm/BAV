@@ -26,10 +26,11 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.octo.android.robospice.persistence.DurationInMillis;
+import com.proyecto.bav.listeners.AddressDeleteRequestListener;
 import com.proyecto.bav.listeners.AddressesRequestListener;
 import com.proyecto.bav.models.Address;
-import com.proyecto.bav.models.Dialog;
 import com.proyecto.bav.models.User;
+import com.proyecto.bav.requests.DeleteAddressRequest;
 import com.proyecto.bav.requests.GetAddressesRequest;
 
 public class DisplayAddressesActivity extends BaseSpiceActivity {
@@ -93,11 +94,18 @@ public class DisplayAddressesActivity extends BaseSpiceActivity {
 		            	switch (posIndex) {
 		            	
 						case 0:
+														
+							Address a = addresses.get(posicionDireccionSeleccionada);
 							
-							Dialog.showDialog(activity, false, true, "Direccion eliminada");
-							Address.delete(posicionDireccionSeleccionada, getApplicationContext());
+							myProgressDialog = new ProgressDialog(activity, R.style.ProgressDialogTheme);
+							myProgressDialog.setTitle("Por favor, espere...");
+							myProgressDialog.setMessage("Borrando Dirección...");
+							myProgressDialog.show();
 							
-							fetchAddresses();	
+							getSpiceManager().execute(new DeleteAddressRequest(User.getUserId(activity.getApplicationContext()), a.getId(), User.getTokenUser(getApplicationContext())),
+									null, 
+									DurationInMillis.ONE_MINUTE,
+									new AddressDeleteRequestListener(activity));
 							
 							break;
 							

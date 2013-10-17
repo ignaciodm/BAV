@@ -18,7 +18,7 @@ import com.proyecto.bav.listeners.UsuarioRequestListener;
 import com.proyecto.bav.models.Dialog;
 import com.proyecto.bav.models.User;
 import com.proyecto.bav.requests.GetUsuarioRequest;
-import com.proyecto.bav.requests.PutModifyUser;
+import com.proyecto.bav.requests.PutModifyUserRequest;
 
 public class DatosPersonalesActivity extends BaseSpiceActivity {
 	
@@ -225,7 +225,7 @@ public class DatosPersonalesActivity extends BaseSpiceActivity {
 		
 		User user2 = User.getUser(this.getApplicationContext());
 		
-		getSpiceManager().execute(new PutModifyUser(json, user2.getId(), user2.getAuthToken()),
+		getSpiceManager().execute(new PutModifyUserRequest(json, user2.getId(), user2.getAuthToken()),
 				null, 
 				DurationInMillis.ONE_MINUTE,
 				new UsuarioPutRequestListener(this));	

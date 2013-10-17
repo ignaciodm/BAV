@@ -10,21 +10,21 @@ import com.google.api.client.http.ByteArrayContent;
 import com.google.api.client.http.HttpResponse;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.proyecto.bav.models.Address;
-import com.proyecto.bav.results.AddressResult;
+import com.proyecto.bav.models.User;
+import com.proyecto.bav.results.UsuarioResult;
 
 
-public class PutModifyAddress extends PutSpiceRequest<AddressResult> {
+public class PutModifyUserRequest extends PutSpiceRequest<UsuarioResult> {
 
-	public PutModifyAddress(String content, int userID, int direccionID, String token) {
-		super(AddressResult.class);
-		this.setPath("/usuarios/" + userID + "/direcciones/" + direccionID + ".json?authToken=" + token);
+	public PutModifyUserRequest(String content, int userID, String token) {
+		super(UsuarioResult.class);
+		this.setPath("/usuarios/" + userID + ".json?authToken=" + token);
 		
 		ByteArrayContent requestContent = ByteArrayContent.fromString("application/json", content);
 		this.setHttpContent(requestContent);		
 	}
 	
-	protected AddressResult parseResponse(final HttpResponse response) throws IOException {
+	protected UsuarioResult parseResponse(final HttpResponse response) throws IOException {
 		
 		StringBuilder sb = new StringBuilder();
 		InputStream inputStream = null;
@@ -46,21 +46,21 @@ public class PutModifyAddress extends PutSpiceRequest<AddressResult> {
 			e.printStackTrace();
 		}
 
-		Address address = null;
+		User user = null;
 		String json =  sb.toString();
 		Gson gson = new Gson();
 
-		Type addressType = new TypeToken<Address>() {}.getType();
+		Type userType = new TypeToken<User>() {}.getType();
 
 		try {
-			address = gson.fromJson(json, addressType);
+			user = gson.fromJson(json, userType);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}		
 		
-		AddressResult addressResult = new AddressResult(address);
+		UsuarioResult userResult = new UsuarioResult(user);
 		
-		return addressResult;
+		return userResult;
 	}
 
 }

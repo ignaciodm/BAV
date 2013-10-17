@@ -34,7 +34,7 @@ import com.proyecto.bav.requests.GetPartidoRequest;
 import com.proyecto.bav.requests.GetProvinceRequest;
 import com.proyecto.bav.requests.GetProvincesRequest;
 import com.proyecto.bav.requests.PostNewAddressRequest;
-import com.proyecto.bav.requests.PutModifyAddress;
+import com.proyecto.bav.requests.PutModifyAddressRequest;
 
 public class NewAddressActivity extends BaseSpiceActivity {
 
@@ -418,7 +418,7 @@ public class NewAddressActivity extends BaseSpiceActivity {
 					DurationInMillis.ONE_MINUTE,
 					new NewAddressRequestListener(this));
 		} else{
-			getSpiceManager().execute(new PutModifyAddress(json, User.getUserId(this.getApplicationContext()), address.getId(), User.getTokenUser(getApplicationContext())),
+			getSpiceManager().execute(new PutModifyAddressRequest(json, User.getUserId(this.getApplicationContext()), address.getId(), User.getTokenUser(getApplicationContext())),
 					null, 
 					DurationInMillis.ONE_MINUTE,
 					new AddressPutRequestListener(this));

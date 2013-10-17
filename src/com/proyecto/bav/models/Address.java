@@ -234,18 +234,31 @@ public class Address {
 		
 	}
 	
-	public static void delete(int position, Context context) {
+	public static void delete(Address a, Context context) {
 		
 		Gson gson = new Gson();
 		Type addressType = new TypeToken<List<Address>>() {}.getType();
 
 		List<Address> addresses = getAddresses(context);
-		addresses.remove(position);
+		addresses.remove(a);
 
 		String json = gson.toJson(addresses, addressType);
 
 		writeFile(json, FILE_NAME, context);
 		
+	}
+	
+	public static void removeAll(Context context) {
+		
+		Gson gson = new Gson();
+		Type addressType = new TypeToken<List<Address>>() {}.getType();
+
+		List<Address> addresses = getAddresses(context);
+		addresses.removeAll(addresses);
+
+		String json = gson.toJson(addresses, addressType);
+
+		writeFile(json, FILE_NAME, context);		
 	}
 	
 	public static void destroy(Context context) {
@@ -355,6 +368,6 @@ public class Address {
 
 	public void setComisaria_id(int comisaria_id) {
 		this.comisaria_id = comisaria_id;
-	}	
+	}		
 
 }

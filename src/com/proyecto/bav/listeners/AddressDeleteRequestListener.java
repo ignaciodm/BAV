@@ -6,14 +6,14 @@ import com.octo.android.robospice.request.listener.RequestListener;
 import com.proyecto.bav.DisplayAddressesActivity;
 import com.proyecto.bav.models.Address;
 import com.proyecto.bav.models.Dialog;
-import com.proyecto.bav.results.AddressesResult;
+import com.proyecto.bav.results.AddressResult;
 
-public class AddressesRequestListener implements RequestListener<AddressesResult> {
-
+public class AddressDeleteRequestListener implements RequestListener<AddressResult> {
+	
 	private DisplayAddressesActivity activity;
 	
-	public AddressesRequestListener(DisplayAddressesActivity displayAddressesActivity) {
-		this.activity = displayAddressesActivity;
+	public AddressDeleteRequestListener(DisplayAddressesActivity newAddressRequestListener) {
+		this.activity = newAddressRequestListener;
 	}
 
 	@Override
@@ -28,17 +28,13 @@ public class AddressesRequestListener implements RequestListener<AddressesResult
 	}
 
 	@Override
-	public void onRequestSuccess(AddressesResult result) {
+	public void onRequestSuccess(AddressResult result) {		
 		
-		Address.removeAll(activity.getApplicationContext());
+		Address.delete(result.getAddress(), activity.getApplicationContext());
 		
-		for(Address a: result.getAddresses())
-			Address.save(a, activity.getApplicationContext());	
-	    
-	    activity.fetchAddresses();
-	    activity.myProgressDialog.dismiss();	    
-		Dialog.showDialog(activity, false, true, "Direcciones sincronizadas exitosamente");	
-		
+		activity.fetchAddresses();
+	    activity.myProgressDialog.dismiss();
+		Dialog.showDialog(activity, false, true, "Dirección Eliminada");
 	}
 
 }
