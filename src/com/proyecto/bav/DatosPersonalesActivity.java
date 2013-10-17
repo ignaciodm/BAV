@@ -1,5 +1,7 @@
 package com.proyecto.bav;
 
+import java.lang.reflect.Type;
+
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,11 +10,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.octo.android.robospice.persistence.DurationInMillis;
+import com.proyecto.bav.listeners.UsuarioPutRequestListener;
 import com.proyecto.bav.listeners.UsuarioRequestListener;
 import com.proyecto.bav.models.Dialog;
 import com.proyecto.bav.models.User;
 import com.proyecto.bav.requests.GetUsuarioRequest;
+import com.proyecto.bav.requests.PutModifyUser;
 
 public class DatosPersonalesActivity extends BaseSpiceActivity {
 	
@@ -208,8 +214,21 @@ public class DatosPersonalesActivity extends BaseSpiceActivity {
 				
 		User user = new User(et_email, et_dni, et_nombre, et_apellido, et_telefono, diaNacimiento, mesNacimiento, anioNacimiento);
 		
-		user.save(this.getApplicationContext());
-		Dialog.showDialog(this, true, true, "Datos Guardados");		
+		myProgressDialog = new ProgressDialog(this, R.style.ProgressDialogTheme);
+		myProgressDialog.setTitle("Por favor, espere...");
+		myProgressDialog.setMessage("Sincronizando...");
+		myProgressDialog.show();
+		
+		Gson gson = new Gson();
+		Type userType = new TypeToken<User>() {}.getType();
+		String json = gson.toJson(user, userType);
+		
+		User user2 = User.getUser(this.getApplicationContext());
+		
+		getSpiceManager().execute(new PutModifyUser(json, user2.getId(), user2.getAuthToken()),
+				null, 
+				DurationInMillis.ONE_MINUTE,
+				new UsuarioPutRequestListener(this));	
 	}
 
 	private void sincronizar() {

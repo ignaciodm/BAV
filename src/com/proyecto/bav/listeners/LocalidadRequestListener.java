@@ -8,7 +8,6 @@ import java.util.List;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.view.ContextThemeWrapper;
-import android.widget.Button;
 
 import com.octo.android.robospice.exception.NoNetworkException;
 import com.octo.android.robospice.persistence.exception.SpiceException;
@@ -16,6 +15,7 @@ import com.octo.android.robospice.request.listener.RequestListener;
 import com.proyecto.bav.NewAddressActivity;
 import com.proyecto.bav.R;
 import com.proyecto.bav.models.Comisaria;
+import com.proyecto.bav.models.Dialog;
 import com.proyecto.bav.results.LocalidadResult;
 
 public class LocalidadRequestListener implements
@@ -30,25 +30,12 @@ public class LocalidadRequestListener implements
 	@Override
     public void onRequestFailure( SpiceException spiceException ) {
 		
-		AlertDialog.Builder alertDialog = new AlertDialog.Builder(activity);
-		alertDialog.setNeutralButton("Aceptar", new DialogInterface.OnClickListener() {
-		   public void onClick(DialogInterface dialog, int which) {
-			   dialog.dismiss();
-		   }
-		});
+		activity.myProgressDialog.dismiss();
 		
 		if (spiceException instanceof NoNetworkException)
-			alertDialog.setMessage("No hay conexión. Intente nuevamente");
+			Dialog.showDialog(activity, false, true, "No hay conexión. Intente nuevamente");
 		else 
-			alertDialog.setMessage("Ha ocurrido un error con la conexión. Intente nuevamente");
-		
-		AlertDialog alert = alertDialog.create();
-        alert.show();
-		
-	    Button b = alert.getButton(DialogInterface.BUTTON_NEUTRAL);
-	    b.setBackgroundResource(R.drawable.background_button_rectangular);
-		
-		activity.myProgressDialog.dismiss();
+			Dialog.showDialog(activity, false, true, "Ha ocurrido un error con la conexión. Intente nuevamente");
     }
 	
 	@Override
@@ -72,7 +59,6 @@ public class LocalidadRequestListener implements
     	
     	CharSequence[] charComisariasNames = comisariasNames.toArray(new CharSequence[comisariasNames.size()]);
         
-    	//AlertDialog.Builder alertDialog = new AlertDialog.Builder(activity);
     	AlertDialog.Builder alertDialog = new AlertDialog.Builder(new ContextThemeWrapper(activity, R.style.AlertDialogCustom));
         
         if(comisarias.size() == 0){

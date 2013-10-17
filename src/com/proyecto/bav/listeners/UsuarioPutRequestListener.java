@@ -3,17 +3,16 @@ package com.proyecto.bav.listeners;
 import com.octo.android.robospice.exception.NoNetworkException;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
-import com.proyecto.bav.NewAddressActivity;
-import com.proyecto.bav.models.Address;
+import com.proyecto.bav.DatosPersonalesActivity;
 import com.proyecto.bav.models.Dialog;
-import com.proyecto.bav.results.AddressResult;
+import com.proyecto.bav.results.UsuarioResult;
 
-public class AddressPutRequestListener implements RequestListener<AddressResult> {
+public class UsuarioPutRequestListener implements RequestListener<UsuarioResult> {
+
+	private DatosPersonalesActivity activity;
 	
-	private NewAddressActivity activity;
-	
-	public AddressPutRequestListener(NewAddressActivity newAddressRequestListener) {
-		this.activity = newAddressRequestListener;
+	public UsuarioPutRequestListener(DatosPersonalesActivity datosPersonalesActivity) {
+		this.activity = datosPersonalesActivity;
 	}
 
 	@Override
@@ -28,10 +27,11 @@ public class AddressPutRequestListener implements RequestListener<AddressResult>
 	}
 
 	@Override
-	public void onRequestSuccess(AddressResult result) {		
-		Address.save(result.getAddress(), activity.getApplicationContext());	    
-	    activity.myProgressDialog.dismiss();
-		Dialog.showDialog(activity, true, true, "Dirección Guardada");
+	public void onRequestSuccess(UsuarioResult result) {
+		
+		result.getUser().save(activity.getApplicationContext());		
+		activity.myProgressDialog.dismiss();
+		Dialog.showDialog(activity, true, true, "Datos Guardados");		
 	}
 
 }
