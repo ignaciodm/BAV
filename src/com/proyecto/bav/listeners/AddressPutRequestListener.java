@@ -11,14 +11,14 @@ import com.proyecto.bav.NewAddressActivity;
 import com.proyecto.bav.R;
 import com.proyecto.bav.models.Address;
 import com.proyecto.bav.models.Dialog;
-import com.proyecto.bav.results.NewAddressResult;
+import com.proyecto.bav.results.AddressResult;
 
-public class NewAddressRequestListener implements RequestListener<NewAddressResult> {
+public class AddressPutRequestListener implements RequestListener<AddressResult> {
 	
 	private NewAddressActivity activity;
-
-	public NewAddressRequestListener(NewAddressActivity newAddressActivity) {
-		this.activity = newAddressActivity;
+	
+	public AddressPutRequestListener(NewAddressActivity newAddressRequestListener) {
+		this.activity = newAddressRequestListener;
 	}
 
 	@Override
@@ -27,7 +27,7 @@ public class NewAddressRequestListener implements RequestListener<NewAddressResu
 		AlertDialog.Builder alertDialog = new AlertDialog.Builder(activity);
 		alertDialog.setNeutralButton("Aceptar", new DialogInterface.OnClickListener() {
 		   public void onClick(DialogInterface dialog, int which) {
-			   dialog.dismiss();
+			   activity.myProgressDialog.dismiss();
 		   }
 		});
 		
@@ -41,14 +41,12 @@ public class NewAddressRequestListener implements RequestListener<NewAddressResu
 		
 	    Button b = alert.getButton(DialogInterface.BUTTON_NEUTRAL);
 	    b.setBackgroundResource(R.drawable.background_button_rectangular);
-		
-		activity.myProgressDialog.dismiss();
 	}
 
 	@Override
-	public void onRequestSuccess(NewAddressResult result) {		
-		Address.save(result.getAddress(), activity.getApplicationContext());
-		activity.myProgressDialog.dismiss();
+	public void onRequestSuccess(AddressResult result) {		
+		Address.save(result.getAddress(), activity.getApplicationContext());	    
+	    activity.myProgressDialog.dismiss();
 		Dialog.showDialog(activity, true, true, "Dirección Guardada");
 	}
 

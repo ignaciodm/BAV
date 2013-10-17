@@ -16,7 +16,7 @@ import com.octo.android.robospice.request.googlehttpclient.GoogleHttpClientSpice
 
 public abstract class SimpleSpiceRequest<RequestResult> extends GoogleHttpClientSpiceRequest<RequestResult> {
 
-	private String baseUrl = "http://cryptic-gorge-7789.herokuapp.com/";
+	private String baseUrl = "http://cryptic-gorge-7789.herokuapp.com";
 	private JsonFactory sJsonFactory;
 	private JsonObjectParser sJsonParser;
 
@@ -106,11 +106,11 @@ public abstract class SimpleSpiceRequest<RequestResult> extends GoogleHttpClient
      * @return PrePopulated HttpRequest object
      * @throws IOException
      */
-    protected HttpRequest getGETHttpRequest() throws IOException
+    protected HttpRequest getGETHttpRequest(String requestMethod) throws IOException
     {
         final HttpRequest request = getHttpRequestFactory() //
                 .buildGetRequest(new GenericUrl(getURL()));
-        return populateHttpRequest(request);
+        return populateHttpRequest(request, requestMethod);
     }
  
     /**
@@ -121,11 +121,11 @@ public abstract class SimpleSpiceRequest<RequestResult> extends GoogleHttpClient
      * @return PrePopulated HttpRequest object
      * @throws IOException
      */
-    protected HttpRequest getPOSTHttpRequest(HttpContent content) throws IOException
+    protected HttpRequest getPOSTHttpRequest(HttpContent content, String requestMethod) throws IOException
     {
         final HttpRequest request = getHttpRequestFactory() //
                 .buildPostRequest(new GenericUrl(getURL()), content);
-        return populatePOSTHttpRequest(request);
+        return populatePOSTHttpRequest(request, requestMethod);
     }
  
     /**
@@ -134,11 +134,12 @@ public abstract class SimpleSpiceRequest<RequestResult> extends GoogleHttpClient
      * @param request the request to populate
      * @return the request that was passed in
      */
-    private HttpRequest populateHttpRequest(HttpRequest request)
+    private HttpRequest populateHttpRequest(HttpRequest request, String requestMethod)
     {
         //request.setEnableGZipContent(true);
         request.setParser(getJsonParser());
         request.setFollowRedirects(false);
+        request.setRequestMethod(requestMethod);
  
         //Set up the headers
         HttpHeaders headers = request.getHeaders();
@@ -164,9 +165,9 @@ public abstract class SimpleSpiceRequest<RequestResult> extends GoogleHttpClient
      * @param request
      * @return the request that was passed in
      */
-    private HttpRequest populatePOSTHttpRequest(HttpRequest request)
+    private HttpRequest populatePOSTHttpRequest(HttpRequest request, String requestMethod)
     {
-        populateHttpRequest(request);
+        populateHttpRequest(request, requestMethod);
  
         //Set up the headers
         HttpHeaders headers = request.getHeaders();

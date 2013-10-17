@@ -12,7 +12,7 @@ public class GetSpiceRequest<RequestResult> extends SimpleSpiceRequest<RequestRe
 
 	@Override
 	protected HttpRequest getHttpRequest() throws Exception {
-		return this.getGETHttpRequest();
+		return this.getGETHttpRequest("GET");
 	}
 
 	@Override

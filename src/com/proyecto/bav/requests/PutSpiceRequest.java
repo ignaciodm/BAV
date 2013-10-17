@@ -3,18 +3,18 @@ package com.proyecto.bav.requests;
 import com.google.api.client.http.HttpContent;
 import com.google.api.client.http.HttpRequest;
 
-public class PostSpiceRequest<RequestResult> extends SimpleSpiceRequest<RequestResult> {
+public class PutSpiceRequest<RequestResult> extends SimpleSpiceRequest<RequestResult> {
 
 	private HttpContent httpContent;
 	private String path;
 
-	public PostSpiceRequest(Class<RequestResult> clazz) {
+	public PutSpiceRequest(Class<RequestResult> clazz) {
 		super(clazz);
 	}
 
 	@Override
 	protected HttpRequest getHttpRequest() throws Exception {
-		return this.getPOSTHttpRequest(httpContent, "POST");
+		return this.getPOSTHttpRequest(httpContent, "PUT");
 	}
 
 	@Override

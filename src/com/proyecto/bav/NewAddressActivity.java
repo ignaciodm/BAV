@@ -16,8 +16,9 @@ import android.widget.EditText;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.octo.android.robospice.persistence.DurationInMillis;
-import com.proyecto.bav.listeners.NewAddressRequestListener;
+import com.proyecto.bav.listeners.AddressPutRequestListener;
 import com.proyecto.bav.listeners.LocalidadRequestListener;
+import com.proyecto.bav.listeners.NewAddressRequestListener;
 import com.proyecto.bav.listeners.PartidoRequestListener;
 import com.proyecto.bav.listeners.ProvinceRequestListener;
 import com.proyecto.bav.listeners.ProvincesRequestListener;
@@ -33,6 +34,7 @@ import com.proyecto.bav.requests.GetPartidoRequest;
 import com.proyecto.bav.requests.GetProvinceRequest;
 import com.proyecto.bav.requests.GetProvincesRequest;
 import com.proyecto.bav.requests.PostNewAddressRequest;
+import com.proyecto.bav.requests.PutModifyAddress;
 
 public class NewAddressActivity extends BaseSpiceActivity {
 
@@ -404,17 +406,23 @@ public class NewAddressActivity extends BaseSpiceActivity {
 		Gson gson = new Gson();
 		Type addressType = new TypeToken<Address>() {}.getType();
 		String json = gson.toJson(address, addressType);
-		
+	
 		myProgressDialog = new ProgressDialog(this, R.style.ProgressDialogTheme);
 		myProgressDialog.setTitle("Por favor, espere...");
-		myProgressDialog.setMessage("Creando Dirección...");
+		myProgressDialog.setMessage("Guardando Dirección...");
 		myProgressDialog.show();
 		
-		if(nuevaDireccion == true)
+		if(nuevaDireccion == true){
 			getSpiceManager().execute(new PostNewAddressRequest(json, User.getUserId(this.getApplicationContext()), User.getTokenUser(getApplicationContext())),
 					null, 
 					DurationInMillis.ONE_MINUTE,
 					new NewAddressRequestListener(this));
+		} else{
+			getSpiceManager().execute(new PutModifyAddress(json, User.getUserId(this.getApplicationContext()), address.getId(), User.getTokenUser(getApplicationContext())),
+					null, 
+					DurationInMillis.ONE_MINUTE,
+					new AddressPutRequestListener(this));
+		}
 
 	}
 	
