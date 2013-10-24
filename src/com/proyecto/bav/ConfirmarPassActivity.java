@@ -1,14 +1,20 @@
 package com.proyecto.bav;
 
-import android.content.Intent;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.Window;
+import android.widget.EditText;
 
-import com.proyecto.bav.models.Dialog;
+import com.octo.android.robospice.persistence.DurationInMillis;
+import com.proyecto.bav.listeners.ValidarPassRequestListener;
+import com.proyecto.bav.models.User;
+import com.proyecto.bav.requests.GetValidarPassRequest;
 
 public class ConfirmarPassActivity extends BaseSpiceActivity {
+	
+	public ProgressDialog myProgressDialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -27,19 +33,21 @@ public class ConfirmarPassActivity extends BaseSpiceActivity {
 	/** Called when the user clicks the Aceptar button */
 	public void aceptarPass(View view) {
 		
-		// Validar Contraseña
-		boolean pass_ok;
-		pass_ok = true;
+		EditText editTextPass = (EditText) findViewById(R.id.et_pass);
+		String password = editTextPass.getText().toString();
 		
-		if(pass_ok == true)
-		{	
-			Intent returnIntent = new Intent();
-			setResult(RESULT_OK,returnIntent);  
-			this.finish();
-		}
-		else {
-			Dialog.showDialog(this, false, false, "Contraseña incorrecta");
-		}
+		// Validar Contraseña
+		myProgressDialog = new ProgressDialog(this, R.style.ProgressDialogTheme);
+		myProgressDialog.setTitle("Por favor, espere...");
+		myProgressDialog.setMessage("Validando contraseña...");
+		myProgressDialog.show();
+		
+		User user = User.getUser(getApplicationContext());
+		
+		getSpiceManager().execute(new GetValidarPassRequest(user.getId(), user.getAuthToken(), password),
+				null, 
+				DurationInMillis.ONE_MINUTE,
+				new ValidarPassRequestListener(this));
 		
 	}
 	
