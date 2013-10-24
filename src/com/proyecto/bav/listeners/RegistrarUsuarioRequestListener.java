@@ -1,5 +1,8 @@
 package com.proyecto.bav.listeners;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.content.Context;
 import android.view.inputmethod.InputMethodManager;
 
@@ -25,8 +28,43 @@ public class RegistrarUsuarioRequestListener implements RequestListener<UsuarioR
 		
 		if (spiceException instanceof NoNetworkException)
 			Dialog.showDialog(activity, false, true, "No hay conexión. Intente nuevamente");
-		else 
-			Dialog.showDialog(activity, false, true, "Ha ocurrido un error con la conexión. Intente nuevamente");
+		else{
+			
+			if(this.emailExist(spiceException))
+				Dialog.showDialog(activity, false, true, "El email ya se encuentra registrado en nuestro sistema");
+			else
+				Dialog.showDialog(activity, false, true, "Ha ocurrido un error con la conexión. Intente nuevamente");
+			
+		}
+			
+	}
+
+	private boolean emailExist(SpiceException spiceException) {
+		
+		String stringException = spiceException.getCause().toString();
+		String json = stringException.substring(stringException.indexOf("{"), stringException.length());
+		
+		JSONObject jObj = null;
+		try {
+			jObj = new JSONObject(json);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		String emailExist = "";
+		try {
+			emailExist = jObj.getString("email");
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		if(emailExist.equals("[\"has already been taken\"]"))
+			return true;
+		
+		return false;
+		
 	}
 
 	@Override

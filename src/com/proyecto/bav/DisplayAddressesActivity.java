@@ -37,11 +37,13 @@ public class DisplayAddressesActivity extends BaseSpiceActivity {
 	
 	public final static String DIRECCION_SELECCIONADA = "com.proyecto.bav.DIRECCION_SELECCIONADA";
 	public final static String NUEVA_DIRECCION = "com.proyecto.bav.NUEVA_DIRECCION";
-	final static int SINCRONIZAR = 1;
+	private final static int SINCRONIZAR = 1;
+	private final static int CONFIRMAR_PASS = 2;
 	
 	private DisplayAddressesActivity activity;
 	private static AddressesAdapter adapter;
 	private List<Address> addresses;
+	private Address address;
 	private int posicionDireccionSeleccionada;
 	ListView listView;
 	
@@ -95,17 +97,9 @@ public class DisplayAddressesActivity extends BaseSpiceActivity {
 		            	
 						case 0:
 														
-							Address a = addresses.get(posicionDireccionSeleccionada);
+							address = addresses.get(posicionDireccionSeleccionada);
 							
-							myProgressDialog = new ProgressDialog(activity, R.style.ProgressDialogTheme);
-							myProgressDialog.setTitle("Por favor, espere...");
-							myProgressDialog.setMessage("Borrando Dirección...");
-							myProgressDialog.show();
-							
-							getSpiceManager().execute(new DeleteAddressRequest(User.getUserId(activity.getApplicationContext()), a.getId(), User.getTokenUser(getApplicationContext())),
-									null, 
-									DurationInMillis.ONE_MINUTE,
-									new AddressDeleteRequestListener(activity));
+							confirmarBorrar(activity);
 							
 							break;
 							
@@ -149,6 +143,11 @@ public class DisplayAddressesActivity extends BaseSpiceActivity {
         });
 		
 	}
+	
+	private void confirmarBorrar(DisplayAddressesActivity act) {
+		Intent intent = new Intent(act, ConfirmarPassActivity.class);
+		startActivityForResult(intent, CONFIRMAR_PASS);	
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -187,9 +186,29 @@ public class DisplayAddressesActivity extends BaseSpiceActivity {
 		
 		if(requestCode == SINCRONIZAR)
 			if(resultCode == RESULT_OK)
-				sincronizar();				
+				sincronizar();
+		
+		if (requestCode == CONFIRMAR_PASS)
+			if(resultCode == RESULT_OK)
+				borrarDireccion();
 	}
 	
+	private void borrarDireccion() {
+		
+		myProgressDialog = new ProgressDialog(activity, R.style.ProgressDialogTheme);
+		myProgressDialog.setTitle("Por favor, espere...");
+		myProgressDialog.setMessage("Borrando Dirección...");
+		myProgressDialog.show();
+		
+		getSpiceManager().execute(new DeleteAddressRequest(User.getUserId(activity.getApplicationContext()), address.getId(), User.getTokenUser(getApplicationContext())),
+				null, 
+				DurationInMillis.ONE_MINUTE,
+				new AddressDeleteRequestListener(activity));
+
+		address = null;
+		
+	}
+
 	private void sincronizar() {
 		
 		myProgressDialog = new ProgressDialog(this, R.style.ProgressDialogTheme);

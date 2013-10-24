@@ -24,6 +24,8 @@ public class LoginActivity extends BaseSpiceActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
 		
+		limpiarPantalla();
+		
 		// Si el usuario ya está logueado, voy directo a la aplicación
 		User user = User.getUser(this.getApplicationContext());
 		if(user != null){
@@ -31,6 +33,14 @@ public class LoginActivity extends BaseSpiceActivity {
 			this.startActivity(intent);
 			this.finish();
 		}		
+	}
+
+	private void limpiarPantalla() {
+		EditText editTextEmail = (EditText) findViewById(R.id.et_email);
+		editTextEmail.setText("");
+		
+		EditText editTextPassword = (EditText) findViewById(R.id.et_password);
+		editTextPassword.setText("");
 	}
 
 	@Override
