@@ -216,7 +216,7 @@ public class DatosPersonalesActivity extends BaseSpiceActivity {
 		
 		myProgressDialog = new ProgressDialog(this, R.style.ProgressDialogTheme);
 		myProgressDialog.setTitle("Por favor, espere...");
-		myProgressDialog.setMessage("Sincronizando...");
+		myProgressDialog.setMessage("Guardando datos...");
 		myProgressDialog.show();
 		
 		Gson gson = new Gson();

@@ -48,16 +48,14 @@ public class RegistrarUsuarioRequestListener implements RequestListener<UsuarioR
 		try {
 			jObj = new JSONObject(json);
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			return false;
 		}
 		
 		String emailExist = "";
 		try {
 			emailExist = jObj.getString("email");
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			return false;
 		}
 		
 		if(emailExist.equals("[\"has already been taken\"]"))

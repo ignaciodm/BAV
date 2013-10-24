@@ -46,16 +46,14 @@ public class ValidarPassRequestListener implements RequestListener<ValidarPassRe
 		try {
 			jObj = new JSONObject(json);
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			return false;
 		}
 		
 		String password = "";
 		try {
 			password = jObj.getString("password");
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			return false;
 		}
 		
 		if(password.equals("Contrasenia invalidos"))
