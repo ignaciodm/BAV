@@ -2,6 +2,7 @@ package com.proyecto.bav;
 
 import java.util.List;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,10 +16,13 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.octo.android.robospice.persistence.DurationInMillis;
+import com.proyecto.bav.listeners.DenunciarRequestListener;
 import com.proyecto.bav.models.Address;
 import com.proyecto.bav.models.Dialog;
+import com.proyecto.bav.models.User;
+import com.proyecto.bav.requests.PostDenunciarRequest;
 
 public class DireccionesDenunciarActivity extends BaseSpiceActivity {
 	
@@ -29,6 +33,9 @@ public class DireccionesDenunciarActivity extends BaseSpiceActivity {
 	private List<Address> addresses;
 	private Address address;
 	ListView listView;
+	int reintento;
+	
+	public ProgressDialog myProgressDialog;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -82,11 +89,20 @@ public class DireccionesDenunciarActivity extends BaseSpiceActivity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == CONFIRMAR_ANIO)
 			if(resultCode == RESULT_OK){
-				Toast.makeText(getApplicationContext(), "Denunciando desde: " + address.getDescription(), Toast.LENGTH_LONG).show();  
-				this.finish();
+				
+				myProgressDialog = new ProgressDialog(this, R.style.ProgressDialogTheme);
+				myProgressDialog.setTitle("Por favor, espere...");
+				myProgressDialog.setMessage("Denunciando desde " + address.getDescription() + "...");
+				myProgressDialog.show();
+				
+				this.denunciar(getDenunciarJSON(address.getId(), User.getTokenUser(getApplicationContext())));
 			}
 	}
 	
+	private String getDenunciarJSON(int id, String authToken) {
+		return "{\"direccionId\":" + id + "," + "\"authToken\":" + "\"" + authToken + "\""+ "}";
+	}
+
 	private class AddressesAdapter extends ArrayAdapter<Address> {
 		
 		final private List<Address> addresses;
@@ -122,6 +138,22 @@ public class DireccionesDenunciarActivity extends BaseSpiceActivity {
             return view;
             
 		}
+	}
+
+	public void denunciar(String jsonDeDenuncia) {
+		
+		if(reintento < 20){
+			
+			reintento++;
+		
+			getSpiceManager().execute(new PostDenunciarRequest(jsonDeDenuncia),
+					null, 
+					DurationInMillis.ONE_MINUTE,
+					new DenunciarRequestListener(this, jsonDeDenuncia));
+		} else {
+			myProgressDialog.dismiss();
+		}
+		
 	}
 
 }

@@ -38,8 +38,9 @@ public class LoginRequestListener implements RequestListener<LoginResult> {
 		
 		result.getUser().save(activity.getApplicationContext());
 		
-		for(Address a: result.getAddresses())
-			Address.save(a, activity.getApplicationContext());		
+		if(result.getAddresses() != null)
+			for(Address a: result.getAddresses())
+				Address.save(a, activity.getApplicationContext());		
 		
 		activity.myProgressDialog.dismiss();
 		Intent intent = new Intent(activity, MainActivity.class);

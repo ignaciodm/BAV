@@ -9,9 +9,11 @@ import android.widget.EditText;
 
 import com.octo.android.robospice.persistence.DurationInMillis;
 import com.proyecto.bav.listeners.LoginRequestListener;
+import com.proyecto.bav.listeners.OlvidePassRequestListener;
 import com.proyecto.bav.models.Dialog;
 import com.proyecto.bav.models.User;
 import com.proyecto.bav.requests.PostLoginRequest;
+import com.proyecto.bav.requests.PostOlvidePassRequest;
 
 public class LoginActivity extends BaseSpiceActivity {
 	
@@ -90,9 +92,24 @@ public class LoginActivity extends BaseSpiceActivity {
 			Dialog.showDialog(this, false, true, "Ingrese el e-mail");
 		else if (!email.contains("@"))
 			Dialog.showDialog(this, false, true, "Ingrese un e-mail válido");
-		else
-			Dialog.showDialog(this, false, true, "Olvidé mi contraseña");
+		else{
+			
+			myProgressDialog = new ProgressDialog(this, R.style.ProgressDialogTheme);
+			myProgressDialog.setTitle("Por favor, espere...");
+			myProgressDialog.setMessage("Enviando la contraseña a su casilla de email...");
+			myProgressDialog.show();
+			
+			getSpiceManager().execute(new PostOlvidePassRequest(getOlvidePassJSON(email)),
+					null, 
+					DurationInMillis.ONE_MINUTE,
+					new OlvidePassRequestListener(this));
+			
+		}
 		
+	}
+
+	private String getOlvidePassJSON(String email) {
+		return "{\"email\":" + "\"" + email + "\"" + "}";
 	}
 	
 }
