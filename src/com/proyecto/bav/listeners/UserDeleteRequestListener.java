@@ -6,6 +6,7 @@ import android.widget.Toast;
 import com.octo.android.robospice.exception.NoNetworkException;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
+import com.proyecto.bav.LoginActivity;
 import com.proyecto.bav.MainActivity;
 import com.proyecto.bav.models.Address;
 import com.proyecto.bav.models.Dialog;
@@ -40,10 +41,9 @@ public class UserDeleteRequestListener implements RequestListener<UsuarioResult>
 		
 		Toast.makeText(activity.getApplicationContext(), "Cuenta Eliminada", Toast.LENGTH_LONG).show();
 		
-		Intent intent = new Intent(Intent.ACTION_MAIN);
-		intent.addCategory(Intent.CATEGORY_HOME);
-		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		Intent intent = new Intent(activity, LoginActivity.class);
 		activity.startActivity(intent);
+		activity.finish();
 	}
 
 }

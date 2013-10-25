@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 
 import com.google.api.client.http.ByteArrayContent;
 import com.google.api.client.http.HttpResponse;
+import com.google.gson.Gson;
 import com.proyecto.bav.results.CambiarPassResult;
 
 public class PostCambiarPassRequest extends PostSpiceRequest<CambiarPassResult>{
@@ -41,8 +42,8 @@ public class PostCambiarPassRequest extends PostSpiceRequest<CambiarPassResult>{
 			e.printStackTrace();
 		}
 
-//		String json =  sb.toString();
-//		Gson gson = new Gson();		
+		String json =  sb.toString();
+		Gson gson = new Gson();		
 		
 		CambiarPassResult cambiarPassResult = new CambiarPassResult();
 		
