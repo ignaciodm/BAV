@@ -32,8 +32,9 @@ public class AddressesRequestListener implements RequestListener<AddressesResult
 		
 		Address.removeAll(activity.getApplicationContext());
 		
-		for(Address a: result.getAddresses())
-			Address.save(a, activity.getApplicationContext());	
+		if(result.getAddresses() != null)
+			for(Address a: result.getAddresses())
+				Address.save(a, activity.getApplicationContext());	
 	    
 	    activity.fetchAddresses();
 	    activity.myProgressDialog.dismiss();	    

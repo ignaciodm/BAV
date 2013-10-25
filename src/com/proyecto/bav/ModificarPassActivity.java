@@ -1,14 +1,21 @@
 package com.proyecto.bav;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
 
+import com.octo.android.robospice.persistence.DurationInMillis;
+import com.proyecto.bav.listeners.CambiarPassRequestListener;
 import com.proyecto.bav.models.Dialog;
+import com.proyecto.bav.models.User;
+import com.proyecto.bav.requests.PostCambiarPassRequest;
 
 public class ModificarPassActivity extends BaseSpiceActivity {
+	
+	public ProgressDialog myProgressDialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -55,9 +62,34 @@ public class ModificarPassActivity extends BaseSpiceActivity {
 		{
 			Dialog.showDialog(this, false, false, "Las contraseñas no coinciden");
 			return;
-		}	
+		}
 		
-		Dialog.showDialog(this, true, false, "Contraseña modificada con éxito");
+		if(passNueva2.length() < 8)
+		{
+			Dialog.showDialog(this, false, false, "La Contraseña debe tener al menos 8 caracteres");
+			return;
+		}
+		
+		myProgressDialog = new ProgressDialog(this, R.style.ProgressDialogTheme);
+		myProgressDialog.setTitle("Por favor, espere...");
+		myProgressDialog.setMessage("Cambiando la contraseña...");
+		myProgressDialog.show();
+		
+		User u = User.getUser(getApplicationContext());
+		
+		getSpiceManager().execute(new PostCambiarPassRequest(u.getId(), getCambiarPassJSON(passAnterior, passNueva1, passNueva2, u.getAuthToken())),
+				null, 
+				DurationInMillis.ONE_MINUTE,
+				new CambiarPassRequestListener(this));
+	}
+
+	private String getCambiarPassJSON(String passAnterior, String passNueva1, String passNueva2, String authToken) {
+		return  "{" + 
+					"\"password\":" + "\"" + passAnterior + "\"" + "," + 
+					"\"nuevaPassword\":" + "\"" + passNueva1 + "\"" + "," +
+					"\"nuevaPasswordConfirmacion\":" + "\"" + passNueva2 + "\"" + "," +
+					"\"authToken\":" + "\"" + authToken + "\"" +				
+				"}";
 	}
 
 }

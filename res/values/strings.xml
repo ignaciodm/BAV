@@ -19,8 +19,9 @@
     <string name="btn_main_denunciar">Denunciar</string>
     <string name="main_datos_personales">Datos Personales</string>
     <string name="main_show_addresses">Mis Direcciones</string>
+    <string name="main_eliminar_user">Eliminar Cuenta</string>
     <string name="main_sincronizar">Sincronizar</string>
-    <string name="btn_cerrar_sesion">Cerrar Sesión</string>
+    <string name="btn_cerrar_sesion">Cerrar Sesión</string>    
 
     <!-- Datos Personales -->
     <string name="title_activity_datos_personales">Datos Personales</string>
