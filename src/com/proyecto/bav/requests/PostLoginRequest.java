@@ -7,6 +7,9 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.util.List;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.google.api.client.http.ByteArrayContent;
 import com.google.api.client.http.HttpResponse;
 import com.google.gson.Gson;
@@ -64,19 +67,33 @@ public class PostLoginRequest extends PostSpiceRequest<LoginResult> {
 		user.setMesNacimiento(Integer.parseInt(user.getFechaDeNacimiento().substring(5,7)));
 		user.setDiaNacimiento(Integer.parseInt(user.getFechaDeNacimiento().substring(8,10)));
 		
+		LoginResult loginResult = new LoginResult(user, null);
+		
 		// GET DIRECCIONES
+		JSONObject jObj = null;
+		try {
+			jObj = new JSONObject(json);
+		} catch (JSONException e) {
+			return loginResult;
+		}
+		
+		String direcciones = "";
+		try {
+			direcciones = jObj.getString("direcciones");
+		} catch (JSONException e) {
+			return loginResult;
+		}		
+		
 		List<Address> addresses = null;
-		int indexOf = json.indexOf("direcciones");
-		String direcciones = json.substring(indexOf + "\"direcciones\":".length() -1, json.length()-1);
 		Type addressesType = new TypeToken<List<Address>>() {}.getType();
 		
-			try {
-				addresses = gson.fromJson(direcciones, addressesType);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+		try {
+			addresses = gson.fromJson(direcciones, addressesType);
+		} catch (Exception e) {
+			return loginResult;
+		}
 		
-		LoginResult loginResult = new LoginResult(user, addresses);
+		loginResult.setAddresses(addresses);
 		
 		return loginResult;
 	}
