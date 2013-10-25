@@ -1,5 +1,8 @@
 package com.proyecto.bav.listeners;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.content.Intent;
 
 import com.google.api.client.http.HttpResponseException;
@@ -28,9 +31,39 @@ public class LoginRequestListener implements RequestListener<LoginResult> {
 		if (spiceException instanceof NoNetworkException)
 			Dialog.showDialog(activity, false, true, "No hay conexión. Intente nuevamente");
 		else if (spiceException.getCause() instanceof HttpResponseException)
-			Dialog.showDialog(activity, false, true, "Email o Contraseña incorrectos");
+			
+			if(this.usuarioBloqueado(spiceException))
+				Dialog.showDialog(activity, false, true, "Usuario bloqueado. Dirijase a su cuenta de correo electrónico para desbloquearlo");
+			else
+				Dialog.showDialog(activity, false, true, "Email o Contraseña incorrectos");		
+			
 		else 
 			Dialog.showDialog(activity, false, true, "Ha ocurrido un error con la conexión. Intente nuevamente");
+	}
+
+	private boolean usuarioBloqueado(SpiceException spiceException) {
+		
+		String stringException = spiceException.getCause().toString();
+		String json = stringException.substring(stringException.indexOf("{"), stringException.length());
+		
+		JSONObject jObj = null;
+		try {
+			jObj = new JSONObject(json);
+		} catch (JSONException e) {
+			return false;
+		}
+		
+		String bloqueado = "";
+		try {
+			bloqueado = jObj.getString("bloqueado");
+		} catch (JSONException e) {
+			return false;
+		}
+		
+		if(bloqueado.equals("true"))
+			return true;
+		
+		return false;
 	}
 
 	@Override
