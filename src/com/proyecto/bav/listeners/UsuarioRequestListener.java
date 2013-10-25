@@ -31,6 +31,7 @@ public class UsuarioRequestListener implements RequestListener<UsuarioResult> {
 	public void onRequestSuccess(UsuarioResult result) {		
 		result.getUser().save(activity.getApplicationContext());		
 		activity.myProgressDialog.dismiss();
+		activity.fetchDatosPersonales();
 		Dialog.showDialog(activity, false, true, "Datos Personales sincronizados exitosamente");
 	}
 
