@@ -127,8 +127,8 @@ public class DatosPersonalesActivity extends BaseSpiceActivity {
 		String et_dni = editTextDni.getText().toString();
 		editTextDni = null;
 		
-		if(et_dni.length() == 0){
-			Dialog.showDialog(this, false, true, "Por favor, ingrese un DNI");
+		if(et_dni.length() < 2){
+			Dialog.showDialog(this, false, true, "El DNI debe tener al menos 2 caracteres");
 			return;
 		}
 			
@@ -137,9 +137,9 @@ public class DatosPersonalesActivity extends BaseSpiceActivity {
 		String et_nombre = editTextNombre.getText().toString();
 		editTextNombre = null;
 		
-		if(et_nombre.length() == 0)
+		if(et_nombre.length() < 2)
 		{
-			Dialog.showDialog(this, false, true, "Por favor, ingrese un Nombre");
+			Dialog.showDialog(this, false, true, "El Nombre debe tener al menos 2 caracteres");
 			return;
 		}	
 		
@@ -147,8 +147,8 @@ public class DatosPersonalesActivity extends BaseSpiceActivity {
 		String et_apellido = editTextApellido.getText().toString();
 		editTextApellido = null;
 		
-		if(et_apellido.length() == 0){
-			Dialog.showDialog(this, false, true, "Por favor, ingrese un Apellido");
+		if(et_apellido.length() < 2){
+			Dialog.showDialog(this, false, true, "El Apellido debe tener al menos 2 caracteres");
 			return;
 		}
 		
@@ -156,8 +156,8 @@ public class DatosPersonalesActivity extends BaseSpiceActivity {
 		String et_telefono = editTextTelefono.getText().toString();
 		editTextTelefono = null;
 		
-		if(et_telefono.length() == 0){
-			Dialog.showDialog(this, false, true, "Por favor, ingrese un Teléfono");
+		if(et_telefono.length() < 6){
+			Dialog.showDialog(this, false, true, "El Teléfono debe tener al menos 6 caracteres");
 			return;
 		}
 		

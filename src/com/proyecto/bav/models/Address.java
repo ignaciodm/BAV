@@ -62,6 +62,9 @@ public class Address {
 	@SerializedName("comisaria_id")
 	private int comisaria_id;
 	
+	@SerializedName("comentarios")
+	private String comentarios;
+	
 	public Address(String descripcion, 
 				String street,
 				String numero, 
@@ -72,7 +75,8 @@ public class Address {
 				Provincia provincia, 
 				Partido partido, 
 				Localidad localidad, 
-				Comisaria policeStation) {
+				Comisaria policeStation,
+				String comentarios) {
 		
 		this.setDescription(descripcion);
 		this.setCalle(street);
@@ -85,6 +89,7 @@ public class Address {
 		this.setLocalidad_id(localidad.getId());
 		this.setComisaria(policeStation);
 		this.setComisaria_id(policeStation.getId());
+		this.setComentarios(comentarios);
 		
 		try{
 			this.setNumero(Integer.parseInt(numero));
@@ -111,7 +116,8 @@ public class Address {
 			Provincia provincia, 
 			Partido partido, 
 			Localidad localidad, 
-			Comisaria policeStation) {
+			Comisaria policeStation,
+			String comentarios) {
 		
 		this.setId(addressID);
 		this.setDescription(descripcion);
@@ -125,6 +131,7 @@ public class Address {
 		this.setLocalidad_id(localidad.getId());
 		this.setComisaria(policeStation);
 		this.setComisaria_id(policeStation.getId());
+		this.setComentarios(comentarios);
 		
 		try{
 			this.setNumero(Integer.parseInt(numero));
@@ -368,6 +375,14 @@ public class Address {
 
 	public void setComisaria_id(int comisaria_id) {
 		this.comisaria_id = comisaria_id;
+	}
+
+	public String getComentarios() {
+		return comentarios;
+	}
+
+	public void setComentarios(String comentarios) {
+		this.comentarios = comentarios;
 	}		
 
 }

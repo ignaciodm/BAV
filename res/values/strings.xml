@@ -53,6 +53,7 @@
     <string name="new_address_partido">Partido</string>
     <string name="new_address_localidad">Localidad</string>
     <string name="new_address_policeStation">Comisaría</string>
+    <string name="new_address_comentarios">Comentarios</string>
 
     <!-- CambiarPassActivity -->
     <string name="pass_anterior">Contraseña anterior</string>

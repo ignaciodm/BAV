@@ -186,8 +186,21 @@
 	        	android:cursorVisible="false" 
 	        	android:focusable="false" 
 	        	android:focusableInTouchMode="false"
-		        android:background="@drawable/background_edittext_bot_redondeado"
+		        android:background="@drawable/background_edittext_cuadrado"
 		        android:onClick="displayComisarias" />
+		     
+		     <EditText 
+		     	android:id="@+id/new_address_comentarios"
+		     	android:hint="@string/new_address_comentarios"
+		        android:inputType="textLongMessage"
+        		android:textStyle="bold"
+		        android:textColor="@android:color/black"
+		        android:layout_height="40dp"
+		        android:layout_width="fill_parent"  
+		        android:paddingLeft="10dp"
+		        android:paddingRight="10dp"
+		        android:layout_marginTop="10dp"
+		        android:background="@drawable/background_edittext_bot_redondeado" />
 	     
 	</LinearLayout>
 

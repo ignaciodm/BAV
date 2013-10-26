@@ -69,17 +69,24 @@ public class LoginRequestListener implements RequestListener<LoginResult> {
 	@Override
 	public void onRequestSuccess(LoginResult result) {
 		
+		if(result.getUser().isComisaria() == false){
+		
 		result.getUser().save(activity.getApplicationContext());
 		
-		if(result.getAddresses() != null)
-			for(Address a: result.getAddresses())
-				Address.save(a, activity.getApplicationContext());		
+			if(result.getAddresses() != null)
+				for(Address a: result.getAddresses())
+					Address.save(a, activity.getApplicationContext());		
 		
-		activity.myProgressDialog.dismiss();
-		Intent intent = new Intent(activity, MainActivity.class);
-		activity.startActivity(intent);
-		activity.finish();	
+			activity.myProgressDialog.dismiss();
+			Intent intent = new Intent(activity, MainActivity.class);
+			activity.startActivity(intent);
+			activity.finish();
 		
+		} else{
+			activity.myProgressDialog.dismiss();
+			Dialog.showDialog(activity, false, true, "Error.\n" + "El usuario es tipo Comisaría");
+		}
+				
 	}
 
 }

@@ -127,6 +127,10 @@ public class NewAddressActivity extends BaseSpiceActivity {
 		EditText editAddressEntreCalle2 = (EditText) findViewById(R.id.new_address_entreCalle2);
 		editAddressEntreCalle2.setText(address.getEntreCalle2());
 		editAddressEntreCalle2 = null;
+		
+		EditText editAddressComentarios = (EditText) findViewById(R.id.new_address_comentarios);
+		editAddressComentarios.setText(address.getComentarios());
+		editAddressComentarios = null;
 
 		try {
 			EditText editAddressProvincia = (EditText) findViewById(R.id.new_address_provincia);
@@ -388,6 +392,10 @@ public class NewAddressActivity extends BaseSpiceActivity {
 		EditText editTextEntreCalle2 = (EditText) findViewById(R.id.new_address_entreCalle2);
 		String et_address_entreCalle2 = editTextEntreCalle2.getText().toString();
 		editTextEntreCalle2 = null;
+		
+		EditText editTextComentarios = (EditText) findViewById(R.id.new_address_comentarios);
+		String et_address_Comentarios = editTextComentarios.getText().toString();
+		editTextComentarios = null;
 
 		Address address = null;
 		if(nuevaDireccion == true)		
@@ -395,13 +403,13 @@ public class NewAddressActivity extends BaseSpiceActivity {
 				et_address_street, et_address_numero, et_address_piso,
 				et_address_dpto, et_address_entreCalle1,
 				et_address_entreCalle2, provincia, partido, localidad,
-				comisaria);
+				comisaria, et_address_Comentarios);
 		else
 			address = new Address(addressID, et_address_descripcion,
 					et_address_street, et_address_numero, et_address_piso,
 					et_address_dpto, et_address_entreCalle1,
 					et_address_entreCalle2, provincia, partido, localidad,
-					comisaria);
+					comisaria, et_address_Comentarios);
 		
 		Gson gson = new Gson();
 		Type addressType = new TypeToken<Address>() {}.getType();

@@ -63,9 +63,11 @@ public class PostLoginRequest extends PostSpiceRequest<LoginResult> {
 			e.printStackTrace();
 		}
 		
-		user.setAnioNacimiento(Integer.parseInt(user.getFechaDeNacimiento().substring(0,4)));
-		user.setMesNacimiento(Integer.parseInt(user.getFechaDeNacimiento().substring(5,7)));
-		user.setDiaNacimiento(Integer.parseInt(user.getFechaDeNacimiento().substring(8,10)));
+		if(user.isComisaria() == false){
+			user.setAnioNacimiento(Integer.parseInt(user.getFechaDeNacimiento().substring(0,4)));
+			user.setMesNacimiento(Integer.parseInt(user.getFechaDeNacimiento().substring(5,7)));
+			user.setDiaNacimiento(Integer.parseInt(user.getFechaDeNacimiento().substring(8,10)));
+		}
 		
 		LoginResult loginResult = new LoginResult(user, null);
 		

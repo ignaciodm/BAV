@@ -5,7 +5,6 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
-import java.math.BigInteger;
 
 import android.content.Context;
 
@@ -54,6 +53,9 @@ public class User {
 	
 	@SerializedName("bloqueado")
 	private String bloqueado;
+	
+	@SerializedName("isComisaria")
+	private boolean isComisaria;	
 
 	public User(String et_email, String password, String et_dni, String et_nombre, String et_apellido, String et_telefono, int diaNacimiento, int mesNacimiento, int anioNacimiento) {
 		
@@ -293,6 +295,14 @@ public class User {
 
 	public void setBloqueado(String bloqueado) {
 		this.bloqueado = bloqueado;
-	}	
+	}
+
+	public boolean isComisaria() {
+		return isComisaria;
+	}
+
+	public void setComisaria(boolean isComisaria) {
+		this.isComisaria = isComisaria;
+	}
 	
 }
