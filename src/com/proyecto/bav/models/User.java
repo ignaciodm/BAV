@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
+import java.math.BigInteger;
 
 import android.content.Context;
 
@@ -37,7 +38,7 @@ public class User {
 	private String apellido;
 	
 	@SerializedName("telefono")
-	private int telefono;
+	private long telefono;
 	
 	@SerializedName("diaNacimiento")
 	private int diaNacimiento;
@@ -81,7 +82,7 @@ public class User {
 		}
 		
 		try {
-			this.setTelefono(Integer.parseInt(et_telefono));
+			this.setTelefono(Long.parseLong(et_telefono));
 		} catch (Exception e) {
 			// Nada. Si tira excepción no se colocó teléfono
 		}
@@ -128,11 +129,11 @@ public class User {
 		this.apellido = apellidos;
 	}
 
-	public int getTelefono() {
+	public long getTelefono() {
 		return telefono;
 	}
 
-	public void setTelefono(int telefono) {
+	public void setTelefono(long telefono) {
 		this.telefono = telefono;
 	}
 
@@ -236,7 +237,7 @@ public class User {
 
 	public String getTelefonoString() {
 		
-		int telefono = getTelefono(); 
+		long telefono = getTelefono(); 
 		
 		if(telefono == 0)
 			return "";
