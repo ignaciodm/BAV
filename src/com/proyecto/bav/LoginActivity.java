@@ -53,23 +53,32 @@ public class LoginActivity extends BaseSpiceActivity {
 	}
 	
 	/** Called when the user clicks the Login button */
-	public void loginApp(View view) {		
+	public void loginApp(View view) {
 		
 		EditText editTextEmail = (EditText) findViewById(R.id.et_email);
 		String email = editTextEmail.getText().toString();
 		
-		EditText editTextPassword = (EditText) findViewById(R.id.et_password);
-		String password = editTextPassword.getText().toString();
+		if(email.length() == 0)
+			Dialog.showDialog(this, false, true, "Ingrese el e-mail");
+		else if (!email.contains("@"))
+			Dialog.showDialog(this, false, true, "Ingrese un e-mail válido");
+		else{
+			
+			EditText editTextPassword = (EditText) findViewById(R.id.et_password);
+			String password = editTextPassword.getText().toString();
+			
+			myProgressDialog = new ProgressDialog(this, R.style.ProgressDialogTheme);
+			myProgressDialog.setTitle("Por favor, espere...");
+			myProgressDialog.setMessage("Iniciando Sesión...");
+			myProgressDialog.show();
+			
+			getSpiceManager().execute(new PostLoginRequest(getLoginJSON(email, password)),
+					null, 
+					DurationInMillis.ONE_MINUTE,
+					new LoginRequestListener(this));
+			
+		}	
 		
-		myProgressDialog = new ProgressDialog(this, R.style.ProgressDialogTheme);
-		myProgressDialog.setTitle("Por favor, espere...");
-		myProgressDialog.setMessage("Iniciando Sesión...");
-		myProgressDialog.show();
-		
-		getSpiceManager().execute(new PostLoginRequest(getLoginJSON(email, password)),
-				null, 
-				DurationInMillis.ONE_MINUTE,
-				new LoginRequestListener(this));
 	}
 	
 	private String getLoginJSON(String email, String password) {
