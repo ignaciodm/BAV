@@ -225,10 +225,16 @@ public class DatosPersonalesActivity extends BaseSpiceActivity {
 		
 		User user2 = User.getUser(this.getApplicationContext());
 		
+		modifyUser(json, user2, true);
+	}
+
+	public void modifyUser(String json, User user2, boolean retry) {
+		
 		getSpiceManager().execute(new PutModifyUserRequest(json, user2.getId(), user2.getAuthToken()),
 				null, 
 				DurationInMillis.ONE_MINUTE,
-				new UsuarioPutRequestListener(this));	
+				new UsuarioPutRequestListener(this, json, user2, retry));
+		
 	}
 
 	private void sincronizar() {
@@ -239,14 +245,20 @@ public class DatosPersonalesActivity extends BaseSpiceActivity {
 		myProgressDialog.show();
 		
 		User user = User.getUser(this.getApplicationContext());
-		
-		getSpiceManager().execute(new GetUsuarioRequest(user.getId(), user.getAuthToken()),
-				null, 
-				DurationInMillis.ONE_MINUTE,
-				new UsuarioRequestListener(this));
+				
+		getUsuario(user, true);
 		
 	}
 	
+	public void getUsuario(User user, boolean retry) {
+
+		getSpiceManager().execute(new GetUsuarioRequest(user.getId(), user.getAuthToken()),
+				null, 
+				DurationInMillis.ONE_MINUTE,
+				new UsuarioRequestListener(this, user, retry));
+		
+	}
+
 	/** Called when the user clicks the Cambiar Contraseña button */
 	public void modificarPass(View view) {
 		Intent intent = new Intent(this, ModificarPassActivity.class);

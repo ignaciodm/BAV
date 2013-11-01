@@ -14,21 +14,36 @@ import com.proyecto.bav.results.OlvidePassResult;
 public class OlvidePassRequestListener implements RequestListener<OlvidePassResult> {
 	
 	private LoginActivity activity;
+	private String content;
+	private boolean retry;
 
-	public OlvidePassRequestListener(LoginActivity loginActivity) {
+	public OlvidePassRequestListener(LoginActivity loginActivity, String content, boolean retry) {
 		this.activity = loginActivity;
+		this.content = content;
+		this.retry = retry;
 	}
 
 	@Override
 	public void onRequestFailure(SpiceException spiceException) {		
-		activity.myProgressDialog.dismiss();
-		
-		if (spiceException instanceof NoNetworkException)
-			Dialog.showDialog(activity, false, true, "No hay conexión. Intente nuevamente");		
-		else if (spiceException.getCause() instanceof HttpResponseException)
-			Dialog.showDialog(activity, false, true, this.getMessage(spiceException));		
-		else 
-			Dialog.showDialog(activity, false, true, "Ha ocurrido un error con la conexión. Intente nuevamente");
+				
+		if (spiceException instanceof NoNetworkException){
+			Dialog.showDialog(activity, false, true, "No hay conexión. Intente nuevamente");
+			activity.myProgressDialog.dismiss();
+		}
+		else if (spiceException.getCause() instanceof HttpResponseException){
+			Dialog.showDialog(activity, false, true, this.getMessage(spiceException));
+			activity.myProgressDialog.dismiss();
+		}
+		else {
+			
+			if(this.retry == true)
+				activity.postOlvidePass(this.content, false);
+			else{
+				Dialog.showDialog(activity, false, true, "Ha ocurrido un error con la conexión. Intente nuevamente");
+				activity.myProgressDialog.dismiss();
+			}
+
+		}
 	}
 
 	private String getMessage(SpiceException spiceException) {
@@ -72,7 +87,7 @@ public class OlvidePassRequestListener implements RequestListener<OlvidePassResu
 	@Override
 	public void onRequestSuccess(OlvidePassResult result) {
 		activity.myProgressDialog.dismiss();
-		Dialog.showDialog(activity, true, true, "La contraseña ha sido enviada a su casilla de email");
+		Dialog.showDialog(activity, false, true, "La contraseña ha sido enviada a su casilla de email");
 	}
 
 }

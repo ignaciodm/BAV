@@ -152,6 +152,7 @@ public class DireccionesDenunciarActivity extends BaseSpiceActivity {
 					new DenunciarRequestListener(this, jsonDeDenuncia));
 		} else {
 			myProgressDialog.dismiss();
+			Dialog.showDialog(activity, true, false, "La denuncia no pudo enviarse");
 		}
 		
 	}

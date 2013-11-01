@@ -16,26 +16,40 @@ import com.proyecto.bav.NewAddressActivity;
 import com.proyecto.bav.R;
 import com.proyecto.bav.models.Dialog;
 import com.proyecto.bav.models.Localidad;
+import com.proyecto.bav.models.Partido;
 import com.proyecto.bav.results.PartidoResult;
 
 public class PartidoRequestListener implements
 		RequestListener<PartidoResult> {
 	
 	private NewAddressActivity activity;
+	private Partido partido;
+	private boolean retry;
 
-	public PartidoRequestListener(NewAddressActivity activity) {
+	public PartidoRequestListener(NewAddressActivity activity, Partido partido, boolean retry) {
 		this.activity = activity;
+		this.partido = partido;
+		this.retry = retry;
 	}
 
 	@Override
     public void onRequestFailure(SpiceException spiceException) {
 		
-activity.myProgressDialog.dismiss();
-		
-		if (spiceException instanceof NoNetworkException)
+		if (spiceException instanceof NoNetworkException){
 			Dialog.showDialog(activity, false, true, "No hay conexión. Intente nuevamente");
-		else 
-			Dialog.showDialog(activity, false, true, "Ha ocurrido un error con la conexión. Intente nuevamente");
+			activity.myProgressDialog.dismiss();
+		}
+		else {
+			
+			if(this.retry == true)
+				activity.getLocalidades(this.partido, false);
+			else{
+				Dialog.showDialog(activity, false, true, "Ha ocurrido un error con la conexión. Intente nuevamente");
+				activity.myProgressDialog.dismiss();
+			}
+
+		}
+		
     }
 	
 	@Override

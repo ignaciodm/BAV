@@ -16,24 +16,37 @@ import com.proyecto.bav.results.UsuarioResult;
 public class RegistrarUsuarioRequestListener implements RequestListener<UsuarioResult> {
 
 	private RegistroActivity activity;
+	private String content;
+	private boolean retry;
 	
-	public RegistrarUsuarioRequestListener(RegistroActivity registroActivity) {
+	public RegistrarUsuarioRequestListener(RegistroActivity registroActivity, String json, boolean retry) {
 		this.activity = registroActivity;
+		this.content = json;
+		this.retry = retry;
 	}
 
 	@Override
 	public void onRequestFailure(SpiceException spiceException) {	
 		
-		activity.myProgressDialog.dismiss();
-		
-		if (spiceException instanceof NoNetworkException)
+		if (spiceException instanceof NoNetworkException){
 			Dialog.showDialog(activity, false, true, "No hay conexión. Intente nuevamente");
+			activity.myProgressDialog.dismiss();
+		}
 		else{
 			
-			if(this.emailExist(spiceException))
+			if(this.emailExist(spiceException)){
 				Dialog.showDialog(activity, false, true, "El email ya se encuentra registrado en nuestro sistema");
-			else
-				Dialog.showDialog(activity, false, true, "Ha ocurrido un error con la conexión. Intente nuevamente");
+				activity.myProgressDialog.dismiss();
+			}
+			else{
+				
+				if(this.retry == true)
+					activity.registrarUsuario(this.content, false);
+				else{
+					Dialog.showDialog(activity, false, true, "Ha ocurrido un error con la conexión. Intente nuevamente");
+					activity.myProgressDialog.dismiss();
+				}
+			}
 			
 		}
 			

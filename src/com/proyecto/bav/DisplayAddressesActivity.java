@@ -200,12 +200,18 @@ public class DisplayAddressesActivity extends BaseSpiceActivity {
 		myProgressDialog.setMessage("Borrando Dirección...");
 		myProgressDialog.show();
 		
-		getSpiceManager().execute(new DeleteAddressRequest(User.getUserId(activity.getApplicationContext()), address.getId(), User.getTokenUser(getApplicationContext())),
-				null, 
-				DurationInMillis.ONE_MINUTE,
-				new AddressDeleteRequestListener(activity));
+		deleteAddress(address.getId(), true);
 
 		address = null;
+		
+	}
+
+	public void deleteAddress(int addressID, boolean retry) {
+
+		getSpiceManager().execute(new DeleteAddressRequest(User.getUserId(activity.getApplicationContext()), addressID, User.getTokenUser(getApplicationContext())),
+				null, 
+				DurationInMillis.ONE_MINUTE,
+				new AddressDeleteRequestListener(activity, addressID, retry));
 		
 	}
 
@@ -218,10 +224,16 @@ public class DisplayAddressesActivity extends BaseSpiceActivity {
 		
 		User user = User.getUser(this.getApplicationContext());
 		
+		getAddress(user, false);
+		
+	}
+
+	public void getAddress(User user, boolean retry) {
+
 		getSpiceManager().execute(new GetAddressesRequest(user.getId(), user.getAuthToken()),
 				null, 
 				DurationInMillis.ONE_MINUTE,
-				new AddressesRequestListener(this));
+				new AddressesRequestListener(this, user, retry));
 		
 	}
 

@@ -72,15 +72,21 @@ public class LoginActivity extends BaseSpiceActivity {
 			myProgressDialog.setMessage("Iniciando Sesión...");
 			myProgressDialog.show();
 			
-			getSpiceManager().execute(new PostLoginRequest(getLoginJSON(email, password)),
-					null, 
-					DurationInMillis.ONE_MINUTE,
-					new LoginRequestListener(this));
+			postLogin(getLoginJSON(email, password), true);
 			
-		}	
+		}
 		
 	}
 	
+	public void postLogin(String loginJSON, boolean retry) {
+
+		getSpiceManager().execute(new PostLoginRequest(loginJSON),
+				null, 
+				DurationInMillis.ONE_MINUTE,
+				new LoginRequestListener(this, loginJSON, retry));
+		
+	}
+
 	private String getLoginJSON(String email, String password) {
 		return "{\"email\":" + "\"" + email + "\"" + "," + "\"password\":" + "\"" + password + "\""+ "}";
 	}
@@ -108,12 +114,18 @@ public class LoginActivity extends BaseSpiceActivity {
 			myProgressDialog.setMessage("Enviando la contraseña a su casilla de email...");
 			myProgressDialog.show();
 			
-			getSpiceManager().execute(new PostOlvidePassRequest(getOlvidePassJSON(email)),
-					null, 
-					DurationInMillis.ONE_MINUTE,
-					new OlvidePassRequestListener(this));
+			postOlvidePass(getOlvidePassJSON(email), true);
 			
 		}
+		
+	}
+
+	public void postOlvidePass(String olvidePassJSON, boolean retry) {
+		
+		getSpiceManager().execute(new PostOlvidePassRequest(olvidePassJSON),
+				null, 
+				DurationInMillis.ONE_MINUTE,
+				new OlvidePassRequestListener(this, olvidePassJSON, retry));
 		
 	}
 

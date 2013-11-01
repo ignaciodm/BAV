@@ -16,26 +16,39 @@ import com.proyecto.bav.NewAddressActivity;
 import com.proyecto.bav.R;
 import com.proyecto.bav.models.Comisaria;
 import com.proyecto.bav.models.Dialog;
+import com.proyecto.bav.models.Localidad;
 import com.proyecto.bav.results.LocalidadResult;
 
 public class LocalidadRequestListener implements
 		RequestListener<LocalidadResult> {
 	
 	private NewAddressActivity activity;
+	private Localidad localidad;
+	private boolean retry;
 
-	public LocalidadRequestListener(NewAddressActivity activity) {
+	public LocalidadRequestListener(NewAddressActivity activity, Localidad localidad, boolean retry) {
 		this.activity = activity;
+		this.localidad = localidad;
+		this.retry = retry;
 	}
 
 	@Override
     public void onRequestFailure( SpiceException spiceException ) {
 		
-		activity.myProgressDialog.dismiss();
-		
-		if (spiceException instanceof NoNetworkException)
+		if (spiceException instanceof NoNetworkException){
 			Dialog.showDialog(activity, false, true, "No hay conexión. Intente nuevamente");
-		else 
-			Dialog.showDialog(activity, false, true, "Ha ocurrido un error con la conexión. Intente nuevamente");
+			activity.myProgressDialog.dismiss();
+		}
+		else {
+			
+			if(this.retry == true)
+				activity.getComisarias(localidad, false);
+			else{
+				Dialog.showDialog(activity, false, true, "Ha ocurrido un error con la conexión. Intente nuevamente");
+				activity.myProgressDialog.dismiss();
+			}
+
+		}
     }
 	
 	@Override

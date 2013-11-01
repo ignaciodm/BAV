@@ -10,29 +10,44 @@ import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
 import com.proyecto.bav.ConfirmarPassActivity;
 import com.proyecto.bav.models.Dialog;
+import com.proyecto.bav.models.User;
 import com.proyecto.bav.results.ValidarPassResult;
 
 public class ValidarPassRequestListener implements RequestListener<ValidarPassResult> {
 
 	private ConfirmarPassActivity activity;
+	private User user;
+	private String password;
+	private boolean retry;
 	
-	public ValidarPassRequestListener(ConfirmarPassActivity confirmarPassActivity) {
+	public ValidarPassRequestListener(ConfirmarPassActivity confirmarPassActivity, User user, String password, boolean retry) {
 		this.activity = confirmarPassActivity;
+		this.user = user;
+		this.password = password;
+		this.retry = retry;
 	}
 
 	@Override
 	public void onRequestFailure(SpiceException spiceException) {
 		
-		activity.myProgressDialog.dismiss();
-		
-		if (spiceException instanceof NoNetworkException)
+		if (spiceException instanceof NoNetworkException){
 			Dialog.showDialog(activity, false, false, "No hay conexión. Intente nuevamente");
+			activity.myProgressDialog.dismiss();
+		}
 		else{
 			
-			if(this.passIncorrecta(spiceException))
+			if(this.passIncorrecta(spiceException)){
 				Dialog.showDialog(activity, false, false, "Contraseña incorrecta");
+				activity.myProgressDialog.dismiss();
+			}
 			else
-				Dialog.showDialog(activity, false, false, "Ha ocurrido un error con la conexión. Intente nuevamente");
+				
+				if(this.retry == true)
+					activity.getValidarPass(this.user, this.password, false);
+				else{
+					Dialog.showDialog(activity, false, false, "Ha ocurrido un error con la conexión. Intente nuevamente");
+					activity.myProgressDialog.dismiss();
+				}
 			
 		}		
 	}

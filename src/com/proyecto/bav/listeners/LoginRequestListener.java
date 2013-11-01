@@ -18,27 +18,43 @@ import com.proyecto.bav.results.LoginResult;
 public class LoginRequestListener implements RequestListener<LoginResult> {
 	
 	private LoginActivity activity;
+	private String json;
+	private boolean retry;
 
-	public LoginRequestListener(LoginActivity loginActivity) {
+	public LoginRequestListener(LoginActivity loginActivity, String json, boolean retry) {
 		this.activity = loginActivity;
+		this.json = json;
+		this.retry = retry;
 	}
 
 	@Override
 	public void onRequestFailure(SpiceException spiceException) {
 		
-		activity.myProgressDialog.dismiss();
-		
-		if (spiceException instanceof NoNetworkException)
+		if (spiceException instanceof NoNetworkException){
 			Dialog.showDialog(activity, false, true, "No hay conexión. Intente nuevamente");
+			activity.myProgressDialog.dismiss();
+		}
 		else if (spiceException.getCause() instanceof HttpResponseException)
 			
-			if(this.usuarioBloqueado(spiceException))
+			if(this.usuarioBloqueado(spiceException)){
 				Dialog.showDialog(activity, false, true, "Usuario bloqueado. Dirijase a su cuenta de correo electrónico para desbloquearlo");
-			else
-				Dialog.showDialog(activity, false, true, "Email o Contraseña incorrectos");		
+				activity.myProgressDialog.dismiss();
+			}
+			else{
+				Dialog.showDialog(activity, false, true, "Email o Contraseña incorrectos");
+				activity.myProgressDialog.dismiss();
+			}
 			
-		else 
-			Dialog.showDialog(activity, false, true, "Ha ocurrido un error con la conexión. Intente nuevamente");
+		else {
+			
+			if(this.retry == true)
+				activity.postLogin(this.json, false);
+			else{
+				Dialog.showDialog(activity, false, true, "Ha ocurrido un error con la conexión. Intente nuevamente");
+				activity.myProgressDialog.dismiss();
+			}
+			
+		}
 	}
 
 	private boolean usuarioBloqueado(SpiceException spiceException) {

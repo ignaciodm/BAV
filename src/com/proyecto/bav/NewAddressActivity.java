@@ -262,10 +262,17 @@ public class NewAddressActivity extends BaseSpiceActivity {
 		myProgressDialog.setMessage("Buscando Provincias...");
 		myProgressDialog.show();
 		
+		getProvincias(true);
+		
+	}
+
+	public void getProvincias(boolean retry) {
+		
 		getSpiceManager().execute(new GetProvincesRequest(User.getTokenUser(getApplicationContext())),
 				null, 
 				DurationInMillis.ONE_MINUTE,
-				new ProvincesRequestListener(this));
+				new ProvincesRequestListener(this, retry));
+		
 	}
 
 	public void displayPartidos(View view) {
@@ -286,14 +293,21 @@ public class NewAddressActivity extends BaseSpiceActivity {
 			myProgressDialog.setMessage("Buscando Partidos...");
 			myProgressDialog.show();
 			
-			getSpiceManager().execute(new GetProvinceRequest(provincia, User.getTokenUser(getApplicationContext())),
-					null, 
-					DurationInMillis.ONE_MINUTE,
-					new ProvinceRequestListener(this));
+			getPartidos(provincia, true);			
+			
 		}
 		else {
 			Dialog.showDialog(this, false, true, "Primero selecione una Provincia");
 		}			
+		
+	}
+
+	public void getPartidos(Provincia provincia, boolean retry) {
+		
+		getSpiceManager().execute(new GetProvinceRequest(provincia, User.getTokenUser(getApplicationContext())),
+				null, 
+				DurationInMillis.ONE_MINUTE,
+				new ProvinceRequestListener(this, provincia, retry));
 		
 	}
 
@@ -314,15 +328,21 @@ public class NewAddressActivity extends BaseSpiceActivity {
 			myProgressDialog.setMessage("Buscando Localidades...");
 			myProgressDialog.show();
 			
-			getSpiceManager().execute(new GetPartidoRequest(partido, User.getTokenUser(getApplicationContext())),
-					null, 
-					DurationInMillis.ONE_MINUTE,
-					new PartidoRequestListener(this));
+			getLocalidades(partido, true);
 		}
 		else {
 			Dialog.showDialog(this, false, true, "Primero selecione un Partido");
 		}
 	}	
+
+	public void getLocalidades(Partido partido, boolean retry) {
+
+		getSpiceManager().execute(new GetPartidoRequest(partido, User.getTokenUser(getApplicationContext())),
+				null, 
+				DurationInMillis.ONE_MINUTE,
+				new PartidoRequestListener(this, partido, retry));
+		
+	}
 
 	public void displayComisarias(View view) {
 		
@@ -338,16 +358,23 @@ public class NewAddressActivity extends BaseSpiceActivity {
 			myProgressDialog.setMessage("Buscando Comisarias...");
 			myProgressDialog.show();
 			
-			getSpiceManager().execute(new GetLocalidadRequest(localidad, User.getTokenUser(getApplicationContext())),
-					null, 
-					DurationInMillis.ONE_MINUTE,
-					new LocalidadRequestListener(this));
+			getComisarias(localidad, true);			
+			
 		}
 		else {
 			Dialog.showDialog(this, false, true, "Primero selecione una Localidad");
 		}		
 	}
 	
+	public void getComisarias(Localidad localidad, boolean retry) {
+		
+		getSpiceManager().execute(new GetLocalidadRequest(localidad, User.getTokenUser(getApplicationContext())),
+				null, 
+				DurationInMillis.ONE_MINUTE,
+				new LocalidadRequestListener(this, localidad, retry));
+		
+	}
+
 	private void borrarPartido() {
 		partido = null;
 		this.partidoEditText.setText("");
@@ -421,17 +448,33 @@ public class NewAddressActivity extends BaseSpiceActivity {
 		myProgressDialog.show();
 		
 		if(nuevaDireccion == true){
-			getSpiceManager().execute(new PostNewAddressRequest(json, User.getUserId(this.getApplicationContext()), User.getTokenUser(getApplicationContext())),
-					null, 
-					DurationInMillis.ONE_MINUTE,
-					new NewAddressRequestListener(this));
+			
+			newAddress(json, true);			
+			
 		} else{
-			getSpiceManager().execute(new PutModifyAddressRequest(json, User.getUserId(this.getApplicationContext()), address.getId(), User.getTokenUser(getApplicationContext())),
-					null, 
-					DurationInMillis.ONE_MINUTE,
-					new AddressPutRequestListener(this));
+			
+			modifyAddress(json, address.getId(), true);			
+			
 		}
 
+	}
+
+	public void modifyAddress(String json, int addressId, boolean retry) {
+
+		getSpiceManager().execute(new PutModifyAddressRequest(json, User.getUserId(this.getApplicationContext()), addressId, User.getTokenUser(getApplicationContext())),
+				null,
+				DurationInMillis.ONE_MINUTE,
+				new AddressPutRequestListener(this, json, addressId, retry));
+		
+	}
+
+	public void newAddress(String json, boolean retry) {
+		
+		getSpiceManager().execute(new PostNewAddressRequest(json, User.getUserId(this.getApplicationContext()), User.getTokenUser(getApplicationContext())),
+				null, 
+				DurationInMillis.ONE_MINUTE,
+				new NewAddressRequestListener(this, json, retry));
+		
 	}
 	
 }

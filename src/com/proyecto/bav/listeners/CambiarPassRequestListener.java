@@ -13,24 +13,40 @@ import com.proyecto.bav.results.CambiarPassResult;
 public class CambiarPassRequestListener implements RequestListener<CambiarPassResult> {
 	
 	private ModificarPassActivity activity;
+	private int userID;
+	private String json;
+	private boolean retry;
 
-	public CambiarPassRequestListener(ModificarPassActivity modificarPassActivity) {
+	public CambiarPassRequestListener(ModificarPassActivity modificarPassActivity, int userID, String cambiarPassJSON, boolean retry) {
 		this.activity = modificarPassActivity;
+		this.userID = userID;
+		this.json = cambiarPassJSON;
+		this.retry = retry;
 	}
 
 	@Override
 	public void onRequestFailure(SpiceException spiceException) {
 		
-		activity.myProgressDialog.dismiss();
-		
-		if (spiceException instanceof NoNetworkException)
+		if (spiceException instanceof NoNetworkException){
 			Dialog.showDialog(activity, false, false, "No hay conexión. Intente nuevamente");
+			activity.myProgressDialog.dismiss();
+		}
 		else 
 			
-			if(this.passIncorrecta(spiceException))
+			if(this.passIncorrecta(spiceException)){
 				Dialog.showDialog(activity, false, false, "Contraseña incorrecta");
-			else
-				Dialog.showDialog(activity, false, false, "Ha ocurrido un error con la conexión. Intente nuevamente");
+				activity.myProgressDialog.dismiss();
+			}
+			else{
+				
+				if(this.retry == true)
+					activity.cambiarPass(this.userID, this.json, false);
+				else{
+					Dialog.showDialog(activity, false, false, "Ha ocurrido un error con la conexión. Intente nuevamente");
+					activity.myProgressDialog.dismiss();
+				}
+
+			}
 	}
 	
 	private boolean passIncorrecta(SpiceException spiceException) {

@@ -161,12 +161,18 @@ public class RegistroActivity extends BaseSpiceActivity {
 		Type userType = new TypeToken<User>() {}.getType();
 		String json = gson.toJson(user, userType);
 		
+		registrarUsuario(json, true);
+	}
+	
+	public void registrarUsuario(String json, boolean retry) {
+		
 		getSpiceManager().execute(new PostRegistrarUsuarioRequest(json),
 				null, 
 				DurationInMillis.ONE_MINUTE,
-				new RegistrarUsuarioRequestListener(this));
+				new RegistrarUsuarioRequestListener(this, json, retry));
+		
 	}
-	
+
 	/** Called when the user clicks the Fecha de Nacimiento EditText */
 	@SuppressLint("NewApi")
 	public void selectDate(View view) {

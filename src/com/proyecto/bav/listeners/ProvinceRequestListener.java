@@ -16,25 +16,38 @@ import com.proyecto.bav.NewAddressActivity;
 import com.proyecto.bav.R;
 import com.proyecto.bav.models.Dialog;
 import com.proyecto.bav.models.Partido;
+import com.proyecto.bav.models.Provincia;
 import com.proyecto.bav.results.ProvinceResult;
 
 public class ProvinceRequestListener implements RequestListener<ProvinceResult> {
 	
 	private NewAddressActivity activity;
+	private Provincia provincia;
+	private boolean retry;
 
-	public ProvinceRequestListener(NewAddressActivity activity) {
+	public ProvinceRequestListener(NewAddressActivity activity, Provincia provincia, boolean retry) {
 		this.activity = activity;
+		this.provincia = provincia;
+		this.retry = retry;
 	}
 
 	@Override
     public void onRequestFailure(SpiceException spiceException) {	
 		
-		activity.myProgressDialog.dismiss();
-		
-		if (spiceException instanceof NoNetworkException)
+		if (spiceException instanceof NoNetworkException){
 			Dialog.showDialog(activity, false, true, "No hay conexión. Intente nuevamente");
-		else 
-			Dialog.showDialog(activity, false, true, "Ha ocurrido un error con la conexión. Intente nuevamente");
+			activity.myProgressDialog.dismiss();
+		}
+		else {
+			
+			if(this.retry == true)
+				activity.getPartidos(this.provincia, false);
+			else{
+				Dialog.showDialog(activity, false, true, "Ha ocurrido un error con la conexión. Intente nuevamente");
+				activity.myProgressDialog.dismiss();
+			}
+			
+		}
     }
 	
 	@Override

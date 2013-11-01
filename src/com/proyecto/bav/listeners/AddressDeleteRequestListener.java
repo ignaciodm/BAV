@@ -11,20 +11,30 @@ import com.proyecto.bav.results.AddressResult;
 public class AddressDeleteRequestListener implements RequestListener<AddressResult> {
 	
 	private DisplayAddressesActivity activity;
+	private int addressID;
+	private boolean retry;
 	
-	public AddressDeleteRequestListener(DisplayAddressesActivity newAddressRequestListener) {
+	public AddressDeleteRequestListener(DisplayAddressesActivity newAddressRequestListener, int addressID, boolean retry) {
 		this.activity = newAddressRequestListener;
 	}
 
 	@Override
 	public void onRequestFailure(SpiceException spiceException) {
 		
-		activity.myProgressDialog.dismiss();
-		
-		if (spiceException instanceof NoNetworkException)
+		if (spiceException instanceof NoNetworkException){
 			Dialog.showDialog(activity, false, true, "No hay conexión. Intente nuevamente");
-		else 
-			Dialog.showDialog(activity, false, true, "Ha ocurrido un error con la conexión. Intente nuevamente");
+			activity.myProgressDialog.dismiss();
+		}
+		else {
+			
+			if(this.retry == true)
+				activity.deleteAddress(this.addressID, false);
+			else{
+				Dialog.showDialog(activity, false, true, "Ha ocurrido un error con la conexión. Intente nuevamente");
+				activity.myProgressDialog.dismiss();
+			}
+
+		}
 	}
 
 	@Override

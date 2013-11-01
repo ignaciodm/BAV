@@ -44,10 +44,16 @@ public class ConfirmarPassActivity extends BaseSpiceActivity {
 		
 		User user = User.getUser(getApplicationContext());
 		
-		getSpiceManager().execute(new GetValidarPassRequest(user.getId(), user.getAuthToken(), password),
+		getValidarPass(user, password, true);
+		
+	}
+
+	public void getValidarPass(User user, String password, boolean retry) {
+		
+		getSpiceManager().execute(new GetValidarPassRequest(user, password),
 				null, 
 				DurationInMillis.ONE_MINUTE,
-				new ValidarPassRequestListener(this));
+				new ValidarPassRequestListener(this, user, password, retry));
 		
 	}
 	

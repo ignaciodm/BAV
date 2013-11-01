@@ -11,20 +11,35 @@ import com.proyecto.bav.results.AddressResult;
 public class AddressPutRequestListener implements RequestListener<AddressResult> {
 	
 	private NewAddressActivity activity;
+	private String json;
+	private int addressId;
+	private boolean retry;
 	
-	public AddressPutRequestListener(NewAddressActivity newAddressRequestListener) {
+	public AddressPutRequestListener(NewAddressActivity newAddressRequestListener, String json, int addressId, boolean retry) {
 		this.activity = newAddressRequestListener;
+		this.json = json;
+		this.addressId = addressId;
+		this.retry = retry;
 	}
 
 	@Override
 	public void onRequestFailure(SpiceException spiceException) {
 		
-		activity.myProgressDialog.dismiss();
-		
-		if (spiceException instanceof NoNetworkException)
+		if (spiceException instanceof NoNetworkException){
 			Dialog.showDialog(activity, false, true, "No hay conexión. Intente nuevamente");
-		else 
-			Dialog.showDialog(activity, false, true, "Ha ocurrido un error con la conexión. Intente nuevamente");
+			activity.myProgressDialog.dismiss();
+		}
+		else {
+			
+			if(this.retry == true)
+				activity.modifyAddress(this.json, this.addressId, false);
+			else{
+				Dialog.showDialog(activity, false, true, "Ha ocurrido un error con la conexión. Intente nuevamente");
+				activity.myProgressDialog.dismiss();
+			}
+			
+		}
+		
 	}
 
 	@Override

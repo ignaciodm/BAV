@@ -5,25 +5,36 @@ import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
 import com.proyecto.bav.DatosPersonalesActivity;
 import com.proyecto.bav.models.Dialog;
+import com.proyecto.bav.models.User;
 import com.proyecto.bav.results.UsuarioResult;
 
 public class UsuarioRequestListener implements RequestListener<UsuarioResult> {
 
 	private DatosPersonalesActivity activity;
+	private User user;
+	private boolean retry;
 	
-	public UsuarioRequestListener(DatosPersonalesActivity datosPersonalesActivity) {
+	public UsuarioRequestListener(DatosPersonalesActivity datosPersonalesActivity, User user, boolean retry) {
 		this.activity = datosPersonalesActivity;
+		this.user = user;
+		this.retry = retry;
 	}
 
 	@Override
 	public void onRequestFailure(SpiceException spiceException) {
-		
-		activity.myProgressDialog.dismiss();
-		
-		if (spiceException instanceof NoNetworkException)
+				
+		if (spiceException instanceof NoNetworkException){
 			Dialog.showDialog(activity, false, true, "No hay conexión. Intente nuevamente");
+			activity.myProgressDialog.dismiss();
+		}
 		else 
-			Dialog.showDialog(activity, false, true, "Ha ocurrido un error con la conexión. Intente nuevamente");
+			
+			if(this.retry == true)
+				activity.getUsuario(this.user, false);
+			else{
+				Dialog.showDialog(activity, false, true, "Ha ocurrido un error con la conexión. Intente nuevamente");
+				activity.myProgressDialog.dismiss();
+			}
 		
 	}
 

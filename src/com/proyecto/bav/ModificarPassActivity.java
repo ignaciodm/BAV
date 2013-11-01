@@ -77,10 +77,17 @@ public class ModificarPassActivity extends BaseSpiceActivity {
 		
 		User u = User.getUser(getApplicationContext());
 		
-		getSpiceManager().execute(new PostCambiarPassRequest(u.getId(), getCambiarPassJSON(passAnterior, passNueva1, passNueva2, u.getAuthToken())),
+		cambiarPass(u.getId(), getCambiarPassJSON(passAnterior, passNueva1, passNueva2, u.getAuthToken()), true);		
+		
+	}
+
+	public void cambiarPass(int userID, String cambiarPassJSON, boolean retry) {
+
+		getSpiceManager().execute(new PostCambiarPassRequest(userID, cambiarPassJSON),
 				null, 
 				DurationInMillis.ONE_MINUTE,
-				new CambiarPassRequestListener(this));
+				new CambiarPassRequestListener(this, userID, cambiarPassJSON, retry));
+		
 	}
 
 	private String getCambiarPassJSON(String passAnterior, String passNueva1, String passNueva2, String authToken) {

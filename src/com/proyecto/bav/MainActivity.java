@@ -73,10 +73,8 @@ public class MainActivity extends BaseSpiceActivity {
 				activity.myProgressDialog.setMessage("Eliminando la cuenta...");
 				activity.myProgressDialog.show();
 				
-				getSpiceManager().execute(new DeleteUserRequest(User.getUserId(activity.getApplicationContext()), User.getTokenUser(activity.getApplicationContext())),
-						null, 
-						DurationInMillis.ONE_MINUTE,
-						new UserDeleteRequestListener(activity));
+				activity.deleteUser(true);
+				
 			}
 		});
 		
@@ -95,6 +93,15 @@ public class MainActivity extends BaseSpiceActivity {
 	    b = alert.getButton(DialogInterface.BUTTON_NEGATIVE);
 	    b.setBackgroundResource(R.drawable.background_button_rectangular);
 		
+	}
+
+	public void deleteUser(boolean retry) {
+		
+		getSpiceManager().execute(new DeleteUserRequest(User.getUserId(activity.getApplicationContext()), User.getTokenUser(activity.getApplicationContext())),
+				null, 
+				DurationInMillis.ONE_MINUTE,
+				new UserDeleteRequestListener(activity, retry));
+				
 	}
 
 	private void showDatosPersonales() {

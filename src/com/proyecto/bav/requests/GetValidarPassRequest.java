@@ -12,9 +12,9 @@ import com.proyecto.bav.results.ValidarPassResult;
 
 public class GetValidarPassRequest extends GetSpiceRequest<ValidarPassResult>{
 
-	public GetValidarPassRequest(int userID, String token, String password) {
+	public GetValidarPassRequest(User user, String password) {
 		super(ValidarPassResult.class);
-		this.setPath("/usuarios/" + userID + "/validarPassword.json?password=" + password + "&authToken=" + token);
+		this.setPath("/usuarios/" + user.getId() + "/validarPassword.json?password=" + password + "&authToken=" + user.getAuthToken());
 	}
 	
 	protected ValidarPassResult parseResponse(final HttpResponse response) throws IOException {
