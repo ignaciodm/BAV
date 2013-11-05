@@ -18,6 +18,8 @@ import com.proyecto.bav.requests.DeleteUserRequest;
 
 public class MainActivity extends BaseSpiceActivity {
 	
+	final static int ELIMINAR_CUENTA = 1;
+	
 	private MainActivity activity;
 	public ProgressDialog myProgressDialog;
 
@@ -52,14 +54,14 @@ public class MainActivity extends BaseSpiceActivity {
 	        	showAddresses();
 	            return true;
 	        case R.id.btn_eliminar_user:
-	        	eliminarUsuario();
+	        	confirmarEliminarCuenta();
 	            return true;	            
 	        default:
 	            return super.onOptionsItemSelected(item);
 	    }
 	}
 
-	private void eliminarUsuario() {
+	private void confirmarEliminarCuenta() {
 		
 		AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
 		
@@ -68,12 +70,8 @@ public class MainActivity extends BaseSpiceActivity {
 		alertDialog.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int which) {
 				
-				activity.myProgressDialog = new ProgressDialog(activity, R.style.ProgressDialogTheme);
-				activity.myProgressDialog.setTitle("Por favor, espere...");
-				activity.myProgressDialog.setMessage("Eliminando la cuenta...");
-				activity.myProgressDialog.show();
-				
-				activity.deleteUser(true);
+				Intent intent = new Intent(activity, ConfirmarPassActivity.class);
+				startActivityForResult(intent, ELIMINAR_CUENTA);
 				
 			}
 		});
@@ -92,6 +90,25 @@ public class MainActivity extends BaseSpiceActivity {
 	    b.setBackgroundResource(R.drawable.background_button_rectangular);
 	    b = alert.getButton(DialogInterface.BUTTON_NEGATIVE);
 	    b.setBackgroundResource(R.drawable.background_button_rectangular);
+		
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		
+		if(requestCode == ELIMINAR_CUENTA)
+			if(resultCode == RESULT_OK)
+				eliminarUsuario();		
+	}
+
+	private void eliminarUsuario() {
+				
+		activity.myProgressDialog = new ProgressDialog(activity, R.style.ProgressDialogTheme);
+		activity.myProgressDialog.setTitle("Por favor, espere...");
+		activity.myProgressDialog.setMessage("Eliminando la cuenta...");
+		activity.myProgressDialog.show();
+		
+		activity.deleteUser(true);
 		
 	}
 

@@ -62,7 +62,7 @@
 
     <!-- ConfirmarPassActivity -->
     <string name="btn_aceptar">Aceptar</string>
-    <string name="txt_confirmar_pass">Para guardar, ingrese su contraseña</string>
+    <string name="txt_confirmar_pass">Para continuar, ingrese su contraseña</string>
 
     <!-- ConfirmarAnioActivity -->
     <string name="confirmar_anio">Año de Nacimiento</string>
