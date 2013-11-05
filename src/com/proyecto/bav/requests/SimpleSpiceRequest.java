@@ -16,7 +16,7 @@ import com.octo.android.robospice.request.googlehttpclient.GoogleHttpClientSpice
 
 public abstract class SimpleSpiceRequest<RequestResult> extends GoogleHttpClientSpiceRequest<RequestResult> {
 
-	private String baseUrl = "http://cryptic-gorge-7789.herokuapp.com";
+	private String baseUrl = "https://cryptic-gorge-7789.herokuapp.com";
 	private JsonFactory sJsonFactory;
 	private JsonObjectParser sJsonParser;
 
