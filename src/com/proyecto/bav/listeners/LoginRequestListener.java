@@ -37,7 +37,7 @@ public class LoginRequestListener implements RequestListener<LoginResult> {
 		else if (spiceException.getCause() instanceof HttpResponseException)
 			
 			if(this.usuarioBloqueado(spiceException)){
-				Dialog.showDialog(activity, false, true, "Usuario bloqueado. Dirijase a su cuenta de correo electrónico para desbloquearlo");
+				Dialog.showDialog(activity, false, true, "Usuario bloqueado. Dirijase a su cuenta de correo electrónico para desbloquearlo.");
 				activity.myProgressDialog.dismiss();
 			}
 			else{
@@ -86,13 +86,19 @@ public class LoginRequestListener implements RequestListener<LoginResult> {
 	public void onRequestSuccess(LoginResult result) {
 		
 		if(result.getUser().isComisaria() == false){
+			
+			if(result.getUser().isBloqueadoComisaria()){
+				activity.myProgressDialog.dismiss();
+				Dialog.showDialog(activity, false, true, "Tu cuenta ha sido bloqueada desde una de nuestras comisarías. Verifique su cuenta de email para más información");
+				return;
+			}
 		
-		result.getUser().save(activity.getApplicationContext());
-		
-			if(result.getAddresses() != null)
-				for(Address a: result.getAddresses())
-					Address.save(a, activity.getApplicationContext());		
-		
+			result.getUser().save(activity.getApplicationContext());
+			
+				if(result.getAddresses() != null)
+					for(Address a: result.getAddresses())
+						Address.save(a, activity.getApplicationContext());		
+			
 			activity.myProgressDialog.dismiss();
 			Intent intent = new Intent(activity, MainActivity.class);
 			activity.startActivity(intent);

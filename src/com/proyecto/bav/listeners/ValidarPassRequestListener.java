@@ -36,7 +36,11 @@ public class ValidarPassRequestListener implements RequestListener<ValidarPassRe
 		}
 		else{
 			
-			if(this.passIncorrecta(spiceException)){
+			if(this.es403(spiceException)){
+				Dialog.showDialog(activity, false, false, this.get403Message(spiceException));
+				activity.myProgressDialog.dismiss();
+			}	
+			else if(this.passIncorrecta(spiceException)){
 				Dialog.showDialog(activity, false, false, "Contraseña incorrecta");
 				activity.myProgressDialog.dismiss();
 			}
@@ -52,9 +56,19 @@ public class ValidarPassRequestListener implements RequestListener<ValidarPassRe
 		}		
 	}
 
+	private String get403Message(SpiceException spiceException) {
+		String stringException = spiceException.getCause().toString();
+		return stringException.substring(stringException.indexOf("Forbidden") + 10, stringException.length());
+	}
+
+	private boolean es403(SpiceException spiceException) {		
+		String stringException = spiceException.getCause().toString();		
+		return stringException.contains("403 Forbidden");
+	}
+
 	private boolean passIncorrecta(SpiceException spiceException) {
 		
-		String stringException = spiceException.getCause().toString();
+		String stringException = spiceException.getCause().toString();		
 		String json = stringException.substring(stringException.indexOf("{"), stringException.length());
 		
 		JSONObject jObj = null;

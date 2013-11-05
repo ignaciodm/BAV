@@ -18,9 +18,23 @@ public class DenunciarRequestListener implements RequestListener<DenunciaResult>
 
 	@Override
 	public void onRequestFailure(SpiceException spiceException) {
-//		activity.myProgressDialog.dismiss();		
-		activity.denunciar(this.jsonDeDenuncia); // Si la denuncia falla, la vuelvo a enviar
 		
+		if(this.es403(spiceException)){
+			Dialog.showDialog(activity, true, false, this.get403Message(spiceException));
+			activity.myProgressDialog.dismiss();
+		} else
+			activity.denunciar(this.jsonDeDenuncia); // Si la denuncia falla, la vuelvo a enviar
+		
+	}
+	
+	private String get403Message(SpiceException spiceException) {
+		String stringException = spiceException.getCause().toString();
+		return stringException.substring(stringException.indexOf("Forbidden") + 10, stringException.length());
+	}
+
+	private boolean es403(SpiceException spiceException) {		
+		String stringException = spiceException.getCause().toString();		
+		return stringException.contains("403 Forbidden");
 	}
 
 	@Override
